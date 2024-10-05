@@ -149,7 +149,7 @@
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
 
-            fetch('austin-mesh-rangetests.csv')
+            fetch('NTX-mesh-rangetests.csv')
                 .then(response => response.text())
                 .then(csv => {
                     var heatmapData = [];
