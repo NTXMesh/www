@@ -73,16 +73,16 @@
                 </menu>
             </nav>
             <hgroup>
-                <h1>Learn about NTX Mesh and Meshtastic</h1>
+                <h1>Learn about DFW / North Texas (NTX) Mesh and Meshtastic</h1>
                 <p>NTX Mesh is a community group working to build a mesh network of solar-powered <a href="https://meshtastic.org/">meshtastic</a> radios in DFW and the greater North Texas area. This network acts like a city-wide text messaging system, allowing people to communicate publicly or privately with anyone on the network. All of this happens without any external infrastructure - no power, no cell phone towers, no internet.</p>
             </hgroup>
             <ul>
                 <li><a href="#about">About NTX Mesh and Meshtastic</a>
                     <ul>
-                        <li>How does it work?</li>
+						<li><a href="#hdiw">How does it work?</a></li>
                         <li><a href="#eli5">Explain it like I'm 5</a></li>
-                        <li>What can it do?</li>
-                        <li>Why build this network?</li>
+						<li><a href="wcid">What can it do?</a></li>
+                        <li><a href="wbtn">Why build this network?</a></li>
                     </ul>
                 </li>
                 <li><a href="#coverage">Network coverage in NTX</a></li>
@@ -90,13 +90,13 @@
             </ul>
             <section id="about">
                 <h2>All about NTXMesh and Meshtastic</h2>
-                <h3>How does it work?</h3>
+                <h3 id="hdiw">How does it work?</h3>
                 <p>We have set up a number of solar-powered radio repeaters in North Texas. These radios communicate on the <a href="https://en.wikipedia.org/wiki/33-centimeter_band">906.875 MHZ</a> frequency using the <a href="https://en.wikipedia.org/wiki/LoRa">LoRa protocol</a>. The radios mesh using the open-source <a href="https://meshtastic.org/">Meshtastic</a> software. Users can connect to these repeaters by Bluetooth if they’re close enough or they can use their own handheld nodes which will also act as repeaters. The messages hop from node to node, extending the reach of the network and ensuring everyone receives every message.</p>
                 <h3 id="eli5">Can you explain it like I'm 5?</h3>
                 <p>Pretend you're sitting in class and want to send a note to everyone in the class. You write your note on a piece of paper and copy it three times. The message can be up to 228 characters - about as long as this paragraph so far. You hand those three pieces of paper to the three people around you. Then those three people re-write the message three times and hand it to the three people around them and so on. Now imagine a big gust of wind comes and blows away some of the messages. If even just a few people saw the note and keep copying and re-sending it, eventually everyone will get a copy of the note. This is like sending an unencrypted message to everyone on the network.</p>
                 <p>Now imagine you want to send a message to a single person or a select group of people but you don't want other people who see the note to be able to read it. You could write the note using a secret language. You could then hand a decoder key to your friend or to a group of friends and they could decode the message. The message still gets passed the same way - with every single person writing the message a few times and handing it to everyone - but only those people with the decoder key will be able to understand the message. This is like sending an encrypted direct message or encrypted group message.</p>
                 <p>NTX Mesh works the same way as this paper example, but instead of sending paper notes we're using digital text messages and sending it with radio waves. Our radios are solar powered and they don’t need any internet or cell phone coverage. This means they will work even if the power is out.</p>
-                <h3>What can it do?</h3>
+                <h3 id="wcid">What can it do?</h3>
                 <p>Meshtastic is a bit like a decentralized social media platform or SMS text messaging. It has a number of different features which will be familiar to anyone who has sent a text message or posted on social media.</p>
                 <dl>
                     <dt>1) Primary Channel:</dt>
@@ -112,7 +112,7 @@
                     <dt>6) Telemetry Data:</dt>
                     <dd>Nodes can be set up to send telemetry data like the battery status or signal strength, which is helpful for monitoring remote solar-powered nodes. Nodes can also have sensors connected to them which allow them to send data on temperature, humidity, or air pressure which allow them to act like weather stations.</dd>
                 </dl>
-                <h3>Why build this network?</h3>
+                <h3 id="wbtn">Why build this network?</h3>
                 <h4>1) Community</h4>
                 <p>Because this is essentially a city-wide group text message chain we are hoping people use the network to build community. Tell the group where your band is playing tonight, chat about local politics, ask for a good cheese dip recipe, etc.</p>
                 <h4>2) Disasters</h4>
