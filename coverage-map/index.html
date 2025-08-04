@@ -76,6 +76,82 @@
                     <li><a href="/partners/">Partners</a></li>
                 </menu>
             </nav>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGYHDR5D6D');
+</script>
+    
+    <head>
+        <title>Coverage Map</title>
+        <meta name="description" content="Coverage Map">
+        <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+        <link rel="stylesheet" href="../styles.css?v=2">
+    </head>
+    <body>
+        <header>
+            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+        </header>
+        <main>
+            <nav>
+                <menu>
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <a href="/learn/">Learn</a>
+                        <menu>
+                            <li><a href="/learn/#about">About</a></li>
+                            <li><a href="/learn/#coverage">Network coverage</a></li>
+                            <li><a href="/coverage-map/index.html">Modem Preset Map by County</a></li>
+                            <li><a href="/learn/#comparisons">Similar technology</a></li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="/join/">Join</a>
+                        <menu>
+                            <li><a href="/join/#network">Join the network</a></li>
+                            <li><a href="/join/#best-practices">Best practices</a></li>
+                            <li><a href="/join/#group">Join the group</a></li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="../calendar/index.html">Community Calendar</a>
+                    </li>
+                    <li>
+                        <a href="/devices/">Devices & Hardware</a>
+                        <menu>
+                            <li><a href="/devices/#options">Options & Recommendations</a>
+                                <menu>
+                                    <li><a href="/devices/#pocket-portable">Pocket/Portable</a></li>
+                                    <li><a href="/devices/#stationary-solar">Stationary/Solar</a></li>
+                                </menu>
+                            </li>
+                            <li><a href="/devices/#solar">Building a Solar Repeater</a>
+                                <menu>
+                                    <li><a href="/devices/#history">History</a></li>
+                                    <li><a href="/devices/#parts-list">Parts list</a></li>
+                                </menu>
+                            </li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="/similar-networks/">Similar networks</a>
+                        <menu>
+                            <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
+                            <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
+                        </menu>
+                    </li>
+                    <li><a href="/partners/">Partners</a></li>
+                </menu>
+            </nav>
 
 <head>
     <title>NTX Mesh</title>
@@ -211,12 +287,20 @@
 
     <main>
         <h2>Modem Preset by County</h2>
-        <div id="modem_preset_map" style="height: auto; width: auto">
-            <img>images\Model_Presets_by_County_Map.png</img>
-        </div>
+<div id="modem_preset_map" style="text-align: center;">
+    <a href="../Model_Presets_by_County_Map.png" target="_blank">
+        <img src="../images/Modem_Presets_by_County_Map.png" 
+             alt="Modem Preset Map by County" 
+             title="Modem Preset Map by County" 
+             style="max-width: 100%; height: auto;" />
+    </a>
+</div>
+
+<br>
+
+<h2>Coverage Map</h2>
+<div id="map" style="height: 600px; width: 100%;"></div>
         
-        <h2>Coverage Map</h2>
-        <div id="map" style="height: 600px; width: 100%;"></div>
     </main>
 </body>
 </html>
