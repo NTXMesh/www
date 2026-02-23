@@ -102,24 +102,31 @@
                 <h2>Connect to the network</h2>
                 <ol>
                     <li>
-                        Get a Meshtastic Radio.
-                        <br> You can build one yourself for about $35. The official Meshtastic page keeps a current list of <a href="https://meshtastic.org/docs/hardware/devices/">Supported Hardware.</a> The LILYGO T-Echo is a good first meshtastic radio, as it costs around $70 and is ready to go out of the box (besides having to flash the firmware).
+                        Get a Meshtastic or MeshCore Radio.
+                        <br> You can build one yourself for about $35. The official Meshtastic page keeps a current list of <a href="https://meshtastic.org/docs/hardware/devices/">Supported Hardware.</a> The <a href="https://flasher.meshcore.co.uk/">MeshCore Flasher</a> has a list of devices for which there is pre-compiled community firware. The LILYGO T-Echo is a good first meshtastic radio, as it costs around $70 and is ready to go out of the box (besides having to flash the firmware).
                         <br> You can also buy a pre-built battery-powered radio for between $50-$100 on Etsy or eBay - these usually have 3D printed cases.
                         <br> If you can afford it, and have a place to mount it outside, we recommend you buy a pre-built solar-powered node for between $100 and $200 on Etsy and mount it as high off the ground as you can. Alternatively you can <a href="/devices/">build your own</a>.
                     </li>
-                    <li>Download the <a href="https://meshtastic.org/docs/software">Meshtastic App</a> on your iPhone or Android.</li>
+                    <li>Download the <a href="https://meshtastic.org/docs/software">Meshtastic App</a> or <a href="https://meshcore.co.uk/apps.html">MeshCore App</a> on your iPhone or Android.</li>
                     <li>Pair your radio to your phone with Bluetooth.</li>
-                    <li>Open the Meshtastic app and say hi!</li>
+                    <li>Configure your radio and say hi!</li>
                 </ol>
             </section>
             <section id="best-practices">
                 <h2>Best practices</h2>
-                <h3>TL;DR;</h3>
+                <h3>TL;DR: Meshtastic</h3>
                 <ul>
                     <li><strong>MQTT</strong>: Disabled;Ignore;</li>
                     <li><strong>Role</strong>: Client (<strong>NOT</strong> Router & Client)</li>
                     <li><strong>Hop Count</strong>: 3</li>
                     <li><strong>Broadcast intervals</strong>(info, position, telemetry): 3 hours</li>
+                </ul>
+                <h3>TL;DR: MeshCore</h3>
+                <ul>
+                    <li><strong>Radio Settings</strong>: US/Canada (Freq: 910.525 MHz, BW: 62.5 kHz, SF: 7, CR: 5)</li>
+                    <li><strong>Device Type</strong>: Companion for handheld and mobile nodes, Repeater for stationary nodes up high</li>
+                    <li><strong>Advert Interval (Flood)</strong>: 24 hours</li>
+                    <li><strong>Advert Interval (Zero-Hop)</strong>: 0 (disabled)</li>
                 </ul>
                 <p>This is a community driven project, following these guidelines will ensure the best experience for everyone as we continue to grow. (credit @Nick, @AdvJosh (TEX#) - KJ5FZD, @edsai KI5OSB)</p>
                 <h3>MQTT</h3>
