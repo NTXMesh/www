@@ -1,159 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Coverage Map - NTX Mesh</title>
-    <meta name="description" content="View the NTX Mesh modem preset map by county and network coverage map.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="utf-8">
+        <title>Coverage Map - NTX Mesh</title>
+        <meta name="description" content="View the NTX Mesh modem preset map by county and network coverage map.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-RGYHDR5D6D');
-    </script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RGYHDR5D6D');
+        </script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-    <link rel="stylesheet" href="../styles.css?v=2">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+        <link rel="stylesheet" href="../styles.css?v=2">
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-<body>
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    </head>
+    <body>
 
-<!-- Header & Menu copied from Home page -->
-<header class="loaded">
-    <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="826" height="200"></a>
-    <button onclick="document.getElementById('event').showModal()" class="default meet-button">📅 Upcoming Meeting 12/26</button>
-</header>
+        <!-- Header & Menu copied from Home page -->
+        <header>
+            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+        </header>
+        <main>
+            <nav>
+                <menu>
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <a href="/learn/">Learn</a>
+                        <menu>
+                            <li><a href="/learn/#about">About</a></li>
+                            <li><a href="/learn/#coverage">Network coverage</a></li>
+                            <li><a href="/coverage-map/index.html">Modem Preset Map by County</a></li>
+                            <li><a href="/learn/#comparisons">Similar technology</a></li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="/join/">Join</a>
+                        <menu>
+                            <li><a href="/join/#network">Join the network</a></li>
+                            <li><a href="/join/#best-practices">Best practices</a></li>
+                            <li><a href="/join/#group">Join the group</a></li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="../calendar/index.html">Community Calendar</a>
+                    </li>
+                    <li>
+                        <a href="/devices/">Devices & Hardware</a>
+                        <menu>
+                            <li><a href="/devices/#options">Options & Recommendations</a>
+                                <menu>
+                                    <li><a href="/devices/#pocket-portable">Pocket/Portable</a></li>
+                                    <li><a href="/devices/#stationary-solar">Stationary/Solar</a></li>
+                                </menu>
+                            </li>
+                            <li><a href="/devices/#solar">Building a Solar Repeater</a>
+                                <menu>
+                                    <li><a href="/devices/#history">History</a></li>
+                                    <li><a href="/devices/#parts-list">Parts list</a></li>
+                                </menu>
+                            </li>
+                        </menu>
+                    </li>
+                    <li>
+                        <a href="/similar-networks/">Similar networks</a>
+                        <menu>
+                            <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
+                            <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
+                        </menu>
+                    </li>
+                    <li><a href="/partners/">Partners</a></li>
+                </menu>
+            </nav>
 
-<nav>
-    <menu>
-        <li><a href="/">Home</a></li>
-        <li>
-            <a href="/learn/">Learn</a>
-            <menu>
-                <li><a href="/learn/#about">About</a></li>
-                <li><a href="/learn/#coverage">Network coverage</a></li>
-                <li><a href="/coverage-map/index.html">Modem Preset Map by County</a></li>
-                <li><a href="/learn/#comparisons">Similar technology</a></li>
-            </menu>
-        </li>
-        <li>
-            <a href="/join/">Join</a>
-            <menu>
-                <li><a href="/join/#network">Join the network</a></li>
-                <li><a href="/join/#best-practices">Best practices</a></li>
-                <li><a href="/join/#group">Join the group</a></li>
-            </menu>
-        </li>
-        <li><a href="../calendar/index.html">Community Calendar</a></li>
-        <li>
-            <a href="/devices/">Devices & Hardware</a>
-            <menu>
-                <li><a href="/devices/#options">Options & Recommendations</a>
-                    <menu>
-                        <li><a href="/devices/#pocket-portable">Pocket/Portable</a></li>
-                        <li><a href="/devices/#stationary-solar">Stationary/Solar</a></li>
-                    </menu>
-                </li>
-                <li><a href="/devices/#solar">Building a Solar Repeater</a>
-                    <menu>
-                        <li><a href="/devices/#history">History</a></li>
-                        <li><a href="/devices/#parts-list">Parts list</a></li>
-                    </menu>
-                </li>
-            </menu>
-        </li>
-        <li>
-            <a href="/similar-networks/">Similar networks</a>
-            <menu>
-                <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
-                <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
-            </menu>
-        </li>
-        <li><a href="/partners/">Partners</a></li>
-    </menu>
-</nav>
+            <h1>Modem Preset Map by County</h1>
 
-<main>
-    <h1>Modem Preset Map by County</h1>
+            <div id="modem_preset_map" style="text-align: center;">
+                <a href="../images/Modem_Presets_by_County_Map.png" target="_blank">
+                    <img src="../images/Modem_Presets_by_County_Map.png"
+                        alt="Modem Preset Map by County"
+                        title="Modem Preset Map by County"
+                        style="max-width: 100%; height: auto;">
+                </a>
+            </div>
 
-    <div id="modem_preset_map" style="text-align: center;">
-        <a href="../images/Modem_Presets_by_County_Map.png" target="_blank">
-            <img src="../images/Modem_Presets_by_County_Map.png"
-                 alt="Modem Preset Map by County"
-                 title="Modem Preset Map by County"
-                 style="max-width: 100%; height: auto;">
-        </a>
-    </div>
+            <br>
 
-    <br>
+            <h2>Coverage Map</h2>
+            <div id="map" style="height: 600px; width: 100%;"></div>
+        </main>
 
-    <h2>Coverage Map</h2>
-    <div id="map" style="height: 600px; width: 100%;"></div>
-</main>
+        <footer>
+            <p>Our website content is licensed under Creative Commons <br>
+                Forked and adapted from <a href="https://AustinMesh.org">Austin Mesh</a> <br>
+            </p>
+        </footer>
 
-<footer>
-    <p>Our website content is licensed under Creative Commons <br>
-        Forked and adapted from <a href="https://AustinMesh.org">Austin Mesh</a> <br>
-    </p>
-</footer>
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
-
-<!-- Leaflet Heatmap Script -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map').setView([30.2672, -97.7431], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    fetch('NTX-mesh-rangetests.csv')
-        .then(response => response.text())
-        .then(csv => {
-            var heatmapData = [];
-            var lines = csv.split('\n');
-            lines.forEach(function(line, i) {
-                if (i !== 0) {
-                    var columns = line.split(',');
-                    if (columns.length >= 3) {
-                        var lat = parseFloat(columns[0]);
-                        var lng = parseFloat(columns[1]);
-                        var intensity = parseFloat(columns[2]);
-                        if (!isNaN(lat) && !isNaN(lng)) {
-                            heatmapData.push([lat, lng, intensity]);
-                        }
-                    }
-                }
-            });
-            L.heatLayer(heatmapData, {
-                radius: 25,
-                blur: 30,
-                max: 200,
-                maxZoom: 13,
-                minOpacity: 0.3
+        <!-- Leaflet Heatmap Script -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('map').setView([30.2672, -97.7431], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
             }).addTo(map);
-        })
-        .catch(err => console.error('Error loading the CSV file:', err));
-});
-</script>
 
-<!-- Header Animation -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("header").classList.add("loaded");
-});
-</script>
+            fetch('NTX-mesh-rangetests.csv')
+                .then(response => response.text())
+                .then(csv => {
+                    var heatmapData = [];
+                    var lines = csv.split('\n');
+                    lines.forEach(function(line, i) {
+                        if (i !== 0) {
+                            var columns = line.split(',');
+                            if (columns.length >= 3) {
+                                var lat = parseFloat(columns[0]);
+                                var lng = parseFloat(columns[1]);
+                                var intensity = parseFloat(columns[2]);
+                                if (!isNaN(lat) && !isNaN(lng)) {
+                                    heatmapData.push([lat, lng, intensity]);
+                                }
+                            }
+                        }
+                    });
+                    L.heatLayer(heatmapData, {
+                        radius: 25,
+                        blur: 30,
+                        max: 200,
+                        maxZoom: 13,
+                        minOpacity: 0.3
+                    }).addTo(map);
+                })
+                .catch(err => console.error('Error loading the CSV file:', err));
+        });
+        </script>
 
-</body>
+        <!-- Header Animation -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector("header").classList.add("loaded");
+        });
+        </script>
+
+    </body>
 </html>
