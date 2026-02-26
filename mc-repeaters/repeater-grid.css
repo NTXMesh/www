@@ -1,0 +1,56 @@
+/* Pulled from https://ottawamesh.ca/deployment/repeaters/ */
+
+/* Table base styles - using ID for maximum specificity */
+#repeater-hex-grid {
+  border-collapse: collapse;
+  margin: 0 auto 1rem;
+  font-family: 'Courier New', monospace;
+  width: fit-content;                   /* let the table determine wrapper width */
+}
+
+#repeater-hex-grid td,
+#repeater-hex-grid th {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  text-align: center;
+  border: 1px solid #1a1a1a !important;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 !important;
+  box-sizing: border-box;
+  line-height: 40px;
+}
+
+#repeater-hex-grid th {
+  background: #1a1a1a !important;
+  color: #999 !important;
+  font-weight: 600;
+}
+
+/* Cell type styles with ID selector */
+#repeater-hex-grid td.hex-free {
+  background-color: #2d5016 !important;
+  color: #a8d68c !important;
+  cursor: pointer;
+  padding: 0 !important;
+}
+
+#repeater-hex-grid td.hex-used {
+  background-color: #5c1a1a !important;
+  color: #ff9999 !important;
+  cursor: pointer;
+}
+
+#repeater-hex-grid td.hex-reserved {
+  background-color: #3a3a3a !important;
+  color: #888 !important;
+  cursor: pointer;
+}
+
+#repeater-hex-grid td.hex-duplicate {
+  background-color: #1a3a5c !important;
+  color: #99ccff !important;
+  cursor: pointer;
+}
