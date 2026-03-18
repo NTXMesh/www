@@ -78,11 +78,11 @@
                 </menu>
             </nav>
             <hgroup>
-                <h1>Learn about DFW / North Texas (NTX) Mesh and Meshtastic</h1>
-                <p>NTX Mesh is a community group working to build a mesh network of solar-powered <a href="https://meshtastic.org/">meshtastic</a> radios in DFW and the greater North Texas area. This network acts like a city-wide text messaging system, allowing people to communicate publicly or privately with anyone on the network. All of this happens without any external infrastructure - no power, no cell phone towers, no internet.</p>
+                <h1>Learn about DFW / North Texas (NTX) Mesh and Mesh Networking</h1>
+                <p>NTX Mesh is a community group working to build a mesh network of solar-powered <a href="https://meshtastic.org/">Meshtastic</a> and <a href="https://meshcore.co.uk/">MeshCore</a> radios in DFW and the greater North Texas area. This network acts like a city-wide text messaging system, allowing people to communicate publicly or privately with anyone on the network. All of this happens without any external infrastructure - no power, no cell phone towers, no internet.</p>
             </hgroup>
             <ul>
-                <li><a href="#about">About NTX Mesh and Meshtastic</a>
+                <li><a href="#about">About NTX Mesh and Mesh Networking</a>
                     <ul>
 						<li><a href="#hdiw">How does it work?</a></li>
                         <li><a href="#eli5">Explain it like I'm 5</a></li>
@@ -94,52 +94,73 @@
                 <li><a href="#comparisons">Comparisons to similar technology</a></li>
             </ul>
             <section id="about">
-                <h2>All about NTXMesh and Meshtastic</h2>
-                <h3 id="hdiw">How does it work?</h3>
-                <p>We have set up a number of solar-powered radio repeaters in North Texas. These radios communicate on the <a href="https://en.wikipedia.org/wiki/33-centimeter_band">906.875 MHZ</a> frequency using the <a href="https://en.wikipedia.org/wiki/LoRa">LoRa protocol</a>. The radios mesh using the open-source <a href="https://meshtastic.org/">Meshtastic</a> software. Users can connect to these repeaters by Bluetooth if they’re close enough or they can use their own handheld nodes which will also act as repeaters. The messages hop from node to node, extending the reach of the network and ensuring everyone receives every message.</p>
-                <h3 id="eli5">Can you explain it like I'm 5?</h3>
-                <p>Pretend you're sitting in class and want to send a note to everyone in the class. You write your note on a piece of paper and copy it three times. The message can be up to 228 characters - about as long as this paragraph so far. You hand those three pieces of paper to the three people around you. Then those three people re-write the message three times and hand it to the three people around them and so on. Now imagine a big gust of wind comes and blows away some of the messages. If even just a few people saw the note and keep copying and re-sending it, eventually everyone will get a copy of the note. This is like sending an unencrypted message to everyone on the network.</p>
-                <p>Now imagine you want to send a message to a single person or a select group of people but you don't want other people who see the note to be able to read it. You could write the note using a secret language. You could then hand a decoder key to your friend or to a group of friends and they could decode the message. The message still gets passed the same way - with every single person writing the message a few times and handing it to everyone - but only those people with the decoder key will be able to understand the message. This is like sending an encrypted direct message or encrypted group message.</p>
-                <p>NTX Mesh works the same way as this paper example, but instead of sending paper notes we're using digital text messages and sending it with radio waves. Our radios are solar powered and they don’t need any internet or cell phone coverage. This means they will work even if the power is out.</p>
-                <h3 id="wcid">What can it do?</h3>
-                <p>Meshtastic is a bit like a decentralized social media platform or SMS text messaging. It has a number of different features which will be familiar to anyone who has sent a text message or posted on social media.</p>
-                <dl>
-                    <dt>1) Primary Channel:</dt>
-                    <dd>You can broadcast an unencrypted message to the Primary Channel and everyone on your mesh will see it. This is a bit like “posting” publicly on a social media platform.</dd>
-                    <dt>2) Group Channels:</dt>
-                    <dd>You can send an encrypted message to a select group of people on a Secondary Channel and everyone who is subscribed to that channel will get it. People can join the channel if you provide them with an encryption key which you can send to them via Direct Message or which they can scan from a QR code in person. This is a bit like a private group on social media, or a group text message chain on SMS.</dd>
-                    <dt>3) Direct Messages:</dt>
-                    <dd>You can send encrypted direct messages to people on the mesh. This is like a private text message or a DM on social medial.</dd>
-                    <dt>4) Location:</dt>
-                    <dd>If you choose to enable it you can send your location to the mesh and it will show up on everyone’s map in the app.</dd>
-                    <dt>5) Connect Worldwide:</dt>
-                    <dd>If anyone on your local mesh is running an MQTT gateway your local mesh will connect to the other meshes around the world. This can allow you to broadcast messages to everyone globally or send encrypted messages to groups or individuals worldwide.</dd>
-                    <dt>6) Telemetry Data:</dt>
-                    <dd>Nodes can be set up to send telemetry data like the battery status or signal strength, which is helpful for monitoring remote solar-powered nodes. Nodes can also have sensors connected to them which allow them to send data on temperature, humidity, or air pressure which allow them to act like weather stations.</dd>
-                </dl>
-                <h3 id="wbtn">Why build this network?</h3>
-                <h4>1) Community</h4>
-                <p>Because this is essentially a city-wide group text message chain we are hoping people use the network to build community. Tell the group where your band is playing tonight, chat about local politics, ask for a good cheese dip recipe, etc.</p>
-                <h4>2) Disasters</h4>
-                <p>If the power goes out, like during the 2021 Winter Storm Uri, this network should allow people to continue to communicate with each other without electricity, cell phone coverage, or internet. This big city-wide group text chain could allow people to ask for help or offer assistance. People could get information about where warming centers are open or ask who in their neighborhood still has power. People could also send encrypted direct messages to check in on friends and family or they could send encrypted group messages to coordinate privately in a group.</p>
-                <h4>3) Decentralized, Open, and Resilient</h4>
-                <p>NTX Mesh is decentralized - there is no central server or corporation - all the communication bounces through the entire mesh. NTX Mesh is open to everyone - you don't have to ask permission to join and all of the software is open-source. NTX Mesh is resilient - our solar-powered radios don't need cell phone towers, internet access, or electricity. We hope this project will inspire others to build things that are decentralized, open, and resilient.</p>
+                <h2>All about NTXMesh and Mesh Networking</h2>
+                <details>
+                    <summary>
+                        <h3 id="hdiw">How does it work?</h3>
+                    </summary>
+                    <p>We have set up a number of solar-powered radio repeaters in North Texas. These radios communicate via the <a href="https://en.wikipedia.org/wiki/LoRa">LoRa protocol</a> on the <a href="https://en.wikipedia.org/wiki/33-centimeter_band">906.875 MHZ</a> frequency using <a href="https://meshtastic.org/">Meshtastic</a> software, and on the <a href="https://en.wikipedia.org/wiki/33-centimeter_band">910.525 MHZ</a> frequency using <a href="https://meshcore.co.uk">MeshCore</a> software. Users can connect to Meshtastic repeaters by Bluetooth if they’re close enough or they can use their own handheld nodes to access the mesh. The messages hop from node to node, extending the reach of the network and ensuring everyone receives every message.</p>
+                </details>
+                <details>
+                    <summary>
+                        <h3 id="eli5">Can you explain it like I'm 5?</h3>
+                    </summary>
+                    <p>Pretend you're sitting in class and want to send a note to everyone in the class. You write your note on a piece of paper and copy it three times. The message can be up to 228 characters - about as long as this paragraph so far. You hand those three pieces of paper to the three people around you. Then those three people re-write the message three times and hand it to the three people around them and so on. Now imagine a big gust of wind comes and blows away some of the messages. If even just a few people saw the note and keep copying and re-sending it, eventually everyone will get a copy of the note. This is like sending an unencrypted message to everyone on the network.</p>
+                    <p>Now imagine you want to send a message to a single person or a select group of people but you don't want other people who see the note to be able to read it. You could write the note using a secret language. You could then hand a decoder key to your friend or to a group of friends and they could decode the message. The message still gets passed the same way - with every single person writing the message a few times and handing it to everyone - but only those people with the decoder key will be able to understand the message. This is like sending an encrypted direct message or encrypted group message.</p>
+                    <p>NTX Mesh works the same way as this paper example, but instead of sending paper notes we're using digital text messages and sending it with radio waves. Our radios are solar powered and they don’t need any internet or cell phone coverage. This means they will work even if the power is out.</p>
+                </details>
+                <details>
+                    <summary>
+                        <h3 id="wcid">What can it do?</h3>
+                    </summary>
+                    <p>Mesh networking is a bit like a decentralized social media platform or SMS text messaging. It has a number of different features which will be familiar to anyone who has sent a text message or posted on social media.</p>
+                    <dl>
+                        <dt>1) Primary Channel:</dt>
+                        <dd>You can broadcast an unencrypted message to the Primary Channel and everyone on your mesh will see it. This is a bit like “posting” publicly on a social media platform.</dd>
+                        <dt>2) Group Channels:</dt>
+                        <dd>You can send an encrypted message to a select group of people on a Secondary Channel and everyone who is subscribed to that channel will get it. People can join the channel if you provide them with an encryption key which you can send to them via Direct Message or which they can scan from a QR code in person. This is a bit like a private group on social media, or a group text message chain on SMS.</dd>
+                        <dt>3) Direct Messages:</dt>
+                        <dd>You can send encrypted direct messages to people on the mesh. This is like a private text message or a DM on social medial.</dd>
+                        <dt>4) Location:</dt>
+                        <dd>If you choose to enable it you can send your location to the mesh and it will show up on everyone’s map in the app.</dd>
+                        <dt>5) Connect Worldwide:</dt>
+                        <dd>If anyone on your local mesh is running an MQTT gateway your local mesh will connect to the other meshes around the world. This can allow you to broadcast messages to everyone globally or send encrypted messages to groups or individuals worldwide.</dd>
+                        <dt>6) Telemetry Data:</dt>
+                        <dd>Nodes can be set up to send telemetry data like the battery status or signal strength, which is helpful for monitoring remote solar-powered nodes. Nodes can also have sensors connected to them which allow them to send data on temperature, humidity, or air pressure which allow them to act like weather stations.</dd>
+                    </dl>
+                </details>
+                <details>
+                    <summary>
+                        <h3 id="wbtn">Why build this network?</h3>
+                    </summary>
+                    <h4>1) Community</h4>
+                    <p>Because this is essentially a city-wide group text message chain we are hoping people use the network to build community. Tell the group where your band is playing tonight, chat about local politics, ask for a good cheese dip recipe, etc.</p>
+                    <h4>2) Disasters</h4>
+                    <p>If the power goes out, like during the 2021 Winter Storm Uri, this network should allow people to continue to communicate with each other without electricity, cell phone coverage, or internet. This big city-wide group text chain could allow people to ask for help or offer assistance. People could get information about where warming centers are open or ask who in their neighborhood still has power. People could also send encrypted direct messages to check in on friends and family or they could send encrypted group messages to coordinate privately in a group.</p>
+                    <h4>3) Decentralized, Open, and Resilient</h4>
+                    <p>NTX Mesh is decentralized - there is no central server or corporation - all the communication bounces through the entire mesh. NTX Mesh is open to everyone - you don't have to ask permission to join and all of the software is open-source. NTX Mesh is resilient - our solar-powered radios don't need cell phone towers, internet access, or electricity. We hope this project will inspire others to build things that are decentralized, open, and resilient.</p>
+                </details>
             </section>
             <section id="coverage">
                 <h2>What kind of coverage does the NTX Mesh network have?</h2>
-                <h3>Meshtastic</h3>
-                <iframe style="height:500px; width:100%; border:none;" src="https://facilmap.org/bXo7w1Lyve2G#9/32.8909/-97.0258/Lima"></iframe>
-                
-                
-              <p>&nbsp;The collaborative map host on <a href="https://facilmap.org/bXo7w1Lyve2G#12/32.9847/-96.9715/Lima/m301390">Facilmap</a> is primarily for community members to place their stationary nodes (with descriptions of node name, height, or other useful information). This map is used in conjunction with the <a href="https://meshmap.net/">MeshMap</a> to help the North Texas Mesh Community plan future placements of nodes and strategic placements of repeaters.</p>
-                <h3>MeshCore</h3>
-                <iframe style="height:500px; width:100%; border:none;" src="https://dfw.meshmapper.net/index.php"></iframe>
-              <p>&nbsp;The community-driven map hosted on <a href="https://dfw.meshmapper.net/index.php">MeshMapper</a> is a coverage map of MeshCore repeaters. This map is used in conjunction with the <a href="https://map.meshcore.dev/?zoom=10&lat=33&lon=-97">MeshCore Online Map</a> to help the North Texas Mesh Community plan future placements of nodes and strategic placements of repeaters.</p>
-                <p>&nbsp;</p>
+                <details open>
+                    <summary>
+                        <h3>Meshtastic Node Coverage</h3>
+                    </summary>
+                    <iframe style="height:500px; width:100%; border:none;" src="https://facilmap.org/bXo7w1Lyve2G#9/32.8909/-97.0258/Lima"></iframe>
+                    <p>&nbsp;The collaborative map host on <a href="https://facilmap.org/bXo7w1Lyve2G#12/32.9847/-96.9715/Lima/m301390">Facilmap</a> is primarily for community members to place their stationary nodes (with descriptions of node name, height, or other useful information). This map is used in conjunction with the <a href="https://meshmap.net/">MeshMap</a> to help the North Texas Mesh Community plan future placements of nodes and strategic placements of repeaters.</p>
+                </details>
+                <details open>
+                    <summary>
+                        <h3>MeshCore Repeater Coverage</h3>
+                    </summary>
+                    <iframe style="height:500px; width:100%; border:none;" src="https://dfw.meshmapper.net/index.php"></iframe>
+                    <p>&nbsp;The community-driven map hosted on <a href="https://dfw.meshmapper.net/index.php">MeshMapper</a> is a coverage map of MeshCore repeaters. This map is used in conjunction with the <a href="https://map.meshcore.dev/?zoom=10&lat=33&lon=-97">MeshCore Online Map</a> to help the North Texas Mesh Community plan future placements of nodes and strategic placements of repeaters.</p>
+                </details>
                 <p><a href="https://meshmap.net/">The MQTT map at meshmap.net</a> is <b>not</b> representative of the coverage as we <a href="/join/#best-practices">do not recommend using MQTT</a> however it may still be useful for you to see what is in your area.</p>
             </section>
             <section id="comparisons">
-                <h2>Comparing it to APRS on Ham Radio</h2>
+                <h2>Comparing Meshtastic to APRS on Ham Radio</h2>
                 <p>For people who are familiar with using the <a href="https://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System">Automatic Packet Reporting System (APRS) </a> on ham radio, Meshtastic is <strong>similar</strong> in a few ways:</p>
                 <h3>Similarities</h3>
                 <dl>
