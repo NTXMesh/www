@@ -22,24 +22,11 @@
 	</head>
 	<body data-new-gr-c-s-check-loaded="8.927.0" data-gr-ext-installed="">
         <header class="loaded">
-            <a href="/"><img src="images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="826" height="200"></a>
-            <button onclick="document.getElementById('event').showModal()" class="default meet-button">📅 Upcoming Events</button>
-        </header>       
-        <dialog id="event">
-            <header>
-                <h1>Upcoming Events</h1>
-            </header>
-            <p>No upcoming events. <a href="https://discord.gg/nGeQ8cbSM3">Join the Discord</a> to schedule an event.</p>
-            <br><p>Stay up to date with our <a href="/calendar/index.html">Community Calendar</a></p>
-            <footer>
-                <form method="dialog">
-                    <a class="default" href="/join/" type="button">Join NTX Mesh</a>
-                    <button type="submit">Close</button>
-                </form>
-            </footer>
-        </dialog>
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+        </header>
     <main>
         <div id="navbar-container"></div>
+        <script src="/navbar.js"></script>
             <section>
                 <h1>DFW / North Texas Mesh (NTX Mesh)</h1>
                 <p>NTX Mesh is a community group working to build a mesh network of solar-powered <a href="https://meshtastic.org/">Meshtastic</a> radios in DFW and the greater North Texas area. This network acts like a city-wide text messaging system, allowing people to communicate publicly or privately with anyone on the network. All of this happens without any external infrastructure - no power, no cell phone towers, no internet.</p><br></br>
@@ -94,7 +81,6 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
           </p>
         </footer>
     </body>
-    <script src="/www/navbar.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelector("header").classList.add("loaded");
