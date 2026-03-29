@@ -19,11 +19,11 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-        <link rel="stylesheet" href="../styles.css?v=2">
+        <link rel="stylesheet" href="/styles.css?v=2">
     </head>
     <body>
         <header>
-            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
         </header>
         <main>
             <nav>
@@ -48,7 +48,10 @@
                         </menu>
                     </li>
                     <li>
-                        <a href="../calendar/index.html">Community Calendar</a>
+                        <a href="/resources/">Resources</a>
+                        <menu>
+                            <li><a href="/calendar/">Community Calendar</a></li>
+                        </menu>
                     </li>
                     <li>
                         <a href="/devices/">Devices & Hardware</a>
@@ -74,12 +77,17 @@
                             <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
                         </menu>
                     </li>
-                    <li><a href="/partners/">Partners</a></li>
+                    <li>
+                        <a href="/partners/">Partners</a>
+                        <menu>
+                            <li><a href="/partners/property-owner-faq">Property Owner FAQ</a></li>
+                        </menu>
+                    </li>
                 </menu>
             </nav>
             <section class="social">
                 <h5>Join us on</h5>
-                <a href="https://discord.gg/nGeQ8cbSM3" target="_blank"><img src="../images/social/discord.svg"
+                <a href="https://discord.gg/nGeQ8cbSM3" target="_blank"><img src="/images/social/discord.svg"
                     title="NTX Mesh Discord"
                     alt="Discord logo"
                     width="40"
@@ -126,8 +134,8 @@
                 <ul>
                     <li><strong>Radio Settings</strong>: US/Canada (Freq: 910.525 MHz, BW: 62.5 kHz, SF: 7, CR: 5)</li>
                     <li><strong>Device Type</strong>: Companion for handheld and mobile nodes, Repeater for stationary nodes up high</li>
-                    <li><strong>Advert Interval (Flood)</strong>: 24 hours</li>
-                    <li><strong>Advert Interval (Zero-Hop)</strong>: 0 (disabled)</li>
+                    <li><strong>Repeater Advert Interval (Flood)</strong>: Flood - 33 hours | Zero-Hop - 240 minutes
+                    <li><strong>Repeater Guest Password</strong>: [Leave Blank] (allow telemetry to be viewed)</li>
                 </ul>
                 <p>This is a community driven project, following these guidelines will ensure the best experience for everyone as we continue to grow. (credit @Nick, @AdvJosh (TEX#) - KJ5FZD, @edsai KI5OSB)</p>
                 <h3>MQTT</h3>

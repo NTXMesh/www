@@ -9,12 +9,12 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-        <link rel="stylesheet" href="../styles.css?v=2">
-        <link rel="stylesheet" href="../mc-repeaters/repeater-grid.css">
+        <link rel="stylesheet" href="/styles.css?v=2">
+        <link rel="stylesheet" href="/mc-repeaters/repeater-grid.css">
     </head>
     <body>
         <header>
-            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
         </header>
         <main>
             <nav>
@@ -39,7 +39,10 @@
                         </menu>
                     </li>
                     <li>
-                        <a href="../calendar/index.html">Community Calendar</a>
+                        <a href="/resources/">Resources</a>
+                        <menu>
+                            <li><a href="/calendar/">Community Calendar</a></li>
+                        </menu>
                     </li>
                     <li>
                         <a href="/devices/">Devices & Hardware</a>
@@ -65,13 +68,18 @@
                             <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
                         </menu>
                     </li>
-                    <li><a href="/partners/">Partners</a></li>
+                    <li>
+                        <a href="/partners/">Partners</a>
+                        <menu>
+                            <li><a href="/partners/property-owner-faq">Property Owner FAQ</a></li>
+                        </menu>
+                    </li>
                 </menu>
             </nav>
             <section id="repeaters">
                 <hgroup>
-                    <h1>Meshcore Repeater Deployment</h1>
-                    <h3>This page tracks Repeater IDs (00–FF) in DFW, and should reflect the <a href="https://dfw.meshmapper.net/?repeater_list">Repeater ID Usage on MeshMapper</a></h3>
+                    <h1>MeshCore Repeater Deployment</h1>
+                    <h3>This page tracks Repeater IDs (00–FF) in DFW, sourced from: <a href="https://dfw.meshmapper.net/?repeater_list">MeshMapper</a></h3>
                 </hgroup>
                 <p>The table below shows all 256 repeater IDs. Colors indicate status:</p>
                 <p>🟢 Available - click <button onclick="document.getElementById('keygen').showModal()">Generate Keys</button> to create a private/public key pair</p>
@@ -87,7 +95,7 @@
                         </form>
                     </footer>
                 </dialog>
-                <table id="repeater-hex-grid" class="hex-table">
+<!--                <table id="repeater-hex-grid" class="hex-table">
                     <tbody>
                         <tr>
                             <th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th>
@@ -168,10 +176,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Rows will be populated dynamically -->
+                        
                     </tbody>
                 </table>
-                <p>Last updated: 2026/03/18</p>
+                <p>Last updated: 2026/03/18</p> -->
+                <iframe
+                    src="https://dfw.meshmapper.net/embed_repeaters.php"
+                    width="100%"
+                    height="700"
+                    style="border: none;"
+                    loading="lazy">
+                </iframe>
             </section>
         </main>
         <footer>
@@ -287,13 +302,13 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
         }
 
         // Fetch the CSV file and process it
-        fetch("repeaters.csv")
-            .then(response => response.text())
-            .then(csvData => {
-                const { headers, data } = parseCSV(csvData);
-                populateTable(data, headers);
-            })
-            .catch(error => console.error("Error loading CSV file:", error));
+    //    fetch("repeaters.csv")
+    //        .then(response => response.text())
+    //        .then(csvData => {
+    //            const { headers, data } = parseCSV(csvData);
+    //            populateTable(data, headers);
+    //        })
+    //        .catch(error => console.error("Error loading CSV file:", error));
 
     </script>
 </html>
