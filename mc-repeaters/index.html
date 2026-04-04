@@ -22,13 +22,13 @@
             <section id="repeaters">
                 <hgroup>
                     <h1>MeshCore Repeater Deployment</h1>
-                    <h3>This page tracks Repeater IDs (00–FF) in DFW, sourced from: <a href="https://dfw.meshmapper.net/?repeater_list">MeshMapper</a></h3>
+                    <h3>This page tracks Repeater IDs (00-FF) in DFW, sourced from: <a href="https://dfw.meshmapper.net/?repeater_list">MeshMapper</a></h3>
                 </hgroup>
                 <p>The table below shows all 256 repeater IDs. Colors indicate status:</p>
-                <p>🟢 Available - click <button onclick="document.getElementById('keygen').showModal()">Generate Keys</button> to create a private/public key pair</p>
-                <p>🔴 Deployed - see table below for more information</p>
-                <p>🔵 Duplicate/Conflict - resolve conflicts by changing the repeater public/private keys</p>
-                <p>⚫ Reserved - these IDs are not available by design</p>
+                <p>Available - click <button onclick="document.getElementById('keygen').showModal()">Generate Keys</button> to create a private/public key pair</p>
+                <p>Deployed - see table below for more information</p>
+                <p>Duplicate/Conflict - resolve conflicts by changing the repeater public/private keys</p>
+                <p>Reserved - these IDs are not available by design</p>
                 <dialog id="keygen" style="max-width:900px;">
                     <iframe src="https://gessaman.com/mc-keygen/" style="width:800px;height:800px"></iframe>
                     <footer>
@@ -119,7 +119,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
                 <p>Last updated: 2026/03/18</p> -->
@@ -173,7 +172,6 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
             }
         }
 
-        // Function to parse CSV data
         function parseCSV(csvData) {
             const rows = [];
             let currentRow = [];
@@ -184,25 +182,20 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 const char = csvData[i];
 
                 if (char === '"') {
-                    // Toggle the insideQuotes flag
                     insideQuotes = !insideQuotes;
                 } else if (char === ',' && !insideQuotes) {
-                    // If not inside quotes, end the current value and move to the next column
                     currentRow.push(currentValue.trim());
                     currentValue = '';
                 } else if (char === '\n' && !insideQuotes) {
-                    // If not inside quotes, end the current row and move to the next row
                     currentRow.push(currentValue.trim());
                     rows.push(currentRow);
                     currentRow = [];
                     currentValue = '';
                 } else {
-                    // Add the character to the current value
                     currentValue += char;
                 }
             }
 
-            // Add the last value and row if the CSV doesn't end with a newline
             if (currentValue) {
                 currentRow.push(currentValue.trim());
             }
@@ -210,28 +203,22 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 rows.push(currentRow);
             }
 
-            // Separate headers and data
             const headers = rows[0];
             const data = rows.slice(1);
 
             return { headers, data };
         }
 
-        // Function to populate the HTML table
         function populateTable(data, headers) {
             const tableBody = document.querySelector("#data-table tbody");
-
-            // Find the indices of the required columns
             const nameIndex = headers.indexOf("Name");
             const idIndex = headers.indexOf("ID");
             const locationIndex = headers.indexOf("Location");
             const heardIndex = headers.indexOf("Last Heard");
 
-            // Populate rows
             data.forEach(row => {
                 const tableRow = document.createElement("tr");
 
-                // Add Name, ID, and Location columns
                 [nameIndex, idIndex, locationIndex, heardIndex].forEach(index => {
                     const cell = document.createElement("td");
                     cell.textContent = row[index];
@@ -239,12 +226,10 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 });
 
                 addRepeater(row[idIndex], row[nameIndex]);
-
                 tableBody.appendChild(tableRow);
             });
         }
 
-        // Fetch the CSV file and process it
     //    fetch("repeaters.csv")
     //        .then(response => response.text())
     //        .then(csvData => {

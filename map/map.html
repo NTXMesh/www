@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RGYHDR5D6D');
+    </script>
+    <title>Network Map - NTX Mesh</title>
+    <meta name="description" content="Live map of the NTX Mesh Meshtastic network nodes and connections across DFW and North Texas.">
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <style>
+        .map-page main {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            gap: 0;
+        }
+        .map-page main > nav {
+            padding: 0 1rem;
+        }
+        #map-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 0.6rem 1rem;
+            background: var(--color-canvasDark, #e3e3e3);
+            border-bottom: 1px solid var(--color-canvasBorder, #565764);
+            font-size: 0.9rem;
+        }
+        @media (prefers-color-scheme: dark) {
+            #map-controls { background: #1f2031; }
+        }
+        .view-toggle {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .view-toggle button {
+            padding: 0.3rem 0.9rem;
+            border-radius: 4px;
+            border: 1px solid var(--color-canvasBorder, #565764);
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: transparent;
+            color: inherit;
+            transition: background 0.15s;
+        }
+        .view-toggle button.active {
+            background: var(--accent, #2ce26a);
+            color: #1a1a2e;
+            border-color: var(--accent, #2ce26a);
+            font-weight: 600;
+        }
+        #stats-display {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+        }
+        #refresh-status {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+        #map-outer {
+            position: relative;
+            flex: 1;
+            min-height: 500px;
+            height: calc(100vh - 220px);
+        }
+        #leaflet-map {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #graph-view {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            display: none;
+        }
+        #graph-view svg {
+            width: 100%;
+            height: 100%;
+        }
+        #map-legend {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 0.75rem;
+            z-index: 1000;
+            background: rgba(20, 20, 40, 0.85);
+            color: #eee;
+            border-radius: 6px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.78rem;
+            line-height: 1.8;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+        .legend-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .legend-line {
+            display: inline-block;
+            height: 3px;
+            width: 24px;
+            border-radius: 2px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        #no-gps-notice {
+            position: absolute;
+            top: 0.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(20,20,40,0.82);
+            color: #ccc;
+            font-size: 0.78rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            pointer-events: none;
+            white-space: nowrap;
+            display: none;
+        }
+        /* D3 graph styles */
+        .graph-node circle {
+            stroke: rgba(255,255,255,0.25);
+            stroke-width: 1.5;
+            cursor: pointer;
+        }
+        .graph-node text {
+            fill: #ddd;
+            font-size: 11px;
+            pointer-events: none;
+            text-anchor: middle;
+            dominant-baseline: central;
+        }
+        .graph-link {
+            stroke-opacity: 0.55;
+        }
+        .graph-tooltip {
+            position: absolute;
+            background: rgba(20,20,40,0.92);
+            color: #eee;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            pointer-events: none;
+            line-height: 1.6;
+            z-index: 2000;
+            max-width: 220px;
+            display: none;
+            backdrop-filter: blur(4px);
+        }
+        .popup-name { font-weight: 700; font-size: 1em; margin-bottom: 2px; }
+        .popup-row { opacity: 0.85; }
+        .status-green { color: #2ce26a; }
+        .status-yellow { color: #f0b429; }
+        .status-gray { color: #9ca3af; }
+    </style>
+</head>
+<body class="map-page">
+    <header>
+        <a href="/"><img src="images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="826" height="200"></a>
+    </header>
+    <main>
+        <nav>
+            <menu>
+                <li><a href="/">Home</a></li>
+                <li>
+                    <a href="/learn/">Learn</a>
+                    <menu>
+                        <li><a href="/learn/#about">About</a></li>
+                        <li><a href="/learn/#coverage">Network coverage</a></li>
+                        <li><a href="/coverage-map/index.html">Meshtastic Radio Preset by County</a></li>
+                        <li><a href="/mc-repeaters/index.html">MeshCore Repeater Deployment</a></li>
+                        <li><a href="/learn/#comparisons">Similar technology</a></li>
+                    </menu>
+                </li>
+                <li>
+                    <a href="/join/">Join</a>
+                    <menu>
+                        <li><a href="/join/#network">Join the network</a></li>
+                        <li><a href="/join/#best-practices">Best practices</a></li>
+                        <li><a href="/join/#group">Join the group</a></li>
+                    </menu>
+                </li>
+                <li><a href="../calendar/index.html">Community Calendar</a></li>
+                <li>
+                    <a href="/devices/">Devices &amp; Hardware</a>
+                    <menu>
+                        <li><a href="/devices/#options">Options &amp; Recommendations</a></li>
+                        <li><a href="/devices/#solar">Building a Solar Repeater</a></li>
+                    </menu>
+                </li>
+                <li>
+                    <a href="/similar-networks/">Similar networks</a>
+                    <menu>
+                        <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
+                        <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
+                    </menu>
+                </li>
+                <li><a href="/partners/">Partners</a></li>
+                <li><a href="/map.html" aria-current="page">Network Map</a></li>
+            </menu>
+        </nav>
+
+        <div id="map-controls">
+            <div class="view-toggle">
+                <button id="btn-map" class="active" onclick="switchView('map')">Geographic Map</button>
+                <button id="btn-graph" onclick="switchView('graph')">Network Graph</button>
+            </div>
+            <div id="stats-display">Loading&hellip;</div>
+            <div id="refresh-status">Refreshing in 60s</div>
+        </div>
+
+        <div id="map-outer">
+            <div id="leaflet-map"></div>
+            <div id="graph-view">
+                <svg id="d3-svg"></svg>
+                <div class="graph-tooltip" id="graph-tooltip"></div>
+            </div>
+            <div id="map-legend">
+                <div><span class="legend-dot" style="background:#2ce26a;"></span>Active &lt; 30 min</div>
+                <div><span class="legend-dot" style="background:#f0b429;"></span>Recent &lt; 2 hr</div>
+                <div><span class="legend-dot" style="background:#6b7280;"></span>Older / unknown</div>
+                <div style="margin-top:4px;border-top:1px solid rgba(255,255,255,0.15);padding-top:4px;">
+                    <span class="legend-line" style="background:#aaa;height:2px;"></span>Low SNR
+                </div>
+                <div><span class="legend-line" style="background:#aaa;height:5px;"></span>High SNR</div>
+            </div>
+            <div id="no-gps-notice"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Our website content is licensed under Creative Commons <br>
+            Forked and adapted from <a href="AustinMesh.org">Austin Mesh</a><br><br>
+        </p>
+        <p>From <a href="AustinMesh.org">Austin Mesh</a>:<br>
+            feel free to use it for your club's website: <a href="https://github.com/austinmesh/www">Github</a><br>
+            If we've inspired you, please <a href="mailto:info@austinmesh.org">email us</a>!<br>
+            This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/sp38=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <script>
+    (() => {
+        const API_URL = 'https://api.ntxmesh.com/api/graph';
+        const DFW_CENTER = [32.89, -97.04];
+        const REFRESH_INTERVAL = 60;
+
+        let graphData = { nodes: [], edges: [] };
+        let currentView = 'map';
+        let leafletMap = null;
+        let leafletNodeLayer = null;
+        let leafletEdgeLayer = null;
+        let d3Simulation = null;
+        let countdownValue = REFRESH_INTERVAL;
+        let countdownTimer = null;
+        let refreshTimer = null;
+
+        // ── Color / weight helpers ────────────────────────────────────────────
+
+        function nodeColor(seconds) {
+            if (seconds === null || seconds === undefined) return '#6b7280';
+            if (seconds < 30 * 60) return '#2ce26a';
+            if (seconds < 2 * 60 * 60) return '#f0b429';
+            return '#6b7280';
+        }
+
+        function nodeColorClass(seconds) {
+            if (seconds === null || seconds === undefined) return 'status-gray';
+            if (seconds < 30 * 60) return 'status-green';
+            if (seconds < 2 * 60 * 60) return 'status-yellow';
+            return 'status-gray';
+        }
+
+        function edgeWidth(snr) {
+            if (snr === null || snr === undefined) return 1;
+            const clamped = Math.max(-20, Math.min(10, snr));
+            return 1 + ((clamped + 20) / 30) * 4;
+        }
+
+        function formatLastSeen(seconds) {
+            if (seconds === null || seconds === undefined) return 'Unknown';
+            if (seconds < 60) return `${seconds}s ago`;
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        function popupHTML(node) {
+            const colorClass = nodeColorClass(node.seconds_since_seen);
+            return `
+                <div class="popup-name">${node.long_name || node.short_name || node.node_id}</div>
+                <div class="popup-row"><b>ID:</b> ${node.node_id}</div>
+                ${node.short_name ? `<div class="popup-row"><b>Short:</b> ${node.short_name}</div>` : ''}
+                ${node.hardware ? `<div class="popup-row"><b>Hardware:</b> ${node.hardware}</div>` : ''}
+                ${node.battery_level !== null && node.battery_level !== undefined
+                    ? `<div class="popup-row"><b>Battery:</b> ${node.battery_level}%</div>` : ''}
+                ${node.altitude !== null && node.altitude !== undefined
+                    ? `<div class="popup-row"><b>Altitude:</b> ${node.altitude}m</div>` : ''}
+                <div class="popup-row ${colorClass}"><b>Last seen:</b> ${formatLastSeen(node.seconds_since_seen)}</div>
+            `;
+        }
+
+        // ── Data fetching ─────────────────────────────────────────────────────
+
+        async function fetchData() {
+            try {
+                const resp = await fetch(API_URL);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                graphData = await resp.json();
+                updateStats();
+                if (currentView === 'map') renderLeaflet();
+                else renderD3();
+            } catch (err) {
+                console.error('Failed to fetch graph data:', err);
+                document.getElementById('stats-display').textContent = 'Error loading data — retrying soon';
+            }
+        }
+
+        function updateStats() {
+            const total = graphData.nodes.length;
+            const active = graphData.nodes.filter(n => n.seconds_since_seen !== null && n.seconds_since_seen < 7200).length;
+            const withGPS = graphData.nodes.filter(n => n.lat && n.lon).length;
+            document.getElementById('stats-display').textContent =
+                `Active: ${active} / Total: ${total} nodes  |  ${withGPS} with GPS`;
+        }
+
+        // ── Leaflet map ───────────────────────────────────────────────────────
+
+        function initLeaflet() {
+            leafletMap = L.map('leaflet-map', { zoomControl: true }).setView(DFW_CENTER, 9);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(leafletMap);
+            leafletEdgeLayer = L.layerGroup().addTo(leafletMap);
+            leafletNodeLayer = L.layerGroup().addTo(leafletMap);
+        }
+
+        function renderLeaflet() {
+            if (!leafletMap) initLeaflet();
+
+            leafletEdgeLayer.clearLayers();
+            leafletNodeLayer.clearLayers();
+
+            // Build node lookup for edges
+            const nodeById = {};
+            graphData.nodes.forEach(n => { nodeById[n.node_id] = n; });
+
+            // Draw edges first (under nodes)
+            (graphData.edges || []).forEach(edge => {
+                const a = nodeById[edge.from_node];
+                const b = nodeById[edge.to_node];
+                if (!a || !b || !a.lat || !a.lon || !b.lat || !b.lon) return;
+                const w = edgeWidth(edge.snr);
+                L.polyline([[a.lat, a.lon], [b.lat, b.lon]], {
+                    color: '#67EA94',
+                    weight: w,
+                    opacity: 0.45,
+                }).addTo(leafletEdgeLayer);
+            });
+
+            // Draw nodes
+            let noGPS = 0;
+            graphData.nodes.forEach(node => {
+                if (!node.lat || !node.lon) { noGPS++; return; }
+                const color = nodeColor(node.seconds_since_seen);
+                const marker = L.circleMarker([node.lat, node.lon], {
+                    radius: 8,
+                    fillColor: color,
+                    color: 'rgba(255,255,255,0.3)',
+                    weight: 1.5,
+                    fillOpacity: 0.9,
+                });
+                marker.bindPopup(popupHTML(node), { maxWidth: 240 });
+                marker.addTo(leafletNodeLayer);
+            });
+
+            const notice = document.getElementById('no-gps-notice');
+            if (noGPS > 0) {
+                notice.textContent = `${noGPS} node${noGPS > 1 ? 's' : ''} without GPS not shown`;
+                notice.style.display = 'block';
+            } else {
+                notice.style.display = 'none';
+            }
+        }
+
+        // ── D3 force graph ────────────────────────────────────────────────────
+
+        function renderD3() {
+            const container = document.getElementById('graph-view');
+            const svgEl = document.getElementById('d3-svg');
+            const tooltip = document.getElementById('graph-tooltip');
+            const W = container.clientWidth;
+            const H = container.clientHeight;
+
+            // Clear previous render
+            d3.select(svgEl).selectAll('*').remove();
+            if (d3Simulation) d3Simulation.stop();
+
+            const svg = d3.select(svgEl)
+                .attr('width', W)
+                .attr('height', H);
+
+            const g = svg.append('g');
+
+            // Zoom/pan
+            svg.call(d3.zoom()
+                .scaleExtent([0.2, 8])
+                .on('zoom', (event) => g.attr('transform', event.transform))
+            );
+
+            // Build data copies for simulation (D3 mutates them)
+            const nodes = graphData.nodes.map(n => ({ ...n }));
+            const nodeById = {};
+            nodes.forEach(n => { nodeById[n.node_id] = n; });
+
+            const links = (graphData.edges || [])
+                .filter(e => nodeById[e.from_node] && nodeById[e.to_node])
+                .map(e => ({ ...e, source: e.from_node, target: e.to_node }));
+
+            // Links
+            const link = g.append('g')
+                .selectAll('line')
+                .data(links)
+                .join('line')
+                .attr('class', 'graph-link')
+                .attr('stroke', '#67EA94')
+                .attr('stroke-width', d => edgeWidth(d.snr));
+
+            // Node groups
+            const node = g.append('g')
+                .selectAll('g')
+                .data(nodes)
+                .join('g')
+                .attr('class', 'graph-node')
+                .call(d3.drag()
+                    .on('start', (event, d) => {
+                        if (!event.active) d3Simulation.alphaTarget(0.3).restart();
+                        d.fx = d.x; d.fy = d.y;
+                    })
+                    .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+                    .on('end', (event, d) => {
+                        if (!event.active) d3Simulation.alphaTarget(0);
+                        d.fx = null; d.fy = null;
+                    })
+                );
+
+            node.append('circle')
+                .attr('r', 9)
+                .attr('fill', d => nodeColor(d.seconds_since_seen));
+
+            node.append('text')
+                .attr('dy', 22)
+                .text(d => d.short_name || d.node_id.slice(-4));
+
+            // Tooltip
+            node.on('mousemove', (event, d) => {
+                tooltip.innerHTML = popupHTML(d);
+                tooltip.style.display = 'block';
+                const rect = container.getBoundingClientRect();
+                let x = event.clientX - rect.left + 12;
+                let y = event.clientY - rect.top + 12;
+                if (x + 230 > W) x = x - 250;
+                if (y + 160 > H) y = y - 170;
+                tooltip.style.left = x + 'px';
+                tooltip.style.top = y + 'px';
+            }).on('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+
+            // Simulation
+            d3Simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links)
+                    .id(d => d.node_id)
+                    .distance(80)
+                    .strength(0.5))
+                .force('charge', d3.forceManyBody().strength(-200))
+                .force('center', d3.forceCenter(W / 2, H / 2))
+                .force('collision', d3.forceCollide(16))
+                .on('tick', () => {
+                    link
+                        .attr('x1', d => d.source.x)
+                        .attr('y1', d => d.source.y)
+                        .attr('x2', d => d.target.x)
+                        .attr('y2', d => d.target.y);
+                    node.attr('transform', d => `translate(${d.x},${d.y})`);
+                });
+        }
+
+        // ── View toggle ───────────────────────────────────────────────────────
+
+        function switchView(view) {
+            currentView = view;
+            const mapDiv = document.getElementById('leaflet-map');
+            const graphDiv = document.getElementById('graph-view');
+            const btnMap = document.getElementById('btn-map');
+            const btnGraph = document.getElementById('btn-graph');
+
+            if (view === 'map') {
+                mapDiv.style.display = 'block';
+                graphDiv.style.display = 'none';
+                btnMap.classList.add('active');
+                btnGraph.classList.remove('active');
+                // Invalidate size in case container resized
+                if (leafletMap) leafletMap.invalidateSize();
+                if (!leafletNodeLayer || leafletNodeLayer.getLayers().length === 0) renderLeaflet();
+            } else {
+                mapDiv.style.display = 'none';
+                graphDiv.style.display = 'block';
+                btnMap.classList.remove('active');
+                btnGraph.classList.add('active');
+                renderD3();
+            }
+        }
+
+        // ── Auto-refresh & countdown ──────────────────────────────────────────
+
+        function startCountdown() {
+            countdownValue = REFRESH_INTERVAL;
+            if (countdownTimer) clearInterval(countdownTimer);
+            countdownTimer = setInterval(() => {
+                countdownValue--;
+                document.getElementById('refresh-status').textContent =
+                    `Refreshing in ${countdownValue}s`;
+                if (countdownValue <= 0) {
+                    document.getElementById('refresh-status').textContent = 'Refreshing\u2026';
+                }
+            }, 1000);
+        }
+
+        function scheduleRefresh() {
+            if (refreshTimer) clearTimeout(refreshTimer);
+            startCountdown();
+            refreshTimer = setTimeout(async () => {
+                await fetchData();
+                scheduleRefresh();
+            }, REFRESH_INTERVAL * 1000);
+        }
+
+        // ── Boot ──────────────────────────────────────────────────────────────
+
+        window.switchView = switchView; // expose for onclick
+
+        (async () => {
+            await fetchData();
+            scheduleRefresh();
+        })();
+    })();
+    </script>
+</body>
+</html>
