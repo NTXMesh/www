@@ -9,75 +9,26 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-        <link rel="stylesheet" href="../styles.css?v=2">
-        <link rel="stylesheet" href="../mc-repeaters/repeater-grid.css">
+        <link rel="stylesheet" href="/styles.css?v=2">
+        <link rel="stylesheet" href="/mc-repeaters/repeater-grid.css">
     </head>
     <body>
         <header>
-            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
         </header>
         <main>
-            <nav>
-                <menu>
-                    <li><a href="/">Home</a></li>
-                    <li>
-                        <a href="/learn/">Learn</a>
-                        <menu>
-                            <li><a href="/learn/#about">About</a></li>
-                            <li><a href="/learn/#coverage">Network coverage</a></li>
-                            <li><a href="/coverage-map/index.html">Meshtastic Radio Preset by County</a></li>
-                            <li><a href="/mc-repeaters/index.html">MeshCore Repeater Deployment</a></li>
-                            <li><a href="/learn/#comparisons">Similar technology</a></li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="/join/">Join</a>
-                        <menu>
-                            <li><a href="/join/#network">Join the network</a></li>
-                            <li><a href="/join/#best-practices">Best practices</a></li>
-                            <li><a href="/join/#group">Join the group</a></li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="../calendar/index.html">Community Calendar</a>
-                    </li>
-                    <li>
-                        <a href="/devices/">Devices & Hardware</a>
-                        <menu>
-                            <li><a href="/devices/#options">Options & Recommendations</a>
-                                <menu>
-                                    <li><a href="/devices/#pocket-portable">Pocket/Portable</a></li>
-                                    <li><a href="/devices/#stationary-solar">Stationary/Solar</a></li>
-                                </menu>
-                            </li>
-                            <li><a href="/devices/#solar">Building a Solar Repeater</a>
-                                <menu>
-                                    <li><a href="/devices/#history">History</a></li>
-                                    <li><a href="/devices/#parts-list">Parts list</a></li>
-                                </menu>
-                            </li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="/similar-networks/">Similar networks</a>
-                        <menu>
-                            <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
-                            <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
-                        </menu>
-                    </li>
-                    <li><a href="/partners/">Partners</a></li>
-                </menu>
-            </nav>
+            <div id="navbar-container"></div>
+            <script src="/navbar.js"></script>
             <section id="repeaters">
                 <hgroup>
-                    <h1>Meshcore Repeater Deployment</h1>
-                    <h3>This page tracks Repeater IDs (00–FF) in DFW on <a href="https://dfw.meshmapper.net/">MeshMapper</a> / <a href="https://analyzer.letsmesh.net/packets?region=DFW">LetsMesh</a></h3>
+                    <h1>MeshCore Repeater Deployment</h1>
+                    <h3>This page tracks Repeater IDs (00-FF) in DFW, sourced from: <a href="https://dfw.meshmapper.net/?repeater_list">MeshMapper</a></h3>
                 </hgroup>
                 <p>The table below shows all 256 repeater IDs. Colors indicate status:</p>
-                <p>🟢 Available - click <button onclick="document.getElementById('keygen').showModal()">Generate Keys</button> to create a private/public key pair</p>
-                <p>🔴 Deployed - see table below for more information</p>
-                <p>🔵 Duplicate/Conflict - resolve conflicts by changing the repeater public/private keys</p>
-                <p>⚫ Reserved - these IDs are not available by design</p>
+                <p>Available - click <button onclick="document.getElementById('keygen').showModal()">Generate Keys</button> to create a private/public key pair</p>
+                <p>Deployed - see table below for more information</p>
+                <p>Duplicate/Conflict - resolve conflicts by changing the repeater public/private keys</p>
+                <p>Reserved - these IDs are not available by design</p>
                 <dialog id="keygen" style="max-width:900px;">
                     <iframe src="https://gessaman.com/mc-keygen/" style="width:800px;height:800px"></iframe>
                     <footer>
@@ -87,7 +38,7 @@
                         </form>
                     </footer>
                 </dialog>
-                <table id="repeater-hex-grid" class="hex-table">
+<!--                <table id="repeater-hex-grid" class="hex-table">
                     <tbody>
                         <tr>
                             <th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th>
@@ -168,10 +119,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Rows will be populated dynamically -->
                     </tbody>
                 </table>
-                <p>Last updated: 2026/02/24</p>
+                <p>Last updated: 2026/03/18</p> -->
+                <iframe
+                    src="https://dfw.meshmapper.net/embed_repeaters.php"
+                    width="100%"
+                    height="700"
+                    style="border: none;"
+                    loading="lazy">
+                </iframe>
             </section>
         </main>
         <footer>
@@ -215,7 +172,6 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
             }
         }
 
-        // Function to parse CSV data
         function parseCSV(csvData) {
             const rows = [];
             let currentRow = [];
@@ -226,25 +182,20 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 const char = csvData[i];
 
                 if (char === '"') {
-                    // Toggle the insideQuotes flag
                     insideQuotes = !insideQuotes;
                 } else if (char === ',' && !insideQuotes) {
-                    // If not inside quotes, end the current value and move to the next column
                     currentRow.push(currentValue.trim());
                     currentValue = '';
                 } else if (char === '\n' && !insideQuotes) {
-                    // If not inside quotes, end the current row and move to the next row
                     currentRow.push(currentValue.trim());
                     rows.push(currentRow);
                     currentRow = [];
                     currentValue = '';
                 } else {
-                    // Add the character to the current value
                     currentValue += char;
                 }
             }
 
-            // Add the last value and row if the CSV doesn't end with a newline
             if (currentValue) {
                 currentRow.push(currentValue.trim());
             }
@@ -252,28 +203,22 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 rows.push(currentRow);
             }
 
-            // Separate headers and data
             const headers = rows[0];
             const data = rows.slice(1);
 
             return { headers, data };
         }
 
-        // Function to populate the HTML table
         function populateTable(data, headers) {
             const tableBody = document.querySelector("#data-table tbody");
-
-            // Find the indices of the required columns
             const nameIndex = headers.indexOf("Name");
             const idIndex = headers.indexOf("ID");
             const locationIndex = headers.indexOf("Location");
             const heardIndex = headers.indexOf("Last Heard");
 
-            // Populate rows
             data.forEach(row => {
                 const tableRow = document.createElement("tr");
 
-                // Add Name, ID, and Location columns
                 [nameIndex, idIndex, locationIndex, heardIndex].forEach(index => {
                     const cell = document.createElement("td");
                     cell.textContent = row[index];
@@ -281,19 +226,17 @@ This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attr
                 });
 
                 addRepeater(row[idIndex], row[nameIndex]);
-
                 tableBody.appendChild(tableRow);
             });
         }
 
-        // Fetch the CSV file and process it
-        fetch("repeaters.csv")
-            .then(response => response.text())
-            .then(csvData => {
-                const { headers, data } = parseCSV(csvData);
-                populateTable(data, headers);
-            })
-            .catch(error => console.error("Error loading CSV file:", error));
+    //    fetch("repeaters.csv")
+    //        .then(response => response.text())
+    //        .then(csvData => {
+    //            const { headers, data } = parseCSV(csvData);
+    //            populateTable(data, headers);
+    //        })
+    //        .catch(error => console.error("Error loading CSV file:", error));
 
     </script>
 </html>

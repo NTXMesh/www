@@ -11,7 +11,7 @@
 </script>
     
     <head>
-        <title>Join NTX Mesh</title>
+        <title>Join | NTX Mesh</title>
         <meta name="description" content="Learn about joining the NTX Mesh network, group, and our best practices.">
         <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -19,67 +19,18 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
-        <link rel="stylesheet" href="../styles.css?v=2">
+        <link rel="stylesheet" href="/styles.css?v=2">
     </head>
     <body>
         <header>
-            <a href="/"><img src="../images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
         </header>
         <main>
-            <nav>
-                <menu>
-                    <li><a href="/">Home</a></li>
-                    <li>
-                        <a href="/learn/">Learn</a>
-                        <menu>
-                            <li><a href="/learn/#about">About</a></li>
-                            <li><a href="/learn/#coverage">Network coverage</a></li>
-                            <li><a href="/coverage-map/index.html">Meshtastic Radio Preset by County</a></li>
-                            <li><a href="/mc-repeaters/index.html">MeshCore Repeater Deployment</a></li>
-                            <li><a href="/learn/#comparisons">Similar technology</a></li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="/join/">Join</a>
-                        <menu>
-                            <li><a href="/join/#network">Join the network</a></li>
-                            <li><a href="/join/#best-practices">Best practices</a></li>
-                            <li><a href="/join/#group">Join the group</a></li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="../calendar/index.html">Community Calendar</a>
-                    </li>
-                    <li>
-                        <a href="/devices/">Devices & Hardware</a>
-                        <menu>
-                            <li><a href="/devices/#options">Options & Recommendations</a>
-                                <menu>
-                                    <li><a href="/devices/#pocket-portable">Pocket/Portable</a></li>
-                                    <li><a href="/devices/#stationary-solar">Stationary/Solar</a></li>
-                                </menu>
-                            </li>
-                            <li><a href="/devices/#solar">Building a Solar Repeater</a>
-                                <menu>
-                                    <li><a href="/devices/#history">History</a></li>
-                                    <li><a href="/devices/#parts-list">Parts list</a></li>
-                                </menu>
-                            </li>
-                        </menu>
-                    </li>
-                    <li>
-                        <a href="/similar-networks/">Similar networks</a>
-                        <menu>
-                            <li><a href="/similar-networks/#other-meshes">Other meshes</a></li>
-                            <li><a href="/similar-networks/#start-a-similar-network">Start a similar network</a></li>
-                        </menu>
-                    </li>
-                    <li><a href="/partners/">Partners</a></li>
-                </menu>
-            </nav>
+            <div id="navbar-container"></div>
+            <script src="/navbar.js"></script>
             <section class="social">
                 <h5>Join us on</h5>
-                <a href="https://discord.gg/nGeQ8cbSM3" target="_blank"><img src="../images/social/discord.svg"
+                <a href="https://discord.gg/nGeQ8cbSM3" target="_blank"><img src="/images/social/discord.svg"
                     title="NTX Mesh Discord"
                     alt="Discord logo"
                     width="40"
@@ -103,24 +54,31 @@
                 <h2>Connect to the network</h2>
                 <ol>
                     <li>
-                        Get a Meshtastic Radio.
-                        <br> You can build one yourself for about $35. The official Meshtastic page keeps a current list of <a href="https://meshtastic.org/docs/hardware/devices/">Supported Hardware.</a> The LILYGO T-Echo is a good first meshtastic radio, as it costs around $70 and is ready to go out of the box (besides having to flash the firmware).
+                        Get a Meshtastic or MeshCore Radio.
+                        <br> You can build one yourself for about $35. The official Meshtastic page keeps a current list of <a href="https://meshtastic.org/docs/hardware/devices/">Supported Hardware.</a> The <a href="https://flasher.meshcore.io/">MeshCore Flasher</a> has a list of devices for which there is pre-compiled community firware. The LILYGO T-Echo is a good first meshtastic radio, as it costs around $70 and is ready to go out of the box (besides having to flash the firmware).
                         <br> You can also buy a pre-built battery-powered radio for between $50-$100 on Etsy or eBay - these usually have 3D printed cases.
                         <br> If you can afford it, and have a place to mount it outside, we recommend you buy a pre-built solar-powered node for between $100 and $200 on Etsy and mount it as high off the ground as you can. Alternatively you can <a href="/devices/">build your own</a>.
                     </li>
-                    <li>Download the <a href="https://meshtastic.org/docs/software">Meshtastic App</a> on your iPhone or Android.</li>
+                    <li>Download the <a href="https://meshtastic.org/docs/software">Meshtastic App</a> or <a href="https://meshcore.io/#download">MeshCore App</a> on your iPhone or Android.</li>
                     <li>Pair your radio to your phone with Bluetooth.</li>
-                    <li>Open the Meshtastic app and say hi!</li>
+                    <li>Configure your radio and say hi!</li>
                 </ol>
             </section>
             <section id="best-practices">
                 <h2>Best practices</h2>
-                <h3>TL;DR;</h3>
+                <h3>TL;DR: Meshtastic</h3>
                 <ul>
                     <li><strong>MQTT</strong>: Disabled;Ignore;</li>
                     <li><strong>Role</strong>: Client (<strong>NOT</strong> Router & Client)</li>
                     <li><strong>Hop Count</strong>: 3</li>
                     <li><strong>Broadcast intervals</strong>(info, position, telemetry): 3 hours</li>
+                </ul>
+                <h3>TL;DR: MeshCore</h3>
+                <ul>
+                    <li><strong>Radio Settings</strong>: US/Canada (Freq: 910.525 MHz, BW: 62.5 kHz, SF: 7, CR: 5)</li>
+                    <li><strong>Device Type</strong>: Companion for handheld and mobile nodes, Repeater for stationary nodes up high</li>
+                    <li><strong>Repeater Advert Interval (Flood)</strong>: Flood - 33 hours | Zero-Hop - 240 minutes
+                    <li><strong>Repeater Guest Password</strong>: [Leave Blank] (allow telemetry to be viewed)</li>
                 </ul>
                 <p>This is a community driven project, following these guidelines will ensure the best experience for everyone as we continue to grow. (credit @Nick, @AdvJosh (TEX#) - KJ5FZD, @edsai KI5OSB)</p>
                 <h3>MQTT</h3>
