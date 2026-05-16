@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-RGYHDR5D6D');
+        </script>
+        <!-- Plausible Analytics -->
+        <script defer data-domain="ntxmesh.com" src="https://plausible.io/js/script.js"></script>
+        <title>Stats | NTX Mesh</title>
+        <meta name="description" content="Public site analytics and live network stats for the NTX Mesh community.">
+        <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+        <link rel="stylesheet" href="/styles.css?v=2">
+        <style>
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 0.75rem;
+                margin: 1rem 0;
+            }
+            .stat-card {
+                background: var(--color-canvasDark, #f4f4f4);
+                border: 1px solid var(--color-canvasBorder, #ccc);
+                border-radius: 8px;
+                padding: 1rem;
+                text-align: center;
+            }
+            @media (prefers-color-scheme: dark) {
+                .stat-card { background: #1f2031; }
+            }
+            .stat-value {
+                display: block;
+                font-size: 2rem;
+                font-weight: 700;
+                line-height: 1.1;
+                margin-bottom: 0.25rem;
+            }
+            .stat-label {
+                font-size: 0.85rem;
+                opacity: 0.75;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .stat-value.loading { opacity: 0.4; }
+            .stat-value.error { color: #c0392b; font-size: 1rem; }
+            #network-updated {
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 0.25rem;
+            }
+            .plausible-frame {
+                width: 100%;
+                min-height: 1600px;
+                border: 1px solid var(--color-canvasBorder, #ccc);
+                border-radius: 8px;
+                margin-top: 0.5rem;
+            }
+        </style>
+    </head>
+    <body data-new-gr-c-s-check-loaded="8.927.0" data-gr-ext-installed="">
+        <header class="loaded">
+            <a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+        </header>
+        <main>
+            <div id="navbar-container"></div>
+            <script src="/navbar.js"></script>
+
+            <section>
+                <h1>Stats</h1>
+                <p>A live look at the NTX Mesh community: who's online on the radio network right now, plus public web traffic to this site. Mesh numbers refresh every 60 seconds; web stats refresh continuously in the embedded dashboard below.</p>
+            </section>
+
+            <section>
+                <h2>Network at a glance</h2>
+                <p>Live state of the Meshtastic radio mesh. See the <a href="/map.html">Network Map</a> for the full picture.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value loading" id="stat-active">&hellip;</span>
+                        <span class="stat-label">Active (&lt; 2 hr)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value loading" id="stat-total">&hellip;</span>
+                        <span class="stat-label">Total nodes</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value loading" id="stat-gps">&hellip;</span>
+                        <span class="stat-label">With GPS</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value loading" id="stat-edges">&hellip;</span>
+                        <span class="stat-label">Edges</span>
+                    </div>
+                </div>
+                <div id="network-updated">Loading network data&hellip;</div>
+            </section>
+
+            <section>
+                <h2>Site traffic</h2>
+                <p>Public web analytics for ntxmesh.com, served by <a href="https://plausible.io/" target="_blank" rel="noopener">Plausible Analytics</a>. Cookieless and privacy-friendly. Data begins from the day Plausible was added to the site.</p>
+                <iframe
+                    plausible-embed
+                    src="https://plausible.io/share/ntxmesh.com?auth=PLAUSIBLE_SHARED_LINK_TOKEN&amp;embed=true&amp;theme=system"
+                    loading="lazy"
+                    class="plausible-frame"
+                    title="NTX Mesh site analytics"></iframe>
+                <script async src="https://plausible.io/js/embed.host.js"></script>
+                <p style="font-size:0.85rem;opacity:0.7;">No iframe? Visit the <a href="https://plausible.io/ntxmesh.com" target="_blank" rel="noopener">public dashboard directly</a>.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>Our website content is licensed under Creative Commons <br>
+                Forked and adapted from <a href="AustinMesh.org">Austin Mesh</a> <br>
+                <br>
+            </p>
+            <p>From <a href="AustinMesh.org">Austin Mesh</a>:<br>
+                feel free to use if for your club's website: <a href="https://github.com/austinmesh/www">Github</a><br>
+                If we've inspired you, please <a href="mailto:info@austinmesh.org">email us</a>! <br>
+                This site is (c) by Tommy Ekstrand and is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.&nbsp;<br>
+            </p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelector("header").classList.add("loaded");
+            });
+        </script>
+
+        <script>
+        (() => {
+            const API_URL = 'https://api.ntxmesh.com/api/graph';
+            const REFRESH_MS = 60 * 1000;
+
+            const el = {
+                active: document.getElementById('stat-active'),
+                total: document.getElementById('stat-total'),
+                gps: document.getElementById('stat-gps'),
+                edges: document.getElementById('stat-edges'),
+                updated: document.getElementById('network-updated'),
+            };
+
+            function setLoaded(node, value) {
+                node.classList.remove('loading', 'error');
+                node.textContent = value;
+            }
+
+            function setError() {
+                [el.active, el.total, el.gps, el.edges].forEach(n => {
+                    n.classList.remove('loading');
+                    n.classList.add('error');
+                    n.textContent = '—';
+                });
+                el.updated.textContent = 'Network data unavailable — will retry.';
+            }
+
+            async function refresh() {
+                try {
+                    const resp = await fetch(API_URL, { cache: 'no-store' });
+                    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                    const data = await resp.json();
+                    const nodes = data.nodes || [];
+                    const edges = data.edges || [];
+                    const active = nodes.filter(n => n.seconds_since_seen !== null && n.seconds_since_seen !== undefined && n.seconds_since_seen < 7200).length;
+                    const withGPS = nodes.filter(n => n.lat && n.lon).length;
+                    setLoaded(el.active, active);
+                    setLoaded(el.total, nodes.length);
+                    setLoaded(el.gps, withGPS);
+                    setLoaded(el.edges, edges.length);
+                    el.updated.textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+                } catch (err) {
+                    console.error('Failed to load network stats:', err);
+                    setError();
+                }
+            }
+
+            refresh();
+            setInterval(refresh, REFRESH_MS);
+        })();
+        </script>
+    </body>
+</html>
