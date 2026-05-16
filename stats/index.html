@@ -25,42 +25,6 @@
         <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
         <link rel="stylesheet" href="/styles.css?v=2">
         <style>
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 0.75rem;
-                margin: 1rem 0;
-            }
-            .stat-card {
-                background: var(--color-canvasDark, #f4f4f4);
-                border: 1px solid var(--color-canvasBorder, #ccc);
-                border-radius: 8px;
-                padding: 1rem;
-                text-align: center;
-            }
-            @media (prefers-color-scheme: dark) {
-                .stat-card { background: #1f2031; }
-            }
-            .stat-value {
-                display: block;
-                font-size: 2rem;
-                font-weight: 700;
-                line-height: 1.1;
-                margin-bottom: 0.25rem;
-            }
-            .stat-label {
-                font-size: 0.85rem;
-                opacity: 0.75;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-            .stat-value.loading { opacity: 0.4; }
-            .stat-value.error { color: #c0392b; font-size: 1rem; }
-            #network-updated {
-                font-size: 0.8rem;
-                opacity: 0.6;
-                margin-top: 0.25rem;
-            }
             .plausible-frame {
                 width: 100%;
                 min-height: 1600px;
@@ -79,37 +43,11 @@
             <script src="/navbar.js"></script>
 
             <section>
-                <h1>Stats</h1>
-                <p>A live look at the NTX Mesh community: who's online on the radio network right now, plus public web traffic to this site. Mesh numbers refresh every 60 seconds; web stats refresh continuously in the embedded dashboard below.</p>
+                <h1>Site Analytics</h1>
+                <p>Public web analytics for ntxmesh.com, served by <a href="https://plausible.io/" target="_blank" rel="noopener">Plausible Analytics</a>. Cookieless and privacy-friendly &mdash; no personal data collected.</p>
             </section>
 
             <section>
-                <h2>Network at a glance</h2>
-                <p>Live state of the Meshtastic radio mesh. See the <a href="/map.html">Network Map</a> for the full picture.</p>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value loading" id="stat-active">&hellip;</span>
-                        <span class="stat-label">Active (&lt; 2 hr)</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value loading" id="stat-total">&hellip;</span>
-                        <span class="stat-label">Total nodes</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value loading" id="stat-gps">&hellip;</span>
-                        <span class="stat-label">With GPS</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value loading" id="stat-edges">&hellip;</span>
-                        <span class="stat-label">Edges</span>
-                    </div>
-                </div>
-                <div id="network-updated">Loading network data&hellip;</div>
-            </section>
-
-            <section>
-                <h2>Site traffic</h2>
-                <p>Public web analytics for ntxmesh.com, served by <a href="https://plausible.io/" target="_blank" rel="noopener">Plausible Analytics</a>. Cookieless and privacy-friendly. Data begins from the day Plausible was added to the site.</p>
                 <iframe
                     plausible-embed
                     src="https://plausible.io/share/ntxmesh.com?auth=yGBw-OiWwPM2AfAxP0l2R&amp;embed=true&amp;theme=system"
@@ -137,58 +75,6 @@
             document.addEventListener("DOMContentLoaded", function() {
                 document.querySelector("header").classList.add("loaded");
             });
-        </script>
-
-        <script>
-        (() => {
-            const API_URL = 'https://api.ntxmesh.com/api/graph';
-            const REFRESH_MS = 60 * 1000;
-
-            const el = {
-                active: document.getElementById('stat-active'),
-                total: document.getElementById('stat-total'),
-                gps: document.getElementById('stat-gps'),
-                edges: document.getElementById('stat-edges'),
-                updated: document.getElementById('network-updated'),
-            };
-
-            function setLoaded(node, value) {
-                node.classList.remove('loading', 'error');
-                node.textContent = value;
-            }
-
-            function setError() {
-                [el.active, el.total, el.gps, el.edges].forEach(n => {
-                    n.classList.remove('loading');
-                    n.classList.add('error');
-                    n.textContent = '—';
-                });
-                el.updated.textContent = 'Network data unavailable — will retry.';
-            }
-
-            async function refresh() {
-                try {
-                    const resp = await fetch(API_URL, { cache: 'no-store' });
-                    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-                    const data = await resp.json();
-                    const nodes = data.nodes || [];
-                    const edges = data.edges || [];
-                    const active = nodes.filter(n => n.seconds_since_seen !== null && n.seconds_since_seen !== undefined && n.seconds_since_seen < 7200).length;
-                    const withGPS = nodes.filter(n => n.lat && n.lon).length;
-                    setLoaded(el.active, active);
-                    setLoaded(el.total, nodes.length);
-                    setLoaded(el.gps, withGPS);
-                    setLoaded(el.edges, edges.length);
-                    el.updated.textContent = 'Last updated: ' + new Date().toLocaleTimeString();
-                } catch (err) {
-                    console.error('Failed to load network stats:', err);
-                    setError();
-                }
-            }
-
-            refresh();
-            setInterval(refresh, REFRESH_MS);
-        })();
         </script>
     </body>
 </html>
