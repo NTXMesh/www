@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-RGYHDR5D6D');
+		</script>
+		<!-- Privacy-friendly analytics by Plausible -->
+		<script async src="https://plausible.io/js/pa-rDkhk-jIFo-m81VspsEPY.js"></script>
+		<script>
+			window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+			plausible.init()
+		</script>
+		<title>Devices | NTX Mesh</title>
+		<meta name="description" content="Tried and tested solar-powered repeater build methods and parts for making your own Meshtastic repeater.">
+		<meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+		<link rel="stylesheet" href="/styles.css?v=2">
+	</head>
+	<body>
+		<header>
+			<a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+		</header>
+		<main>
+			<div id="navbar-container"></div>
+			<script src="/navbar.js"></script>
+			<section id="power">
+				<hgroup>
+					<h1>How to power the Rakwireless 1W Booster (RAK13302)</h1>
+				</hgroup>
+				<p>There has been much confusion on how to power the Rakwireless 1W Booster. Atlavox has a great video on their youtube channel on how to do this. 
+					(<a href="https://www.youtube.com/watch?v=S28xwvTSWZ8" target="_blank">Link</a>) This guide has been put together to help explain it further.
+				</p>
+				<p>There are three ways to power the 1W Booster.</p>
+				<ul>
+					<li><a href="#external">5V power to the booster</a></li>
+					<li><a href="#solar_battery">Solar/USB-C/5V DC and 3.7v battery</a></li>
+					<li><a href="#battery_only">3.7v Battery only</a></li>
+				</ul>
+				<center>
+					<img src="/images/hardware/RAK_1W_Power.jpg" style="width:75%;"><br/>
+					<p style="font-size: 14px"><a href="https://downloads.rakwireless.com/Meshtastic/Quick%20Start%20Guide_WisMesh%201W%20Booster%20Starter%20Kit.pdf" target="_blank">RakWirless Documentation</a></p>
+				</center>
+				<br/>
+				<h3 id="external">5V power to the booster (jumper to external)</h3>
+				<p>In this setup you are providing 5v 1.5amps of DC current directly to the booster chip itself. this is done be connecting the 5V source to the back of the RAK13302 board and making sure the jumper on the front is contacting the pins closest to the antenna port. This will power the whole unit and can charge a battery.</p>
+				<p>Both the <a href="https://store.rakwireless.com/products/meshtastic-1w-lora-booster-kit-rak3401" target="_blank">1W Booster Kit</a> and the stand-alone <a href="https://store.rakwireless.com/products/rak13302-meshtastic-1w-lora-module" target="_blank">RAK13302 module</a> come with the external power connector cable. 
+				<center><img src="/images/hardware/5v_dc_power_external.jpg" style="width:50%"></center><br/>
+				<p>A battery can still be plugged into the battery port on the RAK19007 base board to maintain connectivity in power outage. A battery is optional in this configuration.</p>
+				<h3 id="solar_battery">Solar/USB-C/5V DC and 3.7v battery (jumper to internal)</h3>
+				<p>The 1W booster can also be setup to use the base board power connections. A battery is required in this configuration due to the higher power draw of the booster.</p>
+				<p>The jumper on the RAK13302 needs to be on the two pins farther away from the antenna port.</p>
+				<p>USB-C power, 5V Solar power, or 5V DC power can be connected to power the board and charge the battery. A larger battery and Solar panel are recommended 
+				<p>The battery connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#battery-connection" target="_blank">JST PHR-2 2mm pitch female</a> connection.</p>
+				<p>The solar connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#solar-panel-connection" target="_blank">JST ZHR-2 1.5 mm pitch female</a> connection.</p>
+				<h3 id="battery_only">3.7v Battery Only (jumper to internal)</h3>
+				<p>The Rak base board and 1W booster can all be powered by a battery alone. Connect the battery to the battery port on the Rak Base board.</p>
+				<h3>References</h3>
+				<ul>
+					<li><a href="https://docs.rakwireless.com/product-categories/meshtastic/wismesh-starter-kit-rak3401/quickstart/" target="_blank">RakWireless 1W Booster Kit Quick Start Guide</a></li>
+					<li><a href="https://docs.rakwireless.com/product-categories/wisblock/rak13302/quickstart/" target="_blank">RAK13302 1W Booster Quick Start Guide</a></li>
+				</ul>
+			</section>
+		</main>
+		<div id="footer-container"></div>
+		<script src="/footer.js"></script>
+	</body>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		    document.querySelector("header").classList.add("loaded");
+		});
+	</script>
+</html>
