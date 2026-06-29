@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		
+		gtag('config', 'G-RGYHDR5D6D');
+	</script>
+	<!-- Privacy-friendly analytics by Plausible -->
+	<script async src="https://plausible.io/js/pa-rDkhk-jIFo-m81VspsEPY.js"></script>
+	<script>
+		window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+		plausible.init()
+	</script>
+	<head>
+		<title>Wy-Bo Outdoor Solar MeshNode Build Guide | NTX Mesh</title>
+		<meta name="description" content="A complete build guide for the Wy-Bo Outdoor Solar MeshNode - a dual-firmware router supporting both MeshCore and Meshtastic.">
+		<meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+		<link rel="stylesheet" href="/styles.css?v=2">
+		<style>
+			/* --- Typography overrides for page content --- */
+			main h1, main h2, main h3, main h4 {
+				font-weight: 700;
+				color: var(--color-canvasText);
+			}
+			main p, main li, main td, main figcaption {
+				line-height: 1.6;
+				color: var(--color-canvasText);
+			}
+
+			/* --- Page Container styling --- */
+			.guide-container {
+				max-width: 900px;
+				margin: 0 auto;
+				padding: 0 16px;
+			}
+
+			/* --- Quick Navigation Menu --- */
+			.guide-nav-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+				padding: 0;
+				list-style: none;
+				margin: 2rem 0;
+			}
+			.guide-nav-list a {
+				background: rgba(44, 226, 106, 0.08);
+				color: var(--color-canvasTextDark, #107633);
+				padding: 8px 16px;
+				border-radius: 30px;
+				font-weight: 500;
+				text-decoration: none;
+				font-size: 0.9rem;
+				transition: all 0.2s ease;
+				border: 1px solid rgba(44, 226, 106, 0.15);
+			}
+			.guide-nav-list a:hover {
+				background: var(--accent, #2ce26a);
+				color: #fff;
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(44, 226, 106, 0.2);
+			}
+			@media (prefers-color-scheme: dark) {
+				.guide-nav-list a {
+					background: rgba(44, 226, 106, 0.15);
+					color: var(--ly-brand, #67EA94);
+					border-color: rgba(44, 226, 106, 0.25);
+				}
+				.guide-nav-list a:hover {
+					background: var(--accent, #2ce26a);
+					color: #2C2D3C;
+				}
+			}
+
+			/* --- Project Context Card --- */
+			.intro-card {
+				background: rgba(255, 255, 255, 0.6);
+				border: 1px solid rgba(0, 0, 0, 0.05);
+				border-radius: 16px;
+				padding: 24px;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+				margin-bottom: 2rem;
+			}
+			@media (prefers-color-scheme: dark) {
+				.intro-card {
+					background: rgba(31, 32, 49, 0.6);
+					border-color: rgba(255, 255, 255, 0.05);
+					box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+				}
+			}
+
+			/* --- Image Galleries with Zoom Effect --- */
+			.image-gallery-2 {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+				gap: 20px;
+				margin: 1.5rem 0;
+			}
+			.image-gallery-3 {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 20px;
+				margin: 1.5rem 0;
+			}
+			.gallery-item {
+				margin: 0;
+				background: #fff;
+				border: 1px solid rgba(0, 0, 0, 0.06);
+				padding: 12px;
+				border-radius: 12px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+				display: flex;
+				flex-direction: column;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.gallery-item:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+			}
+			@media (prefers-color-scheme: dark) {
+				.gallery-item {
+					background: #232430;
+					border-color: rgba(255, 255, 255, 0.05);
+					box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				}
+				.gallery-item:hover {
+					box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+				}
+			}
+			.img-zoom-wrapper {
+				overflow: hidden;
+				border-radius: 8px;
+				aspect-ratio: 4 / 3;
+				background: var(--color-canvasDark, #e3e3e3);
+			}
+			.img-zoom-wrapper img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+				display: block;
+			}
+			.gallery-item:hover .img-zoom-wrapper img {
+				transform: scale(1.05);
+			}
+			.gallery-item figcaption {
+				margin-top: 12px;
+				font-size: 0.85rem;
+				line-height: 1.4;
+				text-align: center;
+				color: var(--color-canvasText);
+			}
+
+			/* --- Compact BOM Table Styling --- */
+			.compact-bom-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+				font-size: 0.95rem;
+			}
+			.compact-bom-table th {
+				background: var(--color-canvasDark, #e3e3e3);
+				padding: 10px 12px;
+				font-weight: 600;
+				text-align: left;
+			}
+			@media (prefers-color-scheme: dark) {
+				.compact-bom-table th {
+					background: var(--color-canvasDarker, #232430);
+				}
+			}
+			.compact-bom-table td {
+				padding: 12px;
+				border-bottom: 1px solid rgba(0,0,0,0.06);
+				vertical-align: middle;
+			}
+			@media (prefers-color-scheme: dark) {
+				.compact-bom-table td {
+					border-bottom-color: rgba(255,255,255,0.05);
+				}
+			}
+			.compact-bom-table tr:hover {
+				background: rgba(44, 226, 106, 0.03);
+			}
+			.compact-bom-table td a {
+				font-weight: 600;
+				color: var(--color-canvasTextDark, #107633);
+				text-decoration: underline;
+				text-decoration-style: dotted;
+			}
+			.compact-bom-table td a:hover {
+				color: var(--accent, #2ce26a);
+				text-decoration-style: solid;
+			}
+			@media (prefers-color-scheme: dark) {
+				.compact-bom-table td a {
+					color: var(--ly-brand, #67EA94);
+				}
+				.compact-bom-table td a:hover {
+					color: var(--accent, #2ce26a);
+				}
+			}
+			.bom-badge {
+				display: inline-block;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				background: rgba(44, 226, 106, 0.12);
+				color: var(--color-canvasTextDark, #107633);
+				padding: 4px 10px;
+				border-radius: 12px;
+				text-align: center;
+				white-space: nowrap;
+			}
+			@media (prefers-color-scheme: dark) {
+				.bom-badge {
+					background: rgba(103, 234, 148, 0.15);
+					color: var(--ly-brand, #67EA94);
+				}
+			}
+
+			/* --- Step Card Styling --- */
+			.step-card {
+				background: #fff;
+				border: 1px solid rgba(0,0,0,0.06);
+				border-radius: 16px;
+				padding: 24px;
+				margin: 2rem 0;
+				box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+			}
+			@media (prefers-color-scheme: dark) {
+				.step-card {
+					background: #232430;
+					border-color: rgba(255,255,255,0.05);
+					box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+				}
+			}
+			.step-header {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				margin-bottom: 16px;
+				border-bottom: 1px solid rgba(0,0,0,0.05);
+				padding-bottom: 12px;
+			}
+			@media (prefers-color-scheme: dark) {
+				.step-header {
+					border-color: rgba(255,255,255,0.05);
+				}
+			}
+			.step-number-badge {
+				background: var(--accent, #2ce26a);
+				color: #fff;
+				font-size: 0.85rem;
+				font-weight: 700;
+				width: 28px;
+				height: 28px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 2px 8px rgba(44, 226, 106, 0.3);
+			}
+			@media (prefers-color-scheme: dark) {
+				.step-number-badge {
+					color: #2C2D3C;
+				}
+			}
+			.step-header h3 {
+				margin: 0;
+				font-size: 1.25rem;
+			}
+
+			/* --- Premium Critical Warning Callout --- */
+			.warning-callout {
+				background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.03) 100%);
+				border-left: 4px solid #ef4444;
+				border-radius: 0 12px 12px 0;
+				padding: 20px;
+				margin: 1.5rem 0;
+				box-shadow: 0 4px 12px rgba(239, 68, 68, 0.03);
+				position: relative;
+			}
+			.warning-callout-header {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				color: #dc2626;
+				font-weight: 700;
+				font-family: 'Outfit', sans-serif;
+				margin-bottom: 8px;
+				font-size: 1rem;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			.warning-callout p {
+				margin: 0;
+				font-size: 0.95rem;
+			}
+			@media (prefers-color-scheme: dark) {
+				.warning-callout {
+					background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+					box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+				}
+				.warning-callout-header {
+					color: #f87171;
+				}
+			}
+
+			/* --- Power Logic Grid --- */
+			.logic-card-stack {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				margin: 2rem 0;
+			}
+			.logic-card-item {
+				background: #fff;
+				border: 1px solid rgba(0,0,0,0.06);
+				border-radius: 12px;
+				padding: 20px;
+				display: flex;
+				gap: 20px;
+				align-items: flex-start;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+				transition: transform 0.2s ease;
+			}
+			.logic-card-item:hover {
+				transform: translateX(4px);
+			}
+			@media (prefers-color-scheme: dark) {
+				.logic-card-item {
+					background: #232430;
+					border-color: rgba(255,255,255,0.05);
+					box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+				}
+			}
+			.logic-badge {
+				background: rgba(44, 226, 106, 0.1);
+				color: var(--color-canvasTextDark, #107633);
+				font-family: 'Outfit', sans-serif;
+				font-size: 1.15rem;
+				font-weight: 700;
+				width: 36px;
+				height: 36px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+				border: 1px solid rgba(44, 226, 106, 0.2);
+			}
+			@media (prefers-color-scheme: dark) {
+				.logic-badge {
+					background: rgba(103, 234, 148, 0.15);
+					color: var(--ly-brand, #67EA94);
+					border-color: rgba(103, 234, 148, 0.25);
+				}
+			}
+			.logic-desc {
+				margin: 0;
+			}
+			.logic-desc h4 {
+				margin: 0 0 6px 0;
+				font-size: 1.05rem;
+			}
+			.logic-desc p {
+				margin: 0;
+				font-size: 0.95rem;
+			}
+
+			/* --- Click-to-Fullscreen Lightbox Modal --- */
+			.lightbox-modal {
+				display: none;
+				position: fixed;
+				z-index: 1000;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.95);
+				align-items: center;
+				justify-content: center;
+				cursor: zoom-out;
+				opacity: 0;
+				transition: opacity 0.25s ease;
+			}
+			.lightbox-modal.show {
+				display: flex;
+				opacity: 1;
+			}
+			.lightbox-content {
+				max-width: 92%;
+				max-height: 92%;
+				border-radius: 8px;
+				box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+				transform: scale(0.95);
+				transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+			}
+			.lightbox-modal.show .lightbox-content {
+				transform: scale(1);
+			}
+			.lightbox-caption {
+				position: absolute;
+				bottom: 24px;
+				color: #fff;
+				font-family: 'Inter', sans-serif;
+				font-size: 0.95rem;
+				background: rgba(0,0,0,0.7);
+				padding: 10px 20px;
+				border-radius: 30px;
+				text-align: center;
+				max-width: 80%;
+				backdrop-filter: blur(4px);
+				border: 1px solid rgba(255,255,255,0.1);
+			}
+			/* Make images look clickable */
+			.gallery-item img, .step-card img, center img {
+				cursor: zoom-in;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<a href="/"><img src="/images/NTX-Mesh-Logo.svg" class="logo" alt="Logo for NTX Mesh" title="NTX Mesh" width="500" height="121" /></a>
+		</header>
+		<main>
+			<div id="navbar-container"></div>
+			<script src="/navbar.js"></script>
+			
+			<div class="guide-container">
+				<hgroup style="margin-top: 2rem;">
+					<h1 style="font-size: 2.2rem; margin-bottom: 8px;">Outdoor Solar MeshNode Build Guide</h1>
+					<p style="font-size: 1.1rem; color: var(--color-canvasTextDark, #107633); font-weight: 500; margin-bottom: 4px;">MeshCore & Meshtastic Dual-Firmware Router</p>
+					<p style="font-size: 0.95rem; opacity: 0.8; margin-top: 0;">By Wy-Bo</p>
+				</hgroup>
+				
+				<ul class="guide-nav-list">
+					<li><a href="#context">📌 Project Context</a></li>
+					<li><a href="#bom">📦 Bill of Materials</a></li>
+					<li><a href="#assembly">🔧 Assembly Steps</a></li>
+					<li><a href="#power-logic">🔌 Power Logic</a></li>
+				</ul>
+				
+				<section id="context" class="intro-card">
+					<h2>📌 Project Context: Upgrading the Old System</h2>
+					<p>This build serves as a major infrastructure upgrade. The original node setup inside the Bud Industries waterproof enclosure consisted strictly of a single battery and a 3D-printed radio tray.</p>
+					<p>To expand network resilience, the old battery is decommissioned to make physical space, while the original 3D-printed radio mounting tray is preserved. The upgrade re-integrates this tray to host two independent radios, an intelligent solar charge controller, and a high-capacity backup battery.</p>
+					
+					<div class="image-gallery-2">
+						<figure class="gallery-item">
+							<div class="img-zoom-wrapper">
+								<img src="/images/build-guides/01-old-system-and-upgrades.jpg" alt="The original node setup featuring a single battery and 3D-printed radio tray" />
+							</div>
+							<figcaption>The original node setup featuring a single battery and 3D-printed radio tray.</figcaption>
+						</figure>
+						<figure class="gallery-item">
+							<div class="img-zoom-wrapper">
+								<img src="/images/build-guides/02-old-system-removed.jpg" alt="The old battery decommissioned and removed, clearing space for the dual-node upgrade" />
+							</div>
+							<figcaption>The old battery decommissioned and removed, clearing space for the dual-node upgrade.</figcaption>
+						</figure>
+					</div>
+				</section>
+				
+				<hr style="margin: 3rem 0; border: none; border-top: 1px solid rgba(0,0,0,0.08);" />
+				
+				<section id="bom">
+					<h2>📦 Bill of Materials (BOM)</h2>
+					<p style="margin-bottom: 1.5rem;">The following hardware is required to build this dual-node setup. Click on any of the purchase links to view parts listings:</p>
+					
+					<div class="table-wrapper">
+						<table class="compact-bom-table">
+							<thead>
+								<tr>
+									<th>Category</th>
+									<th>Component & Key Features</th>
+									<th>Purchase Links</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="bom-badge">Enclosure</span></td>
+									<td><strong>Bud Industries NEMA Box & Mounts:</strong> IP66 weather protection, Ubiquiti pole mounts, PG7/PG9 glands, and a pressure vent.</td>
+									<td>
+										<a href="https://a.co/d/0dIDib8r" target="_blank">Bud Enclosure</a><br />
+										<a href="https://a.co/d/05L1LBV1" target="_blank">Vent</a><br />
+										<a href="https://a.co/d/09XNgixR" target="_blank">PG Glands</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Cabling</span></td>
+									<td><strong>U.FL to N-Type Coaxial Cables:</strong> Low-loss RG178 RF pigtails to route radio signals to external antennas.</td>
+									<td>
+										<a href="https://a.co/d/0gxvgi87" target="_blank">Coaxial Cables</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Radios</span></td>
+									<td><strong>RAK Starter Stack (Dual-Node Configuration):</strong> 1x Meshtastic (MT) node running standard firmware (GPS + Env Sensor) and 1x MeshCore (MC) node (Env Sensor + RTC slot).</td>
+									<td>
+										<a href="https://a.co/d/00ZG487b" target="_blank">WisBlock Kit</a><br />
+										<a href="https://a.co/d/05L7izLE" target="_blank">GPS</a><br />
+										<a href="https://shop.app/p/7113923756115" target="_blank">Env Sensor</a><br />
+										<a href="https://shop.app/p/7119617196115" target="_blank">RTC Module</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Battery</span></td>
+									<td><strong>Meshnology 10,000mAh Battery:</strong> High-capacity 3.7V LiPo cell optimized for multi-day runtime during low sun.</td>
+									<td>
+										<a href="https://a.co/d/01rHfK3b" target="_blank">Meshnology Battery</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Charger</span></td>
+									<td><strong>Adafruit BQ24074 Solar Charger:</strong> Board paired with Rubycon smoothing capacitor and tool-free JSTs.</td>
+									<td>
+										<a href="https://www.adafruit.com/product/4755" target="_blank">Adafruit Charger</a><br />
+										<a href="https://a.co/d/07vMeptQ" target="_blank">JST Connectors</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Solar</span></td>
+									<td><strong>5V 6W Solar Panel:</strong> Provides active daylight charging to the battery.</td>
+									<td>
+										<a href="https://a.co/d/043Uguzj" target="_blank">Solar Panel</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Antennas</span></td>
+									<td><strong>Antenna Subsystem:</strong> McGill 6dBi (top MC node) & Alfa 5dBi (bottom MT node).</td>
+									<td>
+										<a href="https://shop.app/p/8816587178288" target="_blank">McGill 6dBi</a><br />
+										<a href="https://a.co/d/07GyVLQd" target="_blank">Alfa 5dBi</a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="bom-badge">Structure</span></td>
+									<td><strong>3D Printed Parts & Screws:</strong> Stacked trays (Printables #1752029), solar panel mount (Thingiverse #6831867), M3 hardware.</td>
+									<td>
+										<a href="https://www.printables.com/model/1752029-rak-4631-19007-stack-battery-tray-mount" target="_blank">Trays</a><br />
+										<a href="https://thingiverse.com/thing:6831867" target="_blank">Panel Mount</a><br />
+										<a href="https://a.co/d/0cTh5N1T" target="_blank">M3 Screws</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+				
+				<hr style="margin: 3rem 0; border: none; border-top: 1px solid rgba(0,0,0,0.08);" />
+				
+				<section id="assembly">
+					<h2>🔧 Step-by-Step Assembly Steps</h2>
+					
+					<!-- Step 1 Card -->
+					<div class="step-card">
+						<div class="step-header">
+							<div class="step-number-badge">1</div>
+							<h3>Baseplate Installation & Battery Placement</h3>
+						</div>
+						<ol style="padding-left: 20px; margin-bottom: 20px;">
+							<li>Install the structural base mounting plate inside the Bud Industries box using dedicated mounting standoffs and rubber vibration-isolation rings.</li>
+							<li>Nest the new Meshnology 10,000mAh LiPo battery firmly into the bottom slot of the 3D-printed stack base tray to prevent physical shifting or impacts post-deployment.</li>
+						</ol>
+						
+						<div class="image-gallery-2">
+							<figure class="gallery-item">
+								<div class="img-zoom-wrapper">
+									<img src="/images/build-guides/03-base.jpg" alt="Bud box base mounting plate secured with rubber isolation rings" />
+								</div>
+								<figcaption>Bud box base mounting plate secured with rubber isolation rings.</figcaption>
+							</figure>
+							<figure class="gallery-item">
+								<div class="img-zoom-wrapper">
+									<img src="/images/build-guides/03-battery.jpg" alt="10,000mAh LiPo battery seated securely in the bottom 3D-printed tray" />
+								</div>
+								<figcaption>10,000mAh LiPo battery seated securely in the bottom 3D-printed tray.</figcaption>
+							</figure>
+						</div>
+					</div>
+					
+					<!-- Step 2 Card -->
+					<div class="step-card">
+						<div class="step-header">
+							<div class="step-number-badge">2</div>
+							<h3>Power Tray & Solar Charger Controller Installation</h3>
+						</div>
+						<ol style="padding-left: 20px; margin-bottom: 20px;">
+							<li>Secure the middle 3D-printed power tray onto the standoffs directly above the battery layer using M3 screws.</li>
+							<li>Mount the Adafruit BQ24074 Universal Solar Charger board to the power tray.</li>
+							<li>Route the primary battery leads into a set of Wago 221 lever connectors to establish a tool-free, safe disconnect point before routing to the charger input.</li>
+						</ol>
+						
+						<div class="warning-callout">
+							<div class="warning-callout-header">
+								<span>⚠️ Critical Polarity Warning</span>
+							</div>
+							<p>Always use a multimeter to verify the positive (red, +) and negative (black, -) alignment on the battery's JST connector before clamping down the Wago levers. Certain lithium-polymer variants feature reversed polarity configurations that will instantaneously destroy the charger board and any downstream RAK wireless modules.</p>
+						</div>
+						
+						<center>
+							<figure class="gallery-item" style="max-width: 580px; margin: 1.5rem auto;">
+								<div class="img-zoom-wrapper" style="aspect-ratio: 16 / 10;">
+									<img src="/images/build-guides/04-solar-charge-controller.jpg" alt="Adafruit BQ24074 charger board and Wago connectors secured on the middle tray" />
+								</div>
+								<figcaption>Adafruit BQ24074 charger board and Wago connectors secured on the middle tray.</figcaption>
+							</figure>
+						</center>
+					</div>
+					
+					<!-- Step 3 Card -->
+					<div class="step-card">
+						<div class="step-header">
+							<div class="step-number-badge">3</div>
+							<h3>Stacking & Wiring the Dual WisBlock Nodes</h3>
+						</div>
+						<ol style="padding-left: 20px; margin-bottom: 20px;">
+							<li>Mount the top tray containing both RAK Wireless WisBlock baseboards (one dedicated to Meshtastic, one to MeshCore) onto the standoff stack.</li>
+							<li>Route the JST-PH output from the Adafruit charger's <strong>LOAD</strong> terminal directly to the battery input pins of the RAK baseboards.</li>
+							<li><strong>Connect Coaxial RF Pigtails:</strong>
+								<ul>
+									<li>Attach the <strong>Meshtastic (MT) node's</strong> U.FL connector to the bottom-left N-type bulkhead connector via an RG178 pigtail.</li>
+									<li>Attach the <strong>MeshCore (MC) node's</strong> U.FL connector directly to the top N-type bulkhead connector.</li>
+								</ul>
+							</li>
+							<li>Pass the positive and negative leads from the external solar panel through the bottom PG7/PG9 cable glands and wire them cleanly into the charger board's input terminals.</li>
+						</ol>
+						
+						<div class="image-gallery-3">
+							<figure class="gallery-item">
+								<div class="img-zoom-wrapper">
+									<img src="/images/build-guides/05-top-view.jpg" alt="Top view of both RAK WisBlock baseboards mounted on the top tray" />
+								</div>
+								<figcaption>Top view of both RAK WisBlock baseboards mounted on the top tray.</figcaption>
+							</figure>
+							<figure class="gallery-item">
+								<div class="img-zoom-wrapper">
+									<img src="/images/build-guides/05-nodes-side-view.jpg" alt="Side view showing structured wiring paths, JST power routes, and RF pigtails" />
+								</div>
+								<figcaption>Side view showing structured wiring paths, JST power routes, and RF pigtails.</figcaption>
+							</figure>
+							<figure class="gallery-item">
+								<div class="img-zoom-wrapper">
+									<img src="/images/build-guides/05-angle-view.jpg" alt="Angled stack assembly showing battery, power, and radio layers" />
+								</div>
+								<figcaption>Angled stack assembly showing battery, power, and radio layers.</figcaption>
+							</figure>
+						</div>
+					</div>
+					
+					<!-- Step 4 Card -->
+					<div class="step-card">
+						<div class="step-header">
+							<div class="step-number-badge">4</div>
+							<h3>Pole Mounting & External Antenna Deployment</h3>
+						</div>
+						<ol style="padding-left: 20px; margin-bottom: 20px;">
+							<li>Fasten the completed waterproof Bud Industries enclosure onto your permanent mounting mast using the heavy-duty UniFi pole mounts.</li>
+							<li>Clamp the solar panel framework to the mast above or opposite the enclosure using the 3D-printed panel mount.</li>
+							<li>Thread the <strong>McGill Microwave 6dBi fiberglass antenna</strong> onto the top N-connector port (dedicated to the MeshCore MC node).</li>
+							<li>Thread the <strong>Alfa 5dBi whip antenna</strong> onto the bottom N-connector port (dedicated to the Meshtastic MT node).</li>
+						</ol>
+						
+						<center>
+							<figure class="gallery-item" style="max-width: 500px; margin: 1.5rem auto;">
+								<div class="img-zoom-wrapper" style="aspect-ratio: 1 / 1;">
+									<img src="/images/build-guides/06-complete.jpg" alt="The completed Wy-Bo Outdoor Solar MeshNode fully mounted and deployed" />
+								</div>
+								<figcaption>The completed Wy-Bo Outdoor Solar MeshNode fully mounted and deployed.</figcaption>
+							</figure>
+						</center>
+					</div>
+				</section>
+				
+				<hr style="margin: 3rem 0; border: none; border-top: 1px solid rgba(0,0,0,0.08);" />
+				
+				<section id="power-logic" style="margin-bottom: 4rem;">
+					<h2>🔌 Power & Wiring Logic</h2>
+					<p>The node utilizes strict power path management to sustain 24/7 standalone operation:</p>
+					
+					<div class="logic-card-stack">
+						<!-- Logic 1 -->
+						<div class="logic-card-item">
+							<div class="logic-badge">1</div>
+							<div class="logic-desc">
+								<h4>Solar Generation & Smoothing</h4>
+								<p>Power generated by the 5V 6W solar panel enters the enclosure through a sealed cable gland and terminates at the <strong>DCIN</strong> input of the Adafruit BQ24074 board. An inline Rubycon 4700uF capacitor buffers rapid fluctuations in solar intensity, ensuring smooth voltage tracking.</p>
+							</div>
+						</div>
+						
+						<!-- Logic 2 -->
+						<div class="logic-card-item">
+							<div class="logic-badge">2</div>
+							<div class="logic-desc">
+								<h4>Intelligent Power Pathing</h4>
+								<p>The charger's <strong>BATT</strong> port interacts with the 10,000mAh battery via the Wago distribution blocks. The BQ24074 automatically prioritizes running the system load while simultaneously channeling any excess overhead current to replenish the battery reserves.</p>
+							</div>
+						</div>
+						
+						<!-- Logic 3 -->
+						<div class="logic-card-item">
+							<div class="logic-badge">3</div>
+							<div class="logic-desc">
+								<h4>Regulated System Load</h4>
+								<p>The <strong>LOAD</strong> terminal of the charger outputs a steady, regulated 3.7V - 4.2V feed directly to the main RAK19007 baseboards via standard JST-PH connectors, bypassing volatile cell drop-off during transmission peaks.</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+		
+		<!-- Click-to-Fullscreen Lightbox Modal -->
+		<div id="lightbox" class="lightbox-modal">
+			<img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged view">
+			<div class="lightbox-caption" id="lightbox-caption"></div>
+		</div>
+
+		<div id="footer-container"></div>
+		<script src="/footer.js"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				document.querySelector("header").classList.add("loaded");
+
+				// Lightbox implementation
+				const lightbox = document.getElementById("lightbox");
+				const lightboxImg = document.getElementById("lightbox-img");
+				const lightboxCaption = document.getElementById("lightbox-caption");
+				
+				// Find all zoomable images in the guide content
+				const images = document.querySelectorAll(".guide-container img");
+				images.forEach(img => {
+					img.addEventListener("click", function() {
+						lightboxImg.src = this.src;
+						lightboxImg.alt = this.alt;
+						
+						// Fetch caption from figcaption if it exists inside a figure
+						const figure = this.closest("figure");
+						if (figure) {
+							const figcaption = figure.querySelector("figcaption");
+							lightboxCaption.textContent = figcaption ? figcaption.textContent : this.alt;
+							lightboxCaption.style.display = "block";
+						} else {
+							lightboxCaption.textContent = this.alt || "";
+							lightboxCaption.style.display = this.alt ? "block" : "none";
+						}
+						
+						lightbox.classList.add("show");
+					});
+				});
+
+				// Close lightbox when clicking anywhere on the modal
+				lightbox.addEventListener("click", function() {
+					lightbox.classList.remove("show");
+				});
+			});
+		</script>
+	</body>
+</html>
