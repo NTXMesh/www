@@ -58,9 +58,32 @@
 				<h3 id="solar_battery">Solar/USB-C/5V DC and 3.7v battery (jumper to internal)</h3>
 				<p>The 1W booster can also be setup to use the base board power connections. A battery is required in this configuration due to the higher power draw of the booster.</p>
 				<p>The jumper on the RAK13302 needs to be on the two pins farther away from the antenna port.</p>
-				<p>USB-C power, 5V Solar power, or 5V DC power can be connected to power the board and charge the battery. A larger battery and Solar panel are recommended 
-				<p>The battery connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#battery-connection" target="_blank">JST PHR-2 2mm pitch female</a> connection.</p>
-				<p>The solar connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#solar-panel-connection" target="_blank">JST ZHR-2 1.5 mm pitch female</a> connection.</p>
+				<p>USB-C power, 5V Solar power, or 5V DC power can be connected to power the board and charge the battery. A larger battery and Solar panel are recommended.</p>
+				<p>The battery connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#battery-connection" target="_blank">JST PHR-2 2mm pitch female</a> connection.<br/>
+				The solar connector is a <a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/quickstart/#solar-panel-connection" target="_bla">JST ZHR-2 1.5 mm pitch female</a> connection.</p>
+				<p><i>**Charging via the solar port is recommended due to the max amperage capacity being lower on the USB-C port.**</i></p>
+				<table style="width: 100%; display: table;">
+					<tr>
+						<td><b>Connector</b></td>
+						<td><b>Voltage</b></td>
+						<td><b>Amp Capacity</b></td>
+					</tr>
+					<tr>
+						<td>Battery</td>
+						<td>3.7v</td>
+						<td>At least 500mA (2.5w) output</td>
+					</tr>
+					<tr>
+						<td>Solar</td>
+						<td>5v</td>
+						<td>not specified by RakWireless<br>port type rated for 1A (5W)</td>
+					</tr>
+					<tr>
+						<td>USB-C</td>
+						<td>5v</td>
+						<td>Max 350mA (1.75W)<sup><a href="https://docs.rakwireless.com/product-categories/wisblock/rak19007/datasheet/#battery-connector-1" target="_blank">[1]</a></sup></td>
+					</tr>
+				</table>
 				<h3 id="battery_only">3.7v Battery Only (jumper to internal)</h3>
 				<p>The Rak base board and 1W booster can all be powered by a battery alone. Connect the battery to the battery port on the Rak Base board.</p>
 				<h3>References</h3>
