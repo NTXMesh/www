@@ -1,3 +1,11 @@
+# Local-only archive: TennMesh inspiration pages and removed Austin-origin content
+# kept on-machine for reference, never published
+_archive/
+
+# Claude Code — keep local to this machine, never publish
+.claude/
+CLAUDE.md
+
 # Logs
 logs
 *.log

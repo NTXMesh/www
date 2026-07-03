@@ -29,25 +29,13 @@ jobs:
           mkdir _site
           rsync -a \
             --exclude='_site' \
+            --exclude='_archive' \
             --exclude='archive-astro' \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='.gitignore' \
             --exclude='README.md' \
             --exclude='LICENSE-CONTENT' \
-            --exclude='info' \
-            --exclude='connect' \
-            --exclude='settings' \
-            --exclude='channels' \
-            --exclude='howtos' \
-            --exclude='blog' \
-            --exclude='reports' \
-            --exclude='tennmesh-*' \
-            --exclude='1ByteMatrix.png' \
-            --exclude='2byte-map.png' \
-            --exclude='Direct.png' \
-            --exclude='Repeaters.png' \
-            --exclude='known-repeaters.png' \
             ./ _site/
 
       - name: Upload Pages artifact
