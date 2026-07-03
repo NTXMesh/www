@@ -2,6 +2,9 @@
 # kept on-machine for reference, never published
 _archive/
 
+# Old Astro build — kept on this machine for reference only, not published
+archive-astro/
+
 # Claude Code — keep local to this machine, never publish
 .claude/
 CLAUDE.md
