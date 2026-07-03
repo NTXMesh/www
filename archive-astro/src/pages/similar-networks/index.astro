@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const networks = [
+  { name: 'Austin Mesh', location: 'Austin, TX', url: 'https://austinmesh.org' },
+  { name: 'Birmingham Mesh', location: 'Birmingham, AL', url: 'http://birminghammesh.org' },
+  { name: 'YYC Mesh', location: 'Calgary, AB', url: 'https://yycmesh.com' },
+  { name: 'Charlotte Mesh', location: 'Charlotte, NC', url: 'https://charlottemesh.org' },
+  { name: 'Chicagoland Mesh', location: 'Chicago, IL', url: 'https://chicagolandmesh.org' },
+  { name: 'Denver Mesh', location: 'Denver, CO', url: 'https://denvermesh.org' },
+  { name: 'Hawaii Mesh', location: 'Hawaii', url: 'https://www.hawaiimesh.net' },
+  { name: 'Meshville', location: 'Nashville, TN', url: 'https://www.instagram.com/meshville.tn' },
+  { name: 'NWA Mesh', location: 'Northwest Arkansas', url: 'https://nwamesh.com' },
+  { name: 'OKMesh', location: 'Oklahoma', url: 'https://okmesh.org' },
+  { name: 'Iffy Books Philly', location: 'Philadelphia, PA', url: 'https://iffybooks.net' },
+  { name: 'SoCal Mesh', location: 'Southern California', url: 'https://socalmesh.com' },
+  { name: 'Meshconsin', location: 'Wisconsin', url: 'https://meshconsin.org' },
+];
+
+const startTips = [
+  'The hardest part of setting up a mesh network is organizing people. For a mesh to work well you need a lot of people setting up nodes around town — finding these people is harder than assembling the hardware.',
+  'Hold regular meetings. We try to meet at least once per quarter. Keeping a regular cadence means people feel confident there will always be a next meeting, even if they miss one.',
+  'Start an email list and add anyone who shows interest. It\'s the most reliable way to coordinate meetings and keep people in the loop.',
+  'Use a chat room — Discord, Slack, or Telegram. Pick one and stick with it.',
+  'Set up social media accounts and post regularly. When you get a solar node up, talk about it. Progress energizes communities.',
+  'Connect with your local ham radio club. Ham operators are knowledgeable about radio, and often have access to towers and rooftops.',
+  'Connect with your local disaster relief agency, Red Cross, or mutual aid group. They\'re often willing to host repeaters on their buildings and benefit directly from the network.',
+];
+---
+
+<Layout
+  title="Similar Mesh Networks | NTX Mesh"
+  description="Discover Meshtastic mesh networks in other cities and learn how to start your own community mesh network."
+>
+  <section class="page-hero border-b border-mesh-border bg-mesh-surface">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <h1>Similar Networks</h1>
+      <p class="mt-4">
+        NTX Mesh isn't alone — there are Meshtastic community networks popping up in cities across North America. Here are our partner meshes and tips for starting your own.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+
+    <!-- Partner networks -->
+    <section id="other-meshes">
+      <h2 class="section-heading">Partner Mesh Networks</h2>
+      <p class="text-mesh-muted mb-8">Meshtastic communities we're connected with across the US and Canada:</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {networks.map(n => (
+          <a
+            href={n.url}
+            target="_blank"
+            rel="noopener"
+            class="card hover:border-mesh-green/50 group block"
+          >
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="font-mono font-bold text-mesh-text group-hover:text-mesh-green transition-colors">{n.name}</h3>
+                <p class="text-mesh-muted text-sm mt-1">{n.location}</p>
+              </div>
+              <svg class="w-4 h-4 text-mesh-muted group-hover:text-mesh-green transition-colors mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- How to start your own -->
+    <section id="start-a-similar-network" class="mt-16 pt-8 border-t border-mesh-border">
+      <h2 class="section-heading">How to Start a Similar Network</h2>
+      <p class="text-mesh-muted mb-8">
+        For anyone trying to start a Meshtastic mesh network for their own city or region, here's what we've found to work:
+      </p>
+
+      <div class="space-y-4">
+        {startTips.map((tip, i) => (
+          <div class="flex gap-4 card">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-mesh-green/10 border border-mesh-green/30 flex items-center justify-center font-mono text-mesh-green text-sm font-bold">
+              {i + 1}
+            </div>
+            <p class="text-mesh-muted leading-relaxed pt-1">{tip}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 card p-8 text-center border-mesh-green/30 bg-mesh-green/5">
+        <h3 class="font-mono text-lg font-bold text-mesh-text mb-2">Inspired to start a mesh?</h3>
+        <p class="text-mesh-muted mb-6">
+          Reach out — we'd love to hear from you and share what we've learned building NTX Mesh.
+        </p>
+        <a href="mailto:ntxmesh@gmail.com" class="btn-primary">ntxmesh@gmail.com</a>
+      </div>
+    </section>
+  </div>
+</Layout>

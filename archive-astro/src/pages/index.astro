@@ -1,0 +1,373 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="NTX Mesh — North Texas Meshtastic Network"
+  description="NTX Mesh is building a solar-powered Meshtastic radio mesh network across DFW and North Texas. Text without internet or cell service."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-mesh-bg pt-20 pb-24">
+    <!-- Subtle dot-grid background -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #67EA94 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <!-- Green glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-10 blur-3xl" style="background: radial-gradient(ellipse, #67EA94, transparent 70%);"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mesh-green/10 border border-mesh-green/20 text-mesh-green text-sm font-medium mb-8">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-mesh-green opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-mesh-green"></span>
+        </span>
+        Network Active in DFW
+      </div>
+
+      <h1 class="font-mono text-5xl sm:text-6xl md:text-7xl font-bold text-mesh-text mb-6 leading-tight">
+        Text Without<br />
+        <span class="text-mesh-green">Internet</span> or<br />
+        <span class="text-mesh-green">Cell Service</span>
+      </h1>
+
+      <p class="text-mesh-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+        NTX Mesh is building a solar-powered <a href="https://meshtastic.org" target="_blank" rel="noopener" class="text-mesh-green hover:underline">Meshtastic</a> radio network across DFW and North Texas — a city-wide messaging system that works when the power goes out.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/join/" class="btn-primary text-base px-8 py-3">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Join the Network
+        </a>
+        <a href="/learn/" class="btn-outline text-base px-8 py-3">
+          Learn How It Works
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <section class="border-y border-mesh-border bg-mesh-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="font-mono text-3xl font-bold text-mesh-green">906 MHz</p>
+          <p class="text-mesh-muted text-sm mt-1">LoRa Frequency</p>
+        </div>
+        <div>
+          <p class="font-mono text-3xl font-bold text-mesh-green">$35+</p>
+          <p class="text-mesh-muted text-sm mt-1">To get started</p>
+        </div>
+        <div>
+          <p class="font-mono text-3xl font-bold text-mesh-green">Solar</p>
+          <p class="text-mesh-muted text-sm mt-1">Powered repeaters</p>
+        </div>
+        <div>
+          <p class="font-mono text-3xl font-bold text-mesh-green">Open</p>
+          <p class="text-mesh-muted text-sm mt-1">No license required</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">How It Works</h2>
+      <p class="section-subheading">Three steps to off-grid communication</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card text-center">
+        <div class="w-12 h-12 rounded-xl bg-mesh-green/10 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+          </svg>
+        </div>
+        <div class="font-mono text-mesh-green text-sm font-bold mb-2">STEP 01</div>
+        <h3 class="font-mono text-lg font-bold text-mesh-text mb-2">Get a Radio</h3>
+        <p class="text-mesh-muted text-sm leading-relaxed">
+          Pick up a Meshtastic-compatible radio for as little as $35. No license required — anyone can join.
+        </p>
+        <a href="/devices/" class="inline-flex items-center gap-1 text-mesh-green text-sm mt-4 hover:underline">
+          See device options
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="card text-center border-mesh-green/30">
+        <div class="w-12 h-12 rounded-xl bg-mesh-green/10 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+          </svg>
+        </div>
+        <div class="font-mono text-mesh-green text-sm font-bold mb-2">STEP 02</div>
+        <h3 class="font-mono text-lg font-bold text-mesh-text mb-2">Join the Mesh</h3>
+        <p class="text-mesh-muted text-sm leading-relaxed">
+          Pair your radio with the Meshtastic app on your phone. Your device automatically becomes part of the mesh.
+        </p>
+        <a href="/join/" class="inline-flex items-center gap-1 text-mesh-green text-sm mt-4 hover:underline">
+          Setup guide
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="card text-center">
+        <div class="w-12 h-12 rounded-xl bg-mesh-green/10 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-6 h-6 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </div>
+        <div class="font-mono text-mesh-green text-sm font-bold mb-2">STEP 03</div>
+        <h3 class="font-mono text-lg font-bold text-mesh-text mb-2">Start Messaging</h3>
+        <p class="text-mesh-muted text-sm leading-relaxed">
+          Send public messages, private DMs, or group chats. No internet, no accounts, no infrastructure needed.
+        </p>
+        <a href="/learn/#wcid" class="inline-flex items-center gap-1 text-mesh-green text-sm mt-4 hover:underline">
+          What it can do
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why NTX Mesh -->
+  <section class="py-20 bg-mesh-surface border-y border-mesh-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="section-heading">Why NTX Mesh?</h2>
+        <p class="section-subheading">Built for the community, by the community</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">Community</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">A city-wide group text chain — share events, ask questions, connect with neighbors.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">Disaster Resilient</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">Works when power fails. Like during Winter Storm Uri — our network stays online when nothing else does.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">Solar Powered</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">Our repeaters run entirely on solar energy, keeping the network up 24/7 without electricity.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">Private & Encrypted</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">DMs and group channels are encrypted. No accounts, no tracking, no central servers.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">Open Source</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">Everything is open — the hardware, firmware, and this website. No permission needed to contribute.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-mesh-text mb-1">No License Required</h3>
+            <p class="text-mesh-muted text-sm leading-relaxed">Operates on the 900 MHz ISM band. No ham radio license needed — anyone can participate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modem Presets callout -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="card flex flex-col md:flex-row items-center gap-6 p-8">
+      <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-mesh-green/10 flex items-center justify-center">
+        <svg class="w-8 h-8 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+        </svg>
+      </div>
+      <div class="flex-1 text-center md:text-left">
+        <h3 class="font-mono text-xl font-bold text-mesh-text mb-2">Check Your County's Modem Preset</h3>
+        <p class="text-mesh-muted">Some counties in North Texas use different modem presets rather than the default Long_Fast setup due to localized mesh conditions. Check the map before you configure your device.</p>
+      </div>
+      <a href="/coverage-map/" class="btn-outline flex-shrink-0">View Preset Map</a>
+    </div>
+  </section>
+
+  <!-- Discord / Community -->
+  <section class="py-20 bg-mesh-surface border-y border-mesh-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="section-heading">Join the Community</h2>
+          <p class="text-mesh-muted leading-relaxed mb-6">
+            Outside of the mesh network itself, we're most active in our Discord server. It's where we coordinate meetings, share builds, troubleshoot gear, and plan the future of NTX Mesh.
+          </p>
+          <div class="space-y-3 mb-8">
+            <div class="flex items-center gap-3 text-sm text-mesh-muted">
+              <svg class="w-5 h-5 text-mesh-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Live chat and technical support
+            </div>
+            <div class="flex items-center gap-3 text-sm text-mesh-muted">
+              <svg class="w-5 h-5 text-mesh-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Meeting announcements and events
+            </div>
+            <div class="flex items-center gap-3 text-sm text-mesh-muted">
+              <svg class="w-5 h-5 text-mesh-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Hardware builds and solar repeater projects
+            </div>
+            <div class="flex items-center gap-3 text-sm text-mesh-muted">
+              <svg class="w-5 h-5 text-mesh-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              Network planning and coverage discussions
+            </div>
+          </div>
+          <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener" class="btn-primary">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+            </svg>
+            Join Our Discord
+          </a>
+        </div>
+        <div class="flex justify-center">
+          <iframe
+            src="https://discord.com/widget?id=1275704061299265546&theme=dark"
+            width="350"
+            height="400"
+            allowtransparency="true"
+            frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            class="rounded-xl border border-mesh-border"
+            title="NTX Mesh Discord"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More info / links grid -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">Explore the Site</h2>
+      <p class="section-subheading">Everything you need to get on the mesh</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="/learn/" class="card group hover:border-mesh-green/50">
+        <div class="w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center mb-4 group-hover:bg-mesh-green/20 transition-colors">
+          <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <h3 class="font-mono font-bold text-mesh-text mb-1">Learn</h3>
+        <p class="text-mesh-muted text-sm">ELI5 explainer, coverage maps, and how Meshtastic works.</p>
+      </a>
+
+      <a href="/join/" class="card group hover:border-mesh-green/50">
+        <div class="w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center mb-4 group-hover:bg-mesh-green/20 transition-colors">
+          <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+          </svg>
+        </div>
+        <h3 class="font-mono font-bold text-mesh-text mb-1">Join</h3>
+        <p class="text-mesh-muted text-sm">Step-by-step setup guide and best practices for new members.</p>
+      </a>
+
+      <a href="/devices/" class="card group hover:border-mesh-green/50">
+        <div class="w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center mb-4 group-hover:bg-mesh-green/20 transition-colors">
+          <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+          </svg>
+        </div>
+        <h3 class="font-mono font-bold text-mesh-text mb-1">Devices</h3>
+        <p class="text-mesh-muted text-sm">Hardware recommendations, builds, and solar repeater guides.</p>
+      </a>
+
+      <a href="/calendar/" class="card group hover:border-mesh-green/50">
+        <div class="w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center mb-4 group-hover:bg-mesh-green/20 transition-colors">
+          <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-mono font-bold text-mesh-text mb-1">Calendar</h3>
+        <p class="text-mesh-muted text-sm">Upcoming meetups, events, and community gatherings.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contributors -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="card p-8">
+      <h2 class="font-mono text-xl font-bold text-mesh-text mb-2">Community Contributors</h2>
+      <p class="text-mesh-muted mb-6">We recognize and thank those who help build and sustain NTX Mesh.</p>
+      <div class="flex flex-wrap gap-3">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-mesh-surface-2 rounded-lg text-sm text-mesh-muted border border-mesh-border">
+          <svg class="w-4 h-4 text-mesh-green" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          @Dl33t
+        </span>
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-mesh-surface-2 rounded-lg text-sm text-mesh-muted border border-mesh-border">
+          <svg class="w-4 h-4 text-mesh-green" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          @kf5zpo
+        </span>
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-mesh-surface-2 rounded-lg text-sm text-mesh-muted border border-mesh-border">
+          <svg class="w-4 h-4 text-mesh-green" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Craig Kwieran (@Kiwi)
+        </span>
+      </div>
+      <p class="text-mesh-muted text-sm mt-4">
+        Want to contribute?
+        <a href="https://github.com/NTXMesh" target="_blank" rel="noopener" class="text-mesh-green hover:underline ml-1">View the GitHub →</a>
+      </p>
+    </div>
+  </section>
+</Layout>

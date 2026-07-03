@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeshCore 2-Byte Routing | NTX Mesh</title>
+  <meta name="description" content="A deep dive into MeshCore's 2-byte path routing — how key-prefix addressing works, why it matters as the mesh grows, the trade-offs versus 1-byte paths, and how to enable it on repeaters and companions.">
+  <meta name="keywords" content="MeshCore, 2-byte routing, path hash, key prefix, mesh network, LoRa, firmware 1.14, North Texas, DFW">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MeshCore 2-Byte Routing | NTX Mesh">
+  <meta property="og:description" content="How MeshCore's 2-byte path routing works, why it scales the mesh, the trade-offs, and how to turn it on for your repeaters and companions.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/images/meshcore-2-byte-routing-diagram.webp">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Deep Dive</span>
+      <h2><span class="mc">MeshCore</span> 2-Byte vs 1-Byte Paths</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">Every node (radio) on the network gets a nickname. In 1-byte mode that's something like <code>a1</code>. In 2-byte mode that's <code>a1b2</code>. 1-byte nicknames start colliding at 256 unique values, while 2-byte mode has 65,536.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="key-prefixes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>Explaining Key-Prefixes</h2>
+    </div>
+    <div class="container-narrow">
+      <p>Every node in the mesh has a Public Key. The first characters of that key are treated as the address so other nodes know how to route messages. With 1-byte paths (the first 2 characters of the public key), there are only 256 possible nicknames to go around, so as the network grows, more and more nodes end up sharing the same one. When that happens, messages can get handed off to the wrong node and routing breaks down.</p>
+      <p>2-byte paths use the first 4 characters of the public key, allowing 65,536 possibilities instead of 256. More room, fewer mix-ups, and a much healthier <span class="mc">MeshCore</span> mesh as it grows.</p>
+
+      <div class="info-box">
+        <dl>
+          <dt>1-Byte Path</dt>
+          <dd>First 2 characters of the public key — 256 possible addresses. Max 64 hops.</dd>
+          <dt>2-Byte Path</dt>
+          <dd>First 4 characters of the public key — 65,536 possible addresses. Max 32 hops.</dd>
+        </dl>
+      </div>
+
+      <div class="note"><p><strong>The catch(es):</strong> every repeater between you and the person you're messaging has to understand 2-byte nicknames, or it'll drop the message. That means firmware upgrades. It also reduces the max number of hops from 64 to 32.</p></div>
+
+      <figure class="map-figure">
+        <img src="/assets/images/meshcore-2-byte-routing-diagram.webp" alt="Diagram showing how 1-byte and 2-byte packets are repeated through a MeshCore network with repeaters on different firmware versions" title="only repeaters with firmware at or above 1.14.1 repeat 2-byte packets">
+        <figcaption class="map-caption">Only repeaters with firmware at or above 1.14.1 repeat 2-byte packets.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="requirements">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Before You Start</span>
+      <h2>Requirements</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Repeaters</dt>
+          <dd>Firmware 1.14 or later. Older repeaters can't forward 2-byte paths.</dd>
+          <dt>Companions</dt>
+          <dd>Firmware 1.14 or later, plus the latest phone app (the toggle lives under Experimental Settings).</dd>
+        </dl>
+      </div>
+      <div class="note"><p><strong>Heads up:</strong> if any repeater in the path is on older firmware, 2-byte traffic won't make it through. Plan upgrades accordingly.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="turning-it-on">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Configuration</span>
+      <h2>Turning It On</h2>
+    </div>
+    <div class="container-narrow">
+
+      <h3>Repeaters</h3>
+      <ol>
+        <li>Upgrade to at least firmware 1.14.</li>
+        <li>Connect to the repeater's console and run the command below.</li>
+      </ol>
+      <div class="code-block">
+        <div class="code-line"><code>set path.hash.mode 1</code></div>
+      </div>
+
+      <h3 class="mt-8">Companions</h3>
+      <p>Companions need an extra step to actually <em>send</em> messages using 2-byte paths:</p>
+      <ol>
+        <li>Confirm the companion is on firmware 1.14 or later.</li>
+        <li>Open the phone app.</li>
+        <li>Go to <strong>Experimental Settings</strong>.</li>
+        <li>Set <strong>Default Path-Hash Size</strong> to 2-byte (max 32 hops).</li>
+      </ol>
+      <div class="note note-success"><p><strong>Done:</strong> once that's on, messages from the companion will use 2-byte paths when available.</p></div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

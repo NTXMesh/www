@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeshCore vs Meshtastic | NTX Mesh</title>
+  <meta name="description" content="A practical comparison of MeshCore and Meshtastic firmware — routing, hop limits, telemetry, radio presets, and when to use each on the NTX Mesh network.">
+  <meta name="keywords" content="MeshCore, Meshtastic, comparison, LoRa, mesh network, hop limits, routing, telemetry, North Texas, DFW, firmware">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MeshCore vs Meshtastic | NTX Mesh">
+  <meta property="og:description" content="How the MeshCore and Meshtastic firmwares differ in routing, hop limits, telemetry, and radio presets — and when to use each on NTX Mesh.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Deep Dive</span>
+      <h2>Meshtastic vs. MeshCore on NTX Mesh</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">NTX Mesh is technology-agnostic. We care about reliable, decentralized mesh networking that keeps working even if the internet or cell towers don't. This page explains how mesh networking works at a high level, and the practical differences between <span class="ms">Meshtastic</span> and <span class="mc">MeshCore</span> so you can pick the right tool for your use case.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="tldr">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">TL;DR; ELI5</span>
+      <h2>The Short Version</h2>
+    </div>
+    <div class="container-narrow">
+      <h3>ELI5</h3>
+      <p>Think of sending a whisper across a playground. With <span class="ms">Meshtastic</span>, everyone passes your whisper along, so the "chain" can move and grow as people move around, but they stop sharing your message after it's passed through 7 people. With <span class="mc">MeshCore</span>, only special helpers (<a href="/devices/#parts-list">repeaters</a>) pass the whisper, but they can pass it to up to 64 more helpers.</p>
+      <p>By default, with <span class="mc">MeshCore</span> those helpers also talk faster and there are fewer side conversations that might delay your whisper. On <span class="ms">Meshtastic</span>, the other people talk slower and are having side conversations that have to finish before your whisper can be shared, slowing down the rate at which your whisper makes its way through the crowd.</p>
+
+      <h3>TL;DR;</h3>
+      <p><span class="ms">Meshtastic</span> works well when people and links are moving (friends at an event, a hike, a bike ride). Regular nodes help by rebroadcasting, so coverage can shift and grow as people move. <span class="mc">MeshCore</span> works well when you can place fixed repeaters on rooftops or hills. Phones connect through companion radios; companions do not rebroadcast, so repeaters are what grow the mesh.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card feature-card--meshtastic">
+          <h3>Meshtastic at a glance</h3>
+          <p>Default role is CLIENT, which rebroadcasts in most cases. Great for ad-hoc, moving groups with no fixed infrastructure. Default hops 3 (max 7), LongFast preset, richer telemetry.</p>
+        </div>
+        <div class="feature-card feature-card--meshcore">
+          <h3>MeshCore at a glance</h3>
+          <p>Default end-user firmware is Companion, which does not rebroadcast — only repeaters relay. Up to 64 hops, narrower 62.5 kHz preset, minimal telemetry by default, very responsive.</p>
+        </div>
+      </div>
+
+      <h3>Main differences</h3>
+      <div class="info-box">
+        <dl>
+          <dt>Hop limits</dt>
+          <dd>Meshtastic default 3 (max 7); MeshCore up to 64.</dd>
+          <dt>Who rebroadcasts</dt>
+          <dd>Meshtastic clients help relay; MeshCore companions do not. Only repeaters relay.</dd>
+          <dt>Telemetry</dt>
+          <dd>Node info, battery, temperature, etc. MeshCore pushes rarely and allows manual pulling. Since November 2025, Meshtastic pushes less than it used to, but still significantly more than MeshCore.</dd>
+          <dt>Responsiveness</dt>
+          <dd>MeshCore feels considerably faster with default config; Meshtastic can be manually tuned to similar results.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="mesh-30s">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Background</span>
+      <h2>Mesh Networking in 30 Seconds</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Self-healing + multi-hop</dt>
+          <dd>Messages can traverse multiple radios ("hops"). If one link disappears, the mesh finds another path.</dd>
+          <dt>Flood routing</dt>
+          <dd>On low-power radios, many systems use a simple "managed flood" where nodes selectively rebroadcast packets without maintaining big routing tables.</dd>
+          <dt>Direct paths</dt>
+          <dd>Some systems learn a path during the first flood, then send future messages via a more efficient "next-hop" route, falling back to flood if the path breaks.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="default-roles-behavior">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Roles &amp; Routing</span>
+      <h2>Default Roles &amp; Behavior</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Meshtastic</dt>
+          <dd>Default role is CLIENT, which <em>does</em> take part in rebroadcasting in most cases. This helps ad-hoc, moving groups connect even without fixed infrastructure.</dd>
+          <dt>MeshCore</dt>
+          <dd>Default end-user firmware is Companion (USB/BLE app companion). Companions do not rebroadcast other people's packets; Repeaters handle forwarding. This concentrates airtime on purpose-built, well-placed infrastructure nodes.</dd>
+        </dl>
+      </div>
+      <p><span class="ms">Meshtastic</span> shines for non-geostationary groups (e.g. a ski hill or a bike ride with moving parties). <span class="mc">MeshCore</span> is optimized for large-scale meshes with infrastructure nodes (repeaters) placed on high points.</p>
+
+      <h3>Routing strategies</h3>
+      <div class="info-box">
+        <dl>
+          <dt>Meshtastic</dt>
+          <dd>Managed flood. Since v2.6, Direct Messages use next-hop routing: flood to discover, then optimized relays for subsequent DMs.</dd>
+          <dt>MeshCore</dt>
+          <dd>Flood-then-direct by design: the first message floods to learn a path; later messages embed the learned path; if that route fails after a few retries, the node automatically falls back to flood.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="hop-limits">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Hop Limits</span>
+      <h2>How Far a Message Travels</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Meshtastic</dt>
+          <dd>Default Max Hops = 3 (configurable to a max of 7).</dd>
+          <dt>MeshCore</dt>
+          <dd>Internal max hop limit = 64.</dd>
+        </dl>
+      </div>
+      <div class="note note-primary"><p><strong>Implication for NTX Mesh:</strong> Hill/valley terrain often needs many relays. Seven hops can be a hard ceiling for <span class="ms">Meshtastic</span> across the whole metro, while <span class="mc">MeshCore</span>'s higher limit gives more headroom.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="telemetry-airtime">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Telemetry &amp; Airtime</span>
+      <h2>Background Traffic on the Mesh</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Meshtastic</dt>
+          <dd>As of firmware v2.7.15, some device telemetry broadcasts are disabled by default. If devices manually opt in, they periodically transmit telemetry, position, and node info on timers (defaults roughly 30 min, 15 min, and 3 hours). As device counts increase, Meshtastic decreases broadcast frequency to reduce congestion. On very large meshes, background telemetry can consume valuable airtime, and it should only be enabled when necessary.</dd>
+          <dt>MeshCore</dt>
+          <dd>Avoids frequent network-wide telemetry by default. Repeaters can send periodic adverts (local or flood) on long intervals, and you can tune or disable them to conserve airtime.</dd>
+        </dl>
+      </div>
+      <p>For NTX Mesh — where the goal is region-wide messaging (not sensor telemetry) — <span class="mc">MeshCore</span>'s default traffic profile typically leaves more airtime for actual messages, though recent <span class="ms">Meshtastic</span> firmware updates have begun to narrow the gap.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="presets-throughput-interference">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Radio Presets</span>
+      <h2>Presets, Throughput &amp; Interference</h2>
+    </div>
+    <div class="container-narrow">
+      <p>Both systems use LoRa (Chirp Spread Spectrum), where bandwidth, spreading factor (SF), and coding rate (CR) trade range for speed and airtime.</p>
+      <div class="info-box">
+        <dl>
+          <dt>Meshtastic defaults</dt>
+          <dd>The standard preset is LongFast, which (in the US) uses 250 kHz bandwidth and a conservative SF/CR mix. It's robust, but airtime per message is relatively high, especially over multiple hops. You can switch to faster presets (e.g. MediumFast/ShortFast) or custom narrow bandwidths; Meshtastic supports special narrow values like 31.25 kHz and 62.5 kHz when manually configured.</dd>
+          <dt>MeshCore defaults</dt>
+          <dd>In the US, the default preset is a narrower bandwidth (62.5 kHz) with moderate SF/CR to slot between noisy parts of the US 902–928 MHz ISM band, improving SNR and airtime efficiency while maintaining city-scale coverage.</dd>
+        </dl>
+      </div>
+      <p>In real NTX-area testing, the narrower default <span class="mc">MeshCore</span> configs have produced noticeably snappier delivery (often sub-second for nearby peers, and sub-2-second for 9-hop routes) compared to default <span class="ms">Meshtastic</span> presets. Your mileage will vary by terrain, antenna quality, and infrastructure density, but the airtime math generally favors higher data rates plus less background traffic.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="when">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Choosing</span>
+      <h2>When to Use Each</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="feature-grid">
+        <div class="feature-card feature-card--meshtastic">
+          <h3>Choose Meshtastic</h3>
+          <p>If you want a "bring-a-radio, it just works" experience for roaming groups, mapping, and rich telemetry modules, with minimal setup and no guaranteed infrastructure.</p>
+        </div>
+        <div class="feature-card feature-card--meshcore">
+          <h3>Choose MeshCore</h3>
+          <p>If your aim is a resilient, city- or region-scale messaging network with fixed repeaters (see the <a href="/devices/#parts-list">DIY Solar Repeater Parts List</a>), where end-users don't rebroadcast by default.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="comparison">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Side by Side</span>
+      <h2>Quick Comparison</h2>
+    </div>
+    <div class="container-narrow">
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Meshtastic</th>
+            <th>MeshCore</th>
+            <th>Notes for NTX Mesh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Default behavior</td>
+            <td>CLIENT rebroadcasts when needed</td>
+            <td>Companion does not forward; Repeaters do</td>
+            <td>MeshCore reduces edge-node airtime; invest in good repeater sites.</td>
+          </tr>
+          <tr>
+            <td>Broadcast routing</td>
+            <td>Managed flood</td>
+            <td>Flood (for discovery &amp; fallback)</td>
+            <td>Both robust under mobility; MeshCore expects infra for scale.</td>
+          </tr>
+          <tr>
+            <td>Direct messages</td>
+            <td>Next-hop routing since v2.6</td>
+            <td>Learned direct path with fallback to flood</td>
+            <td>Both learn paths; reduces duplicate airtime when stable.</td>
+          </tr>
+          <tr>
+            <td>Max hops (default / max)</td>
+            <td>3 / 7</td>
+            <td>Configurable, internal max 64</td>
+            <td>More headroom for citywide reach.</td>
+          </tr>
+          <tr>
+            <td>Telemetry cadence</td>
+            <td>Regular NodeInfo. Telemetry/Position disabled by default. As of November 2025, auto back-off on congested meshes; "Push" model</td>
+            <td>Minimal by default; "Pull" model</td>
+            <td>Leaves slightly more airtime for chat on MeshCore.</td>
+          </tr>
+          <tr>
+            <td>Radio presets</td>
+            <td>LongFast (250 kHz)</td>
+            <td>62.5 kHz BW with tuned SF/CR</td>
+            <td>Narrower BW can fit between interference.</td>
+          </tr>
+          <tr>
+            <td>Typical responsiveness</td>
+            <td>Good at small scale; can slow as hops + telemetry rise</td>
+            <td>Very responsive with infra + higher data-rate configs</td>
+            <td>Our field tests show faster multi-hop messaging on MeshCore.</td>
+          </tr>
+          <tr>
+            <td>Best fit</td>
+            <td>Ad-hoc, highly mobile, telemetry-heavy scenarios</td>
+            <td>City-scale, repeater-backed, messaging-centric scenarios</td>
+            <td>NTX Mesh is biasing toward MeshCore for the citywide link layer.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="sources">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Sources</span>
+      <h2>References &amp; Footnotes</h2>
+    </div>
+    <div class="container-narrow">
+      <div class="info-box">
+        <dl>
+          <dt>Managed flood</dt>
+          <dd>Meshtastic uses Managed Flood Routing for broadcast messages to avoid heavy route maintenance on low-bandwidth radios. <a href="https://meshtastic.org/blog/why-meshtastic-uses-managed-flood-routing/" target="_blank" rel="noopener">Why Meshtastic Uses Managed Flood Routing</a>.</dd>
+          <dt>Next-hop routing</dt>
+          <dd>Meshtastic v2.6 adds next-hop routing for Direct Messages: flood to discover, then optimized relays. <a href="https://meshtastic.org/docs/overview/mesh-algo/" target="_blank" rel="noopener">Mesh Algorithm docs</a> · <a href="https://meshtastic.org/blog/meshtastic-2-6-preview/" target="_blank" rel="noopener">2.6 preview</a>.</dd>
+          <dt>MeshCore routing</dt>
+          <dd>Flood-then-direct: flood to learn, embed path, fall back to flood if direct fails. <a href="https://deepwiki.com/ripplebiz/MeshCore/1.2-key-concepts-and-terminology" target="_blank" rel="noopener">Key concepts</a> · <a href="https://deepwiki.com/ripplebiz/MeshCore/2.1-packet-handling-and-routing" target="_blank" rel="noopener">Packet handling</a> · <a href="https://gist.github.com/recrof/504dca2a96950b0870230c6cc4cfc437" target="_blank" rel="noopener">Explainer</a>.</dd>
+          <dt>Device roles</dt>
+          <dd>Default role is CLIENT, which "rebroadcasts packets when no other node has done so." <a href="https://meshtastic.org/docs/configuration/radio/device/" target="_blank" rel="noopener">Meshtastic Device Configuration</a>.</dd>
+          <dt>MeshCore philosophy</dt>
+          <dd>"Repeaters route; edge nodes don't pollute the airwaves." <a href="https://buymeacoffee.com/ripplebiz/meshcore-philosophy" target="_blank" rel="noopener">MeshCore Philosophy</a>.</dd>
+          <dt>Companion protocol</dt>
+          <dd>Companion Radio Protocol (USB/BLE) connects apps to radios; it is an edge/client firmware, not a repeater. <a href="https://github.com/meshcore-dev/MeshCore/wiki/Companion-Radio-Protocol" target="_blank" rel="noopener">MeshCore Wiki</a>.</dd>
+          <dt>Repeater CLI</dt>
+          <dd>Repeater/Room Server CLI (e.g. <code>set repeat on</code>, <code>set flood.max {hops}</code>, <code>set advert.interval {minutes}</code>, <code>set flood.advert.interval {hours}</code>). <a href="https://github.com/meshcore-dev/MeshCore/wiki/Repeater-%26-Room-Server-CLI-Reference" target="_blank" rel="noopener">MeshCore Wiki</a>.</dd>
+          <dt>Hop limits</dt>
+          <dd>Max Hops defaults to 3 and "can't be greater than 7." <a href="https://meshtastic.org/docs/configuration/radio/lora/" target="_blank" rel="noopener">Meshtastic LoRa Configuration</a>. MeshCore internal max hop limit = 64. <a href="https://github.com/meshcore-dev/MeshCore/wiki/FAQ/119842064315bf9aa07ffada0b08f9ca46401fac" target="_blank" rel="noopener">MeshCore Wiki FAQ</a>.</dd>
+          <dt>Broadcast intervals</dt>
+          <dd>Default broadcast intervals and auto-backoff as meshes grow. <a href="https://meshtastic.org/docs/overview/mesh-algo/" target="_blank" rel="noopener">Mesh Algorithm overview</a> · <a href="https://meshtastic.org/docs/configuration/module/telemetry/" target="_blank" rel="noopener">Telemetry module reference</a>.</dd>
+          <dt>LoRa / CSS</dt>
+          <dd>LoRa = Chirp Spread Spectrum; SF/BW/CR drive data rate vs. range/airtime. <a href="https://www.frugalprototype.com/wp-content/uploads/2016/08/an1200.22.pdf" target="_blank" rel="noopener">Semtech AN1200.22 "LoRa Modulation Basics"</a>.</dd>
+          <dt>Modem presets</dt>
+          <dd>Meshtastic modem presets (LongFast, MediumFast, ShortFast, etc.). <a href="https://docs.rs/meshtastic_protobufs/latest/meshtastic_protobufs/meshtastic/config/lo_ra_config/enum.ModemPreset.html" target="_blank" rel="noopener">Protobuf enum docs</a> · <a href="https://meshtastic.org/blog/why-your-mesh-should-switch-from-longfast/" target="_blank" rel="noopener">Why your mesh should switch from LongFast</a> · <a href="https://meshtastic.org/docs/configuration/radio/lora/#bandwidth" target="_blank" rel="noopener">Special bandwidth values</a>.</dd>
+          <dt>MeshCore bandwidth rationale</dt>
+          <dd>Narrower BW + lower SF can fit between ISM-band interference and yield better SNR/airtime. <a href="https://github.com/meshcore-dev/MeshCore/blob/main/docs/faq.md" target="_blank" rel="noopener">MeshCore FAQ</a>.</dd>
+          <dt>MeshCore adverts</dt>
+          <dd>Communities commonly configure long flood-advert intervals (e.g. ~12 h) to conserve airtime. <a href="https://github.com/meshcore-dev/MeshCore/wiki/Repeater-%26-Room-Server-CLI-Reference" target="_blank" rel="noopener">CLI reference</a> · <a href="https://github.com/meshcore-dev/MeshCore/issues/919" target="_blank" rel="noopener">Issue #919</a>.</dd>
+          <dt>Example settings</dt>
+          <dd>Example community settings (US/CAN): 910.525 MHz, 62.5 kHz BW, SF7/CR5. <a href="https://ottawamesh.ca/index.php?title=MeshCore%2FFrequency_Settings" target="_blank" rel="noopener">Ottawa Mesh</a>.</dd>
+          <dt>Meshtastic telemetry change</dt>
+          <dd>Meshtastic v2.7.15 disables some telemetry broadcasts over LoRa by default; nodes must opt in. <a href="https://github.com/meshtastic/firmware/releases/tag/v2.7.15.567b8ea" target="_blank" rel="noopener">Firmware release notes</a>.</dd>
+        </dl>
+      </div>
+      <p class="text-center mt-8">Questions or edits? Open a PR on <a href="https://github.com/NTXmesh/www" target="_blank" rel="noopener">NTXmesh.org's repo</a> or ping the NTX Mesh chat.</p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why You Should Switch to 2-Byte Path Hashes in MeshCore (And How Easy It Is) | TennMesh</title>
+  <meta name="description" content="As TennMesh has grown beyond 256 nodes, the default 1-byte path hash is causing collisions. Here&#39;s why switching to 2-byte mode matters and exactly how to do it.">
+  <meta name="keywords" content="MeshCore, LoRa, mesh network, off-grid, Tennessee, emergency communications">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/tennmesh-icon-light.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Why You Should Switch to 2-Byte Path Hashes in MeshCore (And How Easy It Is) | TennMesh">
+  <meta property="og:description" content="As TennMesh has grown beyond 256 nodes, the default 1-byte path hash is causing collisions. Here&#39;s why switching to 2-byte mode matters and exactly how to do it.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/tennmesh-icon-light.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <nav>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/tennmesh-primary-dark-even.png" alt="TennMesh" class="nav-logo-img">
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/info/">Info</a>
+      <a href="/connect/">Get Connected</a>
+      <a href="/devices/">Devices</a>
+      <a href="/settings/">Settings</a>
+      <a href="/channels/">Channels</a>
+      <a href="/howtos/">How-Tos</a>
+      <a href="/blog/">Blog</a>
+      <a href="/reports/">Reports</a>
+      <a href="https://live.tennmesh.com/#/live" target="_blank" rel="noopener" class="nav-live">Live</a>
+    </div>
+  </div>
+</nav>
+
+
+  <main>
+    <div class="container-narrow">
+  <div class="howto-breadcrumb">
+    <a href="/blog/">&larr; Back to Blog</a>
+  </div>
+  <div class="content-section" style="padding-bottom: 0">
+    <div class="blog-post-header">
+      <span class="howto-tag howto-tag--config">Network</span>
+      <h1>Why You Should Switch to 2-Byte Path Hashes in MeshCore (And How Easy It Is)</h1>
+      <p class="blog-post-meta">March 28, 2026</p>
+      <p class="howto-intro">As TennMesh has grown beyond 256 nodes, the default 1-byte path hash is causing collisions. Here's why it matters and exactly how to fix it.</p>
+    </div>
+  </div>
+  <div class="content-section blog-post-content" style="padding-top: var(--space-6)">
+    <p>
+      If you're part of the TennMesh MeshCore network, then you already know how quickly the mesh has grown in just a few months and it's been exciting to see more reliable communications throughout East Tennessee and beyond! However, being on such a large and rapidly growing network doesn't come without some challenges, and the current challenge we're facing is the default 1-byte path hash size, which only allows for 256 possible values.
+    </p>
+<p><div class="note">
+<p><strong>What's a path hash, anyway?</strong><br>
+When a MeshCore packet travels across the network, it keeps a record of the nodes it's passed through. Each entry in that log is a short &quot;hash&quot; that represents a node. By default, those hashes are 1 byte long, which allows for 64 hops, but only 256 possible values.</p>
+</div></p>
+<p><h2>So here's the current situation:</h2>
+<p>
+The default 1-byte path hash that MeshCore uses allows for 64 hops but only 256 possible unique device IDs (or hashes which is the 2-character ID associated with Repeaters, Companions, and Room Servers). As the TennMesh network has grown and we've now started connecting to our great neighbors in NC, SC, GA, KY, and VA, we've reached well beyond the 256 possible 1-byte path hashes. Looking at the Nodes list from the <a href="https://live.tennmesh.com/#/nodes" target="_blank" rel="noopener">TennMesh Live Page</a>, there are currently 685 Repeaters, 44 Room Servers, and 162 Companions at the time of this writing. You may have noticed this issue first-hand while looking at the path messages are taking and seeing where repeaters in the path show a list of multiple known repeaters in red like this:
+</p></p>
+<p><img src="/assets/images/known-repeaters.png" alt="Screenshot showing multiple repeaters sharing the same path hash in MeshCore" class="blog-post-img blog-post-img--natural"></p>
+<p><p>
+If we take a look at the 1-Byte Hash Usage Matrix below, we can see there are path hash collisions for just about every possible 1-byte path hash, and even numerous boxes showing 3+ users with the same one. Luckily, there's an easy solution to fix this: switching to 2-byte path hashes.
+</p></p>
+<p><img src="/assets/images/1ByteMatrix.png" alt="1-Byte Hash Usage Matrix showing widespread collisions across all 256 possible values" class="blog-post-img"></p>
+<p><h2>So what does 2-byte path hash do?</h2>
+<p>
+Bumping to 2-byte hashes expands those possible values from 256 to a whopping 65,536. The collision probability drops dramatically. For a growing regional network like TennMesh that's actively adding repeater sites, that headroom is important for our growth and future-proofing the network.
+</p></p>
+<p><h2>Will this break anything?</h2>
+<p>
+Making this switch does reduce the maximum hop count from 64 down to 32, but that's still plenty. We've yet to see a hop count higher than the mid-20s on TennMesh, so nothing will break in terms of the reach we're currently seeing.
+</p>
+<p>
+Any repeater running firmware 1.14+ is multibyte capable and will repeat 1-byte, 2-byte, and 3-byte traffic. This means the transition is straightforward: once your repeater is on 1.14+, it's ready to repeat 2-byte traffic from Companion nodes that have made the switch.
+</p>
+<p>
+The only repeaters that can't repeat 2-byte traffic are those still running firmware older than 1.14. That's why updating to 1.14+ is the important first step, and why we're encouraging the whole TennMesh community to get updated. The more of us that do, the better the network gets for everyone.
+</p>
+<p>
+So that's how to make the repeaters compatible, but there's another optional step that we recommend taking, and that's setting the repeaters to send adverts using 2-byte path hashes. You can do this by logging into your repeater's remote admin page, selecting the Command Line tab at the bottom, and sending the following command:
+</p></p>
+<pre><code>set path.hash.mode 1</code></pre>
+<p><p>
+The reason for this is to help everyone see which repeaters have been updated. After this command has been sent, whenever the repeater sends an advert, it will be in the 2-byte format. We can then see which repeaters support 2-byte by visiting the static map on the <a href="https://live.tennmesh.com/#/map" target="_blank" rel="noopener">TennMesh Live page</a> and looking for the larger 4-character repeater labels on the map like the ones circled below:
+</p></p>
+<p><img src="/assets/images/2byte-map.png" alt="TennMesh Live static map showing repeaters with 4-character labels indicating 2-byte advert support" class="blog-post-img"></p>
+<p><h2>How to make the switch on your repeater</h2>
+<p>It's a two-step process and takes less than five minutes:</p></p>
+<p><h3><em>Step 1: Update your firmware</em></h3>
+<p>
+Make sure your repeater is running MeshCore firmware version 1.14 or later. The 2-byte hash mode isn't available on older versions, so this is a required first step. If you're not sure what version you're on, check before proceeding.
+</p></p>
+<p><h3><em>Step 2: Enable 2-byte repeater adverts</em></h3>
+<p>This step is optional, but very helpful. Once you're on 1.14+, remote into your repeater, open the Command Line, and send this command:</p></p>
+<pre><code>set path.hash.mode 1</code></pre>
+<p><p>That's it. One command and your repeater's adverts are broadcasting in 2-byte format.</p></p>
+<p><h2>How to make the switch on your Companion node</h2></p>
+<p><h3><em>Set the path hash size</em></h3>
+<p>
+From the home screen on the MeshCore app, tap on the Gear icon on the top right &gt; Scroll Down to Experimental Settings &gt; Adjust the &quot;Default Path Hash Size&quot; option to &quot;2-Byte (max 32 hops)&quot;
+</p></p>
+<p><div class="note">
+<p><strong>Note:</strong> Only set this after most of the repeaters in your area have updated to firmware 1.14+. Repeaters still running older firmware will <strong>NOT</strong> repeat your 2-byte traffic.</p>
+</div></p>
+<p><p>Thanks and hope to see y'all on the mesh!</p></p>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>TennMesh</h4>
+      <p>Building a free, decentralized mesh network in Tennessee.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore Website</a></li>
+        <li><a href="http://flasher.meshcore.io/" target="_blank" rel="noopener">Web Flasher</a></li>
+        <li><a href="https://app.meshcore.nz" target="_blank" rel="noopener">Web App</a></li>
+        <li><a href="https://config.meshcore.dev" target="_blank" rel="noopener">Config Tool</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://discord.gg/XGhftQw9Mt" target="_blank" rel="noopener">TennMesh Discord</a></li>
+        <li><a href="https://t.me/+ny3SblBJ8rVjMWIx" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://www.facebook.com/groups/877766108102231" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://github.com/tennmesh" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Companion Settings</h4>
+      <ul>
+        <li>Preset: USA/Canada (Recommended)</li>
+        <li>Frequency: 910.525 MHz</li>
+        <li>Bandwidth: 62.5 kHz</li>
+        <li>Spread Factor: 7</li>
+        <li>Coding Rate: 5 or 8 for weak signals</li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Repeater Settings</h4>
+      <ul>
+        <li>Preset: USA/Canada (Recommended)</li>
+        <li>Frequency: 910.525 MHz</li>
+        <li>Bandwidth: 62.5 kHz</li>
+        <li>Spread Factor: 7</li>
+        <li>Coding Rate: 8</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>TennMesh is a community project. MeshCore is open-source software.</p>
+    <p>This is not affiliated with emergency services. For emergencies, call 911.</p>
+  </div>
+</footer>
+
+
+  <script>
+    document.querySelectorAll('pre:not(.no-copy):not(.copy-block)').forEach(function(pre) {
+      var code = pre.querySelector('code') || pre;
+      var lines = code.textContent.trim().split('\n').filter(function(l) { return l.trim(); });
+
+      var block = document.createElement('div');
+      block.className = 'code-block';
+
+      lines.forEach(function(line) {
+        var lineEl = document.createElement('div');
+        lineEl.className = 'code-line';
+
+        var codeEl = document.createElement('code');
+        codeEl.textContent = line;
+
+        var btn = document.createElement('button');
+        btn.className = 'copy-line-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', function() {
+          navigator.clipboard.writeText(line).then(function() {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+
+        lineEl.appendChild(codeEl);
+        lineEl.appendChild(btn);
+        block.appendChild(lineEl);
+      });
+
+      pre.parentNode.replaceChild(block, pre);
+    });
+
+    document.querySelectorAll('pre.copy-block').forEach(function(pre) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'copy-block-wrapper';
+
+      var btn = document.createElement('button');
+      btn.className = 'copy-block-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        navigator.clipboard.writeText(pre.textContent).then(function() {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+      wrapper.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

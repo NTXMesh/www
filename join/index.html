@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | NTX Mesh</title>
+  <meta name="description" content="Get started on NTX Mesh — connect a Meshtastic or MeshCore radio to the North Texas mesh, apply our recommended best practices, and join the community.">
+  <meta name="keywords" content="NTX Mesh, get started, join, Meshtastic, MeshCore, North Texas, DFW, mesh network, best practices">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Get Started | NTX Mesh">
+  <meta property="og:description" content="Connect a Meshtastic or MeshCore radio to the North Texas mesh, apply our best practices, and join the community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+  <section class="content-section" id="network">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Connect to the Mesh</span>
+        <h2>Get on the Network</h2>
+      </div>
+      <div class="container-narrow">
+        <p>NTX Mesh runs both <span class="ms">Meshtastic</span> and <span class="mc">MeshCore</span>. Either firmware gets you on the North Texas mesh — plenty of operators run both. Here's how to get connected.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-number">1</span>
+          <h3>Get a Radio</h3>
+          <p>Grab a <span class="ms">Meshtastic</span> or <span class="mc">MeshCore</span> radio. You can build one yourself for about $35 or buy a prebuilt for $45–$80 — many can be flashed for either firmware. If you can mount it outside, a pre-built solar-powered node ($100–$200) mounted as high as possible is ideal. See our <a href="/devices/">recommended devices</a> or <a href="/devices/">build your own</a>.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">2</span>
+          <h3>Install the App</h3>
+          <p>Download the <a href="https://meshtastic.org/docs/software" target="_blank" rel="noopener"><span class="ms">Meshtastic</span> app</a> or the <a href="https://meshcore.io/#download" target="_blank" rel="noopener"><span class="mc">MeshCore</span> app</a> on your iPhone or Android.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">3</span>
+          <h3>Pair Over Bluetooth</h3>
+          <p>Pair your radio to your phone with Bluetooth, then configure it using our <a href="#best-practices">recommended settings</a> below.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">4</span>
+          <h3>Say Hi</h3>
+          <p>You're on the mesh! Send a message on the public channel and introduce yourself — the community is happy to help you get dialed in.</p>
+        </div>
+      </div>
+      <div class="container-narrow">
+        <div class="note"><p><strong>Hardware lists:</strong>
+          <a href="https://meshtastic.org/docs/hardware/devices/" target="_blank" rel="noopener">Official <span class="ms">Meshtastic</span> hardware</a>,
+          <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">Official <span class="mc">MeshCore</span> flasher list</a>,
+          <a href="/devices/#options">NTX Mesh compiled list</a>, and
+          <a href="https://www.rfindex.com/" target="_blank" rel="noopener">RF Index</a>.
+        </p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section section-alt" id="best-practices">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Best Practices</span>
+        <h2>Recommended Settings</h2>
+      </div>
+      <div class="container-narrow">
+        <p>This is a community-driven project. Following these guidelines ensures the best experience for everyone as we continue to grow. NTX Mesh runs both firmwares, so settings are noted per protocol.</p>
+      </div>
+
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>Setting</th>
+            <th>Meshtastic</th>
+            <th>MeshCore</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Radio / Region</td>
+            <td>Default Long_Fast (check the <a href="/coverage-map/">Preset Map</a> for your county)</td>
+            <td>US/Canada — 910.525 MHz, BW 62.5 kHz, SF 7, CR 5</td>
+          </tr>
+          <tr>
+            <td>Role / Device Type</td>
+            <td>Client (<strong>not</strong> Router &amp; Client)</td>
+            <td>Companion for handheld/mobile; Repeater for stationary nodes up high</td>
+          </tr>
+          <tr>
+            <td>Hop Count</td>
+            <td>3 (use the minimum needed to reach your destination)</td>
+            <td>Built in — no need to set</td>
+          </tr>
+          <tr>
+            <td>MQTT</td>
+            <td>Disabled; Ignore</td>
+            <td>Avoid busy servers/topics</td>
+          </tr>
+          <tr>
+            <td>Broadcast Intervals</td>
+            <td>Node Info, Position &amp; Telemetry: 3 hours</td>
+            <td>Repeater Advert (Flood): 23h | Zero-Hop: 240 min</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="container-narrow">
+        <h3>MQTT</h3>
+        <p><strong>TL;DR:</strong> Please only use MQTT for mapping with tools like Meshmapper or letsmesh.net.</p>
+        <p>The vast majority of us have chosen not to use MQTT with <span class="ms">Meshtastic</span>, in the spirit of building a stronger RF-based mesh instead of relying on the internet to patch coverage gaps. We recommend setting your nodes to ignore MQTT traffic.</p>
+        <p>For <span class="mc">MeshCore</span>, a busy MQTT server/topic can quickly overwhelm your node and flood the entire network, rendering local communications difficult. MQTT can also give a false sense of how robust our local RF network really is, making it harder to optimize, diagnose, and plan future expansion. Our goal is a robust, reliable off-grid network the community can rely on during internet or power outages.</p>
+
+        <h3>Device Roles</h3>
+        <p><strong><span class="ms">Meshtastic</span>:</strong> It may be tempting to use <em>client/router</em> or another infrastructure mode, but our extensive testing shows the best results — for both the end user and the network — come from the <em>client</em> role. <span class="ms">Meshtastic</span> has no intelligent routing; nodes rebroadcast messages they haven't already heard at a random interval. Infrastructure roles shorten that interval to rebroadcast first, which can inadvertently create dead ends and close off redundant routing paths. Start with <em>client</em> even for well-placed nodes. For device-connected nodes that aren't contributing to the network (e.g. a node in your home that relays through a roof node), use <em>client mute</em> to reduce airtime.</p>
+        <p><strong><span class="mc">MeshCore</span>:</strong> The two main roles are <em>Companion</em> and <em>Repeater</em>. The Companion is the node you carry to connect to the network; Repeaters are the backbone of the mesh itself.</p>
+
+        <h3>Hop Count</h3>
+        <p><strong><span class="ms">Meshtastic</span>:</strong> Start with a hop count of 3, always using the minimum number of hops needed. If you run a device-connected node at home plus a relay node your client always goes through, 4 hops is advised. On the edge of the network, 5 hops may help — but first make sure you've optimized your node hardware and placement, or extra hops won't add distance and will degrade the wider network.</p>
+        <p><strong><span class="mc">MeshCore</span>:</strong> Hop count is a built-in feature and doesn't need to be set. Messages can hop up to 64 repeaters in 1-byte configuration or 32 repeats in 2-byte mode. See the <a href="/learn/">guide</a> for an explanation of the bytes.</p>
+
+        <h3>Broadcast Intervals</h3>
+        <p>To reduce overall channel utilization and ensure messages are delivered, we recommend these settings for everyday use unless you have a specific use case or test that requires more frequent updates.</p>
+        <ul class="join-steps">
+          <li><strong>Device / Node Info:</strong> 3 hours</li>
+          <li><strong>Position:</strong> 1 hour broadcast, Smart Position enabled, minimum interval 1 minute, minimum distance 100, and disable any position flags not explicitly needed.</li>
+          <li><strong>Telemetry:</strong> Device metrics 3 hours, sensor metrics 1 hour.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="group">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Join the Group</span>
+        <h2>Become Part of the Community</h2>
+      </div>
+      <div class="container-narrow">
+        <p>Outside of the mesh network itself, we're most active in our public Discord server — it's the best place to coordinate, share builds, troubleshoot gear, and get help. You can also register as an official member through our membership form. Membership is completely optional; Discord and the mesh are open to everyone.</p>
+        <div class="cta-buttons">
+          <a href="https://forms.gle/sCE9HgrtCUtHFgUE9" class="btn btn-primary" target="_blank" rel="noopener">Register as a Member</a>
+          <a href="https://discord.gg/nGeQ8cbSM3" class="btn btn-discord" target="_blank" rel="noopener">Join the Discord</a>
+        </div>
+        <p class="text-center mt-8">Questions? Reach us at <a href="mailto:ntxmesh@gmail.com">ntxmesh@gmail.com</a> or check out the project on <a href="https://www.github.com/NTXMesh" target="_blank" rel="noopener">GitHub</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

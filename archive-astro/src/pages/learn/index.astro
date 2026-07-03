@@ -1,0 +1,251 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Learn About NTX Mesh & Meshtastic"
+  description="Learn how NTX Mesh and Meshtastic work. ELI5 explainer, network coverage, modem presets, and comparisons to APRS ham radio."
+>
+  <!-- Page Hero -->
+  <section class="page-hero border-b border-mesh-border bg-mesh-surface">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <h1>Learn About NTX Mesh</h1>
+      <p class="mt-4">
+        Everything you need to understand the network — from a 5-year-old's explainer to technical comparisons with APRS.
+      </p>
+    </div>
+  </section>
+
+  <!-- Page nav -->
+  <nav class="sticky top-16 z-40 bg-mesh-bg/90 backdrop-blur-md border-b border-mesh-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <ul class="flex overflow-x-auto gap-1 py-2 text-sm no-scrollbar">
+        <li><a href="#about" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">About</a></li>
+        <li><a href="#hdiw" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">How It Works</a></li>
+        <li><a href="#eli5" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">ELI5</a></li>
+        <li><a href="#wcid" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">What It Can Do</a></li>
+        <li><a href="#wbtn" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">Why Build It</a></li>
+        <li><a href="#coverage" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">Coverage</a></li>
+        <li><a href="#comparisons" class="inline-block px-3 py-1.5 text-mesh-muted hover:text-mesh-green rounded-md whitespace-nowrap transition-colors">vs APRS</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 prose-mesh">
+
+    <!-- About -->
+    <section id="about">
+      <h2>About NTX Mesh and Meshtastic</h2>
+      <p>
+        NTX Mesh is a community group working to build a mesh network of solar-powered <a href="https://meshtastic.org/" target="_blank" rel="noopener">Meshtastic</a> radios in DFW and the greater North Texas area. This network acts like a city-wide text messaging system, allowing people to communicate publicly or privately with anyone on the network. All of this happens without any external infrastructure — no power, no cell phone towers, no internet.
+      </p>
+
+      <!-- How it works -->
+      <h3 id="hdiw">How does it work?</h3>
+      <p>
+        We have set up a number of solar-powered radio repeaters across North Texas. These radios communicate on the <a href="https://en.wikipedia.org/wiki/33-centimeter_band" target="_blank" rel="noopener">906.875 MHz</a> frequency using the <a href="https://en.wikipedia.org/wiki/LoRa" target="_blank" rel="noopener">LoRa protocol</a>. The radios mesh together using the open-source <a href="https://meshtastic.org/" target="_blank" rel="noopener">Meshtastic</a> software. Users can connect by Bluetooth if they're close to a repeater, or use their own handheld nodes which also act as repeaters. Messages hop from node to node, extending the reach of the network so everyone receives every message.
+      </p>
+
+      <!-- ELI5 -->
+      <h3 id="eli5">Can you explain it like I'm 5?</h3>
+      <div class="bg-mesh-surface border border-mesh-border rounded-xl p-6 my-6">
+        <p class="text-mesh-muted !mb-4">
+          Pretend you're sitting in class and want to send a note to everyone. You write your note on a piece of paper and copy it three times. The message can be up to 228 characters — about as long as this paragraph so far. You hand those three pieces of paper to the three people around you. Then those three people re-write the message three times and hand it to the three people around them, and so on.
+        </p>
+        <p class="text-mesh-muted !mb-4">
+          Now imagine a big gust of wind blows away some of the messages. If even just a few people saw the note and keep copying and re-sending it, eventually everyone will get a copy. This is like sending an unencrypted message to everyone on the network.
+        </p>
+        <p class="text-mesh-muted !mb-0">
+          Now imagine you want to send a private message using a secret language with a decoder key. The message still gets passed the same way — every person copies and hands it along — but only those with the decoder key can read it. This is like sending an encrypted direct message or group channel message. NTX Mesh works exactly the same way, but with radio waves instead of paper notes, and solar power instead of sunlight.
+        </p>
+      </div>
+
+      <!-- What can it do -->
+      <h3 id="wcid">What can it do?</h3>
+      <p>
+        Meshtastic is like a decentralized social media platform or SMS text messaging system. It has features that will feel familiar to anyone who texts or uses social media:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6 not-prose">
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">01</span>
+            <h4 class="font-semibold text-mesh-text">Primary Channel</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">Broadcast an unencrypted message to everyone on the mesh — like posting publicly on social media.</p>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">02</span>
+            <h4 class="font-semibold text-mesh-text">Group Channels</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">Encrypted messages to a select group using a Secondary Channel — like a private group chat or group text thread.</p>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">03</span>
+            <h4 class="font-semibold text-mesh-text">Direct Messages</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">Encrypted one-on-one DMs — like a private text message or DM on social media.</p>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">04</span>
+            <h4 class="font-semibold text-mesh-text">Location Sharing</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">Optionally share your location to the mesh — it shows up on everyone's map in the Meshtastic app.</p>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">05</span>
+            <h4 class="font-semibold text-mesh-text">MQTT Gateway</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">If anyone on your local mesh runs an MQTT gateway, it bridges to other meshes worldwide — though we recommend against it for local resilience.</p>
+        </div>
+        <div class="card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-mono text-mesh-green font-bold text-sm">06</span>
+            <h4 class="font-semibold text-mesh-text">Telemetry & Sensors</h4>
+          </div>
+          <p class="text-mesh-muted text-sm">Nodes can send battery status, signal strength, temperature, humidity, or air pressure — making them off-grid weather stations.</p>
+        </div>
+      </div>
+
+      <!-- Why build it -->
+      <h3 id="wbtn">Why build this network?</h3>
+
+      <div class="space-y-6 my-6">
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <span class="font-mono text-mesh-green font-bold text-sm">1</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-mesh-text !mt-0">Community</h4>
+            <p class="text-mesh-muted !mb-0">A city-wide group text chain — tell the group where your band is playing, chat about local politics, ask for a good cheese dip recipe. It's community infrastructure that belongs to everyone.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <span class="font-mono text-mesh-green font-bold text-sm">2</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-mesh-text !mt-0">Disasters</h4>
+            <p class="text-mesh-muted !mb-0">When the power goes out — like during the 2021 Winter Storm Uri — this network keeps working. People could ask for help, share warming center locations, or check on friends and family, all without cell service or internet.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center">
+            <span class="font-mono text-mesh-green font-bold text-sm">3</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-mesh-text !mt-0">Decentralized, Open, and Resilient</h4>
+            <p class="text-mesh-muted !mb-0">No central server. No corporation. All communication bounces through the mesh. Open to everyone — no permission to join, all software open source. We hope this project inspires others to build things that are decentralized, open, and resilient.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coverage -->
+    <section id="coverage" class="mt-16 pt-8 border-t border-mesh-border">
+      <h2>Network Coverage in North Texas</h2>
+      <p>
+        The community map below is where members place their stationary nodes. Use it alongside <a href="https://meshmap.net/" target="_blank" rel="noopener">MeshMap</a> to plan future node placement and find existing repeaters near you.
+      </p>
+      <p class="text-sm text-mesh-muted bg-mesh-surface-2 border border-mesh-border rounded-lg p-3 mb-4">
+        <strong class="text-mesh-text">Note:</strong> <a href="https://meshmap.net/" target="_blank" rel="noopener" class="text-mesh-green">MeshMap (meshmap.net)</a> is not representative of actual RF coverage since it relies on MQTT. We <a href="/join/#best-practices" class="text-mesh-green">don't recommend using MQTT</a>, but it may be useful to see what's in your area.
+      </p>
+      <div class="rounded-xl overflow-hidden border border-mesh-border">
+        <iframe
+          style="height:500px; width:100%; border:none;"
+          src="https://facilmap.org/bXo7w1Lyve2G#9/32.8909/-97.0258/Lima"
+          title="NTX Mesh Coverage Map"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="text-sm text-mesh-muted mt-2">
+        Map hosted on <a href="https://facilmap.org/bXo7w1Lyve2G#12/32.9847/-96.9715/Lima/m301390" target="_blank" rel="noopener" class="text-mesh-green">FacilMap</a>
+      </p>
+      <div class="flex gap-4 mt-4">
+        <a href="/coverage-map/" class="btn-outline text-sm py-2 px-4">View Modem Preset Map by County</a>
+        <a href="/mc-repeaters/" class="btn-outline text-sm py-2 px-4">MeshCore Repeater Status</a>
+      </div>
+    </section>
+
+    <!-- APRS Comparisons -->
+    <section id="comparisons" class="mt-16 pt-8 border-t border-mesh-border">
+      <h2>Comparing Meshtastic to APRS on Ham Radio</h2>
+      <p>
+        For those familiar with the <a href="https://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System" target="_blank" rel="noopener">Automatic Packet Reporting System (APRS)</a> on ham radio, Meshtastic has some similarities — and some key differences.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8 not-prose">
+        <div>
+          <h3 class="font-mono text-lg font-bold text-mesh-text mb-4">Similarities</h3>
+          <dl class="space-y-4">
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Digipeaters / Repeaters</dt>
+              <dd class="text-mesh-muted text-sm">APRS radios can act as digipeaters that repeat all messages. Meshtastic radios by default all act as repeaters.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">iGates / MQTT Gateways</dt>
+              <dd class="text-mesh-muted text-sm">MQTT Gateways are like APRS iGates — they bridge local traffic to the internet and other meshes worldwide.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Group Channels / ANSRVR</dt>
+              <dd class="text-mesh-muted text-sm">APRS has ANSRVR group subscriptions like #APRSThursday. Meshtastic has Secondary Channels for group messaging.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Data Bursts</dt>
+              <dd class="text-mesh-muted text-sm">APRS (AX.25) sends bursts of 0.3–0.5 sec. Meshtastic (LoRa) sends bursts of 0.5–10 sec.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-lg font-bold text-mesh-text mb-4">Differences</h3>
+          <dl class="space-y-4">
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Broadcast to All</dt>
+              <dd class="text-mesh-muted text-sm">APRS can't broadcast to everyone on the network. Meshtastic's Primary Channel goes to all nodes.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Encryption</dt>
+              <dd class="text-mesh-muted text-sm">APRS is unencrypted (illegal on ham radio). Meshtastic runs on 900 MHz ISM band where encryption is allowed.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">No License Required</dt>
+              <dd class="text-mesh-muted text-sm">APRS requires a ham radio license. Meshtastic requires no license and is open to anyone.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Cost</dt>
+              <dd class="text-mesh-muted text-sm">APRS handhelds cost $400+. Meshtastic radios start at under $100.</dd>
+            </div>
+            <div class="bg-mesh-surface rounded-xl p-4 border border-mesh-border">
+              <dt class="font-semibold text-mesh-text mb-1">Simplicity</dt>
+              <dd class="text-mesh-muted text-sm">APRS has dozens of fragmented software clients. Meshtastic has a standardized iPhone/Android app that's easy for new users.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA -->
+  <section class="py-16 bg-mesh-surface border-t border-mesh-border">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="font-mono text-2xl font-bold text-mesh-text mb-4">Ready to join the network?</h2>
+      <p class="text-mesh-muted mb-8">Get your first node and start messaging off-grid in North Texas.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/join/" class="btn-primary">Get Started</a>
+        <a href="/devices/" class="btn-outline">Browse Hardware</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

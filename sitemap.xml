@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://ntxmesh.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ntxmesh.com/join/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ntxmesh.com/learn/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ntxmesh.com/resources/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ntxmesh.com/devices/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ntxmesh.com/coverage-map/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ntxmesh.com/similar-networks/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/partners/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/mc-repeaters/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ntxmesh.com/calendar/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/stats/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ntxmesh.com/partners/property-owner-faq/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ntxmesh.com/devices/solar_node.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/devices/rak_1w_power.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/learn/meshcore-vs-meshtastic/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ntxmesh.com/learn/meshcore-2-byte/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/learn/tuning-cavity-filter/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/learn/kite-nodes-for-mesh-networking/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/learn/understanding-lora-modulation/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

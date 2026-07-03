@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn | NTX Mesh</title>
+  <meta name="description" content="Learn about NTX Mesh and mesh networking — how Meshtastic and MeshCore work, network coverage in North Texas, and how it compares to similar technology like ham radio APRS.">
+  <meta name="keywords" content="Meshtastic, MeshCore, LoRa, mesh network, ELI5, APRS, North Texas, DFW, learn, off-grid">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Learn | NTX Mesh">
+  <meta property="og:description" content="How Meshtastic and MeshCore mesh networking works, NTX Mesh coverage, and comparisons to similar technology.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Learn</span>
+      <h2>Learn About NTX Mesh &amp; Mesh Networking</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">NTX Mesh is a community group building a network of solar-powered <span class="ms">Meshtastic</span> and <span class="mc">MeshCore</span> radios across DFW and the greater North Texas area. The network acts like a city-wide text messaging system, letting people communicate publicly or privately with anyone in range — all without external infrastructure. No power, no cell towers, no internet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">About</span>
+      <h2>About NTX Mesh &amp; Mesh Networking</h2>
+    </div>
+    <div class="container-narrow">
+
+      <h3>How does it work?</h3>
+      <p>We've set up a number of solar-powered radio repeaters across North Texas. These radios communicate over the <a href="https://en.wikipedia.org/wiki/LoRa" target="_blank" rel="noopener">LoRa protocol</a> — on 906.875 MHz for <span class="ms">Meshtastic</span>, and on 910.525 MHz for <span class="mc">MeshCore</span>. Users connect to nearby repeaters over Bluetooth, or use their own handheld nodes to reach the mesh. Messages hop from node to node, extending the network's reach and helping every node receive every message.</p>
+
+      <h3 id="eli5">Can you explain it like I'm 5?</h3>
+      <p>Pretend you're sitting in class and want to send a note to everyone in the room. You write your note on a piece of paper and copy it three times. The message can be up to 228 characters — about as long as this paragraph so far. You hand those three copies to the three people around you. Then those three people re-write the message three times each and hand it to the three people around <em>them</em>, and so on. Now imagine a big gust of wind blows some of the messages away. As long as even a few people saw the note and keep copying and re-sending it, eventually everyone gets a copy. This is like sending an unencrypted message to everyone on the network.</p>
+      <p>Now imagine you want to send a message to a single person or a select group, but you don't want anyone else who sees the note to read it. You could write it in a secret language and hand a decoder key to your friends. The message still gets passed the same way — everyone copies it and hands it around — but only the people with the decoder key can understand it. This is like sending an encrypted direct message or encrypted group message.</p>
+      <p>NTX Mesh works just like the paper-note example, except instead of paper we use digital text messages carried over radio waves. Our radios are solar powered and need no internet or cell coverage, so they keep working even when the power is out.</p>
+
+      <h3>What can it do?</h3>
+      <p>Mesh networking is a bit like a decentralized social media platform or SMS texting. It offers several features that will feel familiar to anyone who has sent a text or posted online.</p>
+      <div class="info-box">
+        <dl>
+          <dt>Primary Channel</dt>
+          <dd>Broadcast an unencrypted message to the Primary Channel and everyone on your mesh sees it — a bit like posting publicly on social media.</dd>
+          <dt>Group Channels</dt>
+          <dd>Send an encrypted message to a Secondary Channel so only its subscribers receive it. People join with an encryption key you share via Direct Message or an in-person QR code — like a private group or a group text chain.</dd>
+          <dt>Direct Messages</dt>
+          <dd>Send encrypted direct messages to people on the mesh — like a private text or a DM.</dd>
+          <dt>Location</dt>
+          <dd>If you enable it, you can share your location to the mesh and it shows up on everyone's map in the app.</dd>
+          <dt>Connect Worldwide</dt>
+          <dd>If anyone on your local mesh runs an MQTT gateway, your mesh connects to others around the world, letting you reach people globally.</dd>
+          <dt>Telemetry Data</dt>
+          <dd>Nodes can report telemetry like battery status or signal strength — useful for monitoring remote solar nodes — and can host sensors for temperature, humidity, or air pressure, acting like weather stations.</dd>
+        </dl>
+      </div>
+
+      <h3>Why build this network?</h3>
+      <p><strong>Community.</strong> Because this is essentially a city-wide group text chain, we hope people use it to build community — tell the group where your band is playing tonight, chat about local happenings, or ask for a good cheese-dip recipe.</p>
+      <p><strong>Disasters.</strong> If the power goes out — like during the 2021 Winter Storm Uri — this network lets people keep communicating without electricity, cell coverage, or internet. People can ask for help or offer it, find open warming centers, check who still has power, and send encrypted messages to coordinate privately with friends and family.</p>
+      <p><strong>Decentralized, open, and resilient.</strong> NTX Mesh is decentralized — there's no central server or corporation, and all communication bounces through the mesh. It's open — you don't need permission to join and all the software is open-source. And it's resilient — our solar-powered radios don't need towers, internet, or grid power. We hope it inspires others to build things that are decentralized, open, and resilient.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="coverage">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Network Coverage</span>
+      <h2>Coverage in North Texas</h2>
+    </div>
+    <div class="container-narrow">
+      <p>Our community maintains live coverage maps for both firmwares. The collaborative <span class="ms">Meshtastic</span> map on <a href="https://facilmap.org/bXo7w1Lyve2G#9/32.8909/-97.0258/Lima" target="_blank" rel="noopener">FacilMap</a> is where members place their stationary nodes (with name, height, and other useful notes); it's used alongside <a href="https://meshmap.net/" target="_blank" rel="noopener">MeshMap</a> to help plan future node and repeater placements.</p>
+      <p>The community-driven <span class="mc">MeshCore</span> coverage map on <a href="https://dfw.meshmapper.net/index.php" target="_blank" rel="noopener">MeshMapper</a> tracks MeshCore repeaters, used alongside the <a href="https://map.meshcore.io/?zoom=10&amp;lat=33&amp;lon=-97" target="_blank" rel="noopener">MeshCore Online Map</a> for the same planning purpose.</p>
+      <div class="note"><p><strong>Note:</strong> The MQTT map at <a href="https://meshmap.net/" target="_blank" rel="noopener">meshmap.net</a> is <strong>not</strong> representative of real RF coverage, since we <a href="/join/">do not recommend using MQTT</a> — but it may still help you see what's in your area.</p></div>
+      <p class="text-center mt-8">Before configuring your device, check your county's recommended preset on the <a href="/coverage-map/">Modem Preset Map by County</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="comparisons">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Similar Technology</span>
+      <h2>Mesh vs. Ham Radio APRS</h2>
+    </div>
+    <div class="container-narrow">
+      <p>For anyone familiar with the <a href="https://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System" target="_blank" rel="noopener">Automatic Packet Reporting System (APRS)</a> on ham radio, <span class="ms">Meshtastic</span> is <strong>similar</strong> in a few ways.</p>
+
+      <h3>Similarities</h3>
+      <div class="info-box">
+        <dl>
+          <dt>Digipeaters</dt>
+          <dd>APRS radios can run as clients (transmit only their own messages) or digipeaters (repeat everything they hear). Meshtastic radios act as repeaters by default — just like APRS digipeaters.</dd>
+          <dt>iGates</dt>
+          <dd>MQTT gateways are like APRS iGates — they repeat local traffic over the internet to other gateways around the world.</dd>
+          <dt>ANSRVR</dt>
+          <dd>APRS users subscribe to groups via the ANSRVR service for group chats like #APRSThursday. Meshtastic has Secondary Channels users can subscribe to.</dd>
+          <dt>Burst</dt>
+          <dd>APRS uses the AX.25 protocol with data bursts of 0.3–0.5 seconds. Meshtastic uses LoRa with bursts of 0.5–10 seconds.</dd>
+        </dl>
+      </div>
+
+      <h3>Differences</h3>
+      <p>But Meshtastic is also <strong>different</strong> from APRS in several ways.</p>
+      <div class="info-box">
+        <dl>
+          <dt>Primary</dt>
+          <dd>APRS has no way to broadcast to everyone on the network. Messages sent to Meshtastic's Primary Channel reach everyone.</dd>
+          <dt>Encryption</dt>
+          <dd>APRS is unencrypted (encryption is illegal over ham radio). Meshtastic encrypts private group channels and direct messages, since it runs on the 900 MHz ISM band with no such restriction.</dd>
+          <dt>License</dt>
+          <dd>APRS requires a ham radio license. Meshtastic requires none and is open to anyone.</dd>
+          <dt>Equipment Cost</dt>
+          <dd>APRS-capable handhelds run upwards of $400. Meshtastic radios cost less than $100.</dd>
+          <dt>Email</dt>
+          <dd>APRS can send email and SMS to non-ham users. Meshtastic doesn't have this today, though it could be added.</dd>
+          <dt>Simplicity</dt>
+          <dd>APRS is harder to use, with no standardized interface and dozens of software packages. Meshtastic offers a standardized iPhone and Android app that's easy for newcomers.</dd>
+        </dl>
+      </div>
+
+      <p class="text-center mt-8">Curious about other regional meshes, or want to start one? See <a href="/similar-networks/">Similar networks</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Deep Dives</span>
+      <h2>Articles &amp; Guides</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">Longer-form write-ups from the community on firmware internals, RF tuning, and hardware.</p>
+    </div>
+    <div class="feature-grid mt-8">
+      <div class="feature-card feature-card--meshcore">
+        <h3>MeshCore vs Meshtastic</h3>
+        <p>How the two firmwares differ in routing, features, and on-air behavior — and why NTX runs both.</p>
+        <p class="mt-8"><a href="/learn/meshcore-vs-meshtastic/">Read the comparison →</a></p>
+      </div>
+      <div class="feature-card feature-card--meshcore">
+        <h3>MeshCore 2-Byte Routing</h3>
+        <p>A look at how MeshCore's compact 2-byte routing keeps multi-hop traffic efficient.</p>
+        <p class="mt-8"><a href="/learn/meshcore-2-byte/">Read the deep dive →</a></p>
+      </div>
+      <div class="feature-card">
+        <h3>Tuning a Cavity Filter</h3>
+        <p>Practical steps for tuning a cavity filter to clean up your repeater's RF front end.</p>
+        <p class="mt-8"><a href="/learn/tuning-cavity-filter/">Read the guide →</a></p>
+      </div>
+      <div class="feature-card">
+        <h3>Kite Nodes for Mesh Networking</h3>
+        <p>Using kite-lofted nodes to dramatically extend mesh coverage and range.</p>
+        <p class="mt-8"><a href="/learn/kite-nodes-for-mesh-networking/">Read the article →</a></p>
+      </div>
+      <div class="feature-card">
+        <h3>Understanding LoRa Modulation</h3>
+        <p>What spreading factor, bandwidth, and coding rate actually mean for your mesh.</p>
+        <p class="mt-8"><a href="/learn/understanding-lora-modulation/">Read the explainer →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

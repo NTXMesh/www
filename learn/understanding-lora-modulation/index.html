@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding LoRa Modulation | NTX Mesh</title>
+  <meta name="description" content="How LoRa modulation works — what spreading factor, bandwidth, and coding rate mean, and how they trade off range, airtime, and reliability in mesh networks.">
+  <meta name="keywords" content="LoRa, modulation, spreading factor, bandwidth, coding rate, presets, LongFast, airtime, Meshtastic, MeshCore, mesh network">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Understanding LoRa Modulation | NTX Mesh">
+  <meta property="og:description" content="What spreading factor, bandwidth, and coding rate actually mean for your mesh — and how presets trade range against airtime.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/images/lora-preset-comparison.webp">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Deep Dive</span>
+      <h2>Understanding LoRa Modulation through Comparison</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">Written by <a href="https://k2xap.radio" target="_blank" rel="noopener">Alex, K2XAP</a> of <a href="https://nyme.sh" rel="nofollow noopener" target="_blank">nyme.sh</a></p>
+      <p>LoRa packets come in a wide variety of shapes and sizes, depending on their parameters. These shapes bring with them pros and cons. One of the biggest impacts is the airtime. Meshes have to <a href="https://meshtastic.org/blog/why-your-mesh-should-switch-from-longfast/" target="_blank" rel="noopener">choose</a> between range, noise tolerance, and time on the air, finding the right balance of link reliability and congestion for their density and location.</p>
+
+      <div class="map-figure">
+        <a href="/assets/images/lora-preset-comparison.webp"><img src="/assets/images/lora-preset-comparison.webp" alt="Series of transmissions at varying widths and lengths, labeled with the preset names." loading="lazy" width="400"></a>
+        <p class="map-caption"><a href="/assets/images/lora-preset-comparison-sm.av1.mp4">Real-time video (345kb) of the above waterfall</a>. This graphic and the video are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC 0</a> or public domain — feel free to share and republish as useful.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The Trade-offs</span>
+      <h2>Range, Airtime &amp; Noise</h2>
+    </div>
+    <div class="container-narrow">
+      <p>At the default settings, a <span class="ms">Meshtastic</span> packet can take literally a <strong>whole second</strong> to transmit. This gives it great range and resilience, but a mesh can quickly become congested as soon as it exceeds the number of contacts a typical device can hold. Faster settings sacrifice range for much lower airtime, and can use infrastructure to compensate for lower link reliability with retries of packets. Each step faster in <span class="ms">Meshtastic</span> presets is a roughly 45% reduction in airtime.</p>
+      <p>The bandwidth also changes the exposure to noise. Wider bandwidth gives LoRa a much quicker transmission speed and reduces risk of "vertical" collisions in the temporal dimension, but it increases the chance of "horizontal" collisions in the spectral dimension — in addition to increased thermal noise exposure.</p>
+
+      <div class="map-figure">
+        <a href="/assets/images/xapy-rtlpower-jam5.webp"><img src="/assets/images/xapy-rtlpower-jam5.webp" alt="SDR view of several hours showing spectral density of different frequencies. Large blocks of yellow get progressively wider and wider amid various columns of transmissions." loading="lazy" width="400"></a>
+        <p class="map-caption">Every permutation of bandwidth, spread factor, and coding rate, from 62.5 kHz to 500 kHz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Key Terms</span>
+      <h2>The Three Modulation Parameters</h2>
+    </div>
+    <div class="container-narrow">
+      <p>Three settings define every LoRa preset. Together they decide how far a packet reaches, how long it stays on the air, and how well it survives noise.</p>
+      <div class="info-box">
+        <dl>
+          <dt>Spreading Factor</dt>
+          <dd>How many chips encode each symbol (SF7–SF12). Higher spreading factor means more processing gain and longer range — but each step roughly doubles airtime.</dd>
+          <dt>Bandwidth</dt>
+          <dd>The width of the channel in kHz (62.5–500). Wider bandwidth transmits faster and resists temporal collisions, but exposes the signal to more noise and spectral collisions.</dd>
+          <dt>Coding Rate</dt>
+          <dd>Forward-error-correction overhead (4/5 through 4/8, written here as 5–8). More coding adds redundancy that recovers corrupted packets, at the cost of additional airtime.</dd>
+        </dl>
+      </div>
+      <div class="note note-primary"><p><strong>Rule of thumb:</strong> longer range and better noise tolerance always cost airtime. A denser, busier mesh usually wants faster presets so more packets fit on the air.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Presets</span>
+      <h2>Presets and Calculated Attributes</h2>
+    </div>
+    <div class="container-narrow">
+      <p>These are the presets and their calculated attributes based on the <a href="https://www.semtech.com/design-support/lora-calculator" rel="nofollow noopener" target="_blank">Semtech LoRa calculator</a>:</p>
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>preset</th>
+            <th>bandwidth</th>
+            <th>spread_factor</th>
+            <th>coding_rate</th>
+            <th>effective_data_rate_bps</th>
+            <th>time_on_air_ms</th>
+            <th>link_budget_dB</th>
+            <th>range_km</th>
+            <th>processing_gain_dB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>MC Narrow&ndash;Long</td><td>62.5</td><td>9</td><td>5</td><td>879</td><td>248</td><td>154.0</td><td>4.89</td><td>27</td></tr>
+          <tr><td>LongMod</td><td>250</td><td>11</td><td>8</td><td>671</td><td>297</td><td>153.0</td><td>4.58</td><td>33</td></tr>
+          <tr><td>LongFast</td><td>250</td><td>11</td><td>5</td><td>1074</td><td>248</td><td>153.0</td><td>4.58</td><td>33</td></tr>
+          <tr><td>MediumSlow</td><td>250</td><td>10</td><td>5</td><td>1953</td><td>124</td><td>150.5</td><td>3.89</td><td>30</td></tr>
+          <tr><td>MC Narrow</td><td>62.5</td><td>7</td><td>5</td><td>2734</td><td>72</td><td>149.0</td><td>3.53</td><td>21</td></tr>
+          <tr><td>Meshoregon</td><td>125</td><td>8</td><td>5</td><td>3125</td><td>72</td><td>148.5</td><td>3.41</td><td>24</td></tr>
+          <tr><td>MediumFast</td><td>250</td><td>9</td><td>5</td><td>3516</td><td>62</td><td>148.0</td><td>3.30</td><td>27</td></tr>
+          <tr><td>LongTurbo</td><td>500</td><td>11</td><td>8</td><td>1343</td><td>148</td><td>148.0</td><td>3.30</td><td>33</td></tr>
+          <tr><td>ShortSlow</td><td>250</td><td>8</td><td>5</td><td>6250</td><td>36</td><td>145.5</td><td>2.80</td><td>24</td></tr>
+          <tr><td>ShortFast</td><td>250</td><td>7</td><td>5</td><td>10938</td><td>18</td><td>143.0</td><td>2.38</td><td>21</td></tr>
+          <tr><td>ShortTurbo</td><td>500</td><td>7</td><td>5</td><td>21875</td><td>9</td><td>138.0</td><td>1.72</td><td>21</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><p><strong>Reading the table:</strong> presets at the top reach farther (higher link budget and range) but sit on the air far longer; presets at the bottom clear the air in milliseconds at the cost of range.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Demonstration</span>
+      <h2>Reproduce the Waterfall</h2>
+    </div>
+    <div class="container-narrow">
+      <p>These steps will reproduce the demonstration above. This uses <span class="mc">MeshCore</span> because it can change radio settings without a device reboot, but the output is equivalent to any LoRa transmission.</p>
+      <ol class="join-steps">
+        <li>Tune an SDR to the desired frequency. The script defaults to 912.4 MHz.</li>
+        <li><a href="https://flasher.meshcore.io/" rel="nofollow noopener" target="_blank">Flash</a> a node as a USB <span class="mc">MeshCore</span> companion.</li>
+        <li>Install the <a href="https://github.com/meshcore-dev/meshcore_py" rel="nofollow noopener" target="_blank">meshcore python library</a>: <code>pip install meshcore</code>.</li>
+        <li>Run the script (set the <code>INTERFACE</code> to the connected device):</li>
+      </ol>
+      <pre class="copy-block"><code>import asyncio
+from meshcore import MeshCore, EventType
+
+INTERFACE = "/dev/tty.usbmodem1301"  # Set this to your local device
+FREQUENCY = 912.4 # MHz, Change this to the desired frequency
+PRESETS = [
+    (250,11,5),   # MT LongFast
+    (250,10,5),   # MT MediumSlow
+    (250,9,5),    # MT MediumFast
+    (250,8,5),    # MT ShortSlow
+    (250,7,5),    # MT ShortFast
+    (125,8,5),    # MeshOregon
+    (62,7,5),     # MC Narrow
+    (62,9,5),     # MC Narrow Long
+    (500,11,8),   # MT LongTurbo
+    (500,7,5),    # MT ShortTurbo
+]
+
+async def main():
+    meshcore = await MeshCore.create_serial(INTERFACE)
+    await meshcore.commands.set_tx_power(1) # Be a good RF neighbor
+    await asyncio.sleep(1)
+    for (bw,sf,cr) in PRESETS:
+        await meshcore.commands.set_radio(FREQUENCY, bw, sf, cr)
+        print((bw, sf, cr))
+        result = await meshcore.commands.send_chan_msg(0, "The quick brown fox jumped over the lazy dog")
+        print(result)
+        await asyncio.sleep(1)
+    await meshcore.disconnect()
+
+asyncio.run(main())</code></pre>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

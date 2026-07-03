@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeshCore Repeaters | NTX Mesh</title>
+  <meta name="description" content="MeshCore repeater deployment in North Texas — track repeater IDs (00-FF) across DFW, generate key pairs, and see the live MeshMapper repeater map.">
+  <meta name="keywords" content="MeshCore, repeater, repeater ID, NTX Mesh, North Texas, DFW, MeshMapper, LoRa, mesh network">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MeshCore Repeaters | NTX Mesh">
+  <meta property="og:description" content="MeshCore repeater deployment in North Texas — track repeater IDs across DFW and see the live MeshMapper repeater map.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">MeshCore</span>
+      <h2>MeshCore Repeater Deployment</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">This page tracks <span class="mc">MeshCore</span> repeater IDs (00&ndash;FF) deployed across DFW and the greater North Texas area. Repeater data is sourced from <a href="https://dfw.meshmapper.net/?repeater_list" target="_blank" rel="noopener">MeshMapper</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt" id="repeater-ids">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Repeater IDs</span>
+      <h2>How Repeater IDs Work</h2>
+    </div>
+    <div class="container-narrow">
+      <p>Every <span class="mc">MeshCore</span> repeater is identified by a single byte &mdash; a two-character hex value from <code>00</code> to <code>FF</code>, for 256 possible IDs. To keep the North Texas mesh healthy, each deployed repeater should claim a unique ID. The status of every ID falls into one of the categories below.</p>
+
+      <div class="info-box">
+        <dl>
+          <dt>Available</dt>
+          <dd>Unclaimed and free to use. Generate a private/public key pair to deploy a repeater on this ID.</dd>
+          <dt>Deployed</dt>
+          <dd>Already claimed by an active repeater. See the live map below for the name, location, and last-heard time.</dd>
+          <dt>Duplicate / Conflict</dt>
+          <dd>More than one repeater is using this ID. Resolve the conflict by changing one repeater's public/private keys.</dd>
+          <dt>Reserved</dt>
+          <dd>Not available by design (for example, <code>00</code> and <code>FF</code>). Do not deploy on a reserved ID.</dd>
+        </dl>
+      </div>
+
+      <div class="note note-primary">
+        <p><strong>Deploying a repeater?</strong> Pick an <strong>Available</strong> ID, then generate a key pair with the <a href="https://gessaman.com/mc-keygen/" target="_blank" rel="noopener">MeshCore Key Generator</a>. The generator's source is published so you can verify it or run it yourself.</p>
+      </div>
+
+      <p class="text-center mt-8">Before deploying, coordinate with the community on the <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener">NTX Mesh Discord</a> to avoid ID conflicts and confirm current <span class="mc">MeshCore</span> settings.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="live-map">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Live Map</span>
+      <h2>Known MeshCore Repeaters</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">The live embed below lists known <span class="mc">MeshCore</span> repeaters in the DFW area, including their names, IDs, locations, and last-heard times, straight from MeshMapper.</p>
+    </div>
+    <figure class="map-figure">
+      <iframe
+        src="https://dfw.meshmapper.net/embed_repeaters.php"
+        width="100%"
+        height="700"
+        style="border: none; border-radius: 8px;"
+        loading="lazy"
+        title="Live MeshCore repeater list for DFW">
+      </iframe>
+      <figcaption class="map-caption">Live repeater data from <a href="https://dfw.meshmapper.net/?repeater_list" target="_blank" rel="noopener">MeshMapper</a>.</figcaption>
+    </figure>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>

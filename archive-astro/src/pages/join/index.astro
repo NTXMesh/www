@@ -1,0 +1,381 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Join NTX Mesh — Get Started with Meshtastic in North Texas"
+  description="Step-by-step guide to joining the NTX Mesh network. Get hardware, configure your device, and join the community."
+>
+  <!-- Hero -->
+  <section class="page-hero border-b border-mesh-border bg-mesh-surface">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <h1>Join NTX Mesh</h1>
+      <p class="mt-4">
+        Ready to get on the mesh? Follow the steps below to go from zero to messaging off-grid in North Texas.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+        <a href="https://forms.gle/sCE9HgrtCUtHFgUE9" target="_blank" rel="noopener" class="btn-primary">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Register with NTX Mesh
+        </a>
+        <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener" class="btn-outline">
+          Join our Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step-by-step onboarding -->
+  <section id="network" class="py-20 max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">Connect to the Network</h2>
+      <p class="section-subheading">Four steps to get on the mesh</p>
+    </div>
+
+    <div class="space-y-6">
+
+      <!-- Step 1 -->
+      <div class="card p-0 overflow-hidden">
+        <div class="flex">
+          <div class="flex-shrink-0 w-1 bg-mesh-green rounded-l-xl"></div>
+          <div class="p-6 flex-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-mesh-green text-mesh-bg flex items-center justify-center font-mono font-bold text-lg">
+                1
+              </div>
+              <div class="flex-1">
+                <h3 class="font-mono text-xl font-bold text-mesh-text mb-3">Get a Meshtastic Radio</h3>
+                <p class="text-mesh-muted mb-4">
+                  You'll need a Meshtastic-compatible radio. No license required. Here's what we recommend based on your situation:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                  <div class="bg-mesh-surface-2 rounded-lg p-4 border border-mesh-border">
+                    <div class="text-mesh-green font-semibold text-sm mb-1">Budget Option</div>
+                    <div class="font-mono text-mesh-text font-bold">~$35</div>
+                    <p class="text-mesh-muted text-xs mt-1">DIY kit — build your own node. Great for learning, requires some assembly.</p>
+                  </div>
+                  <div class="bg-mesh-surface-2 rounded-lg p-4 border border-mesh-green/30 relative">
+                    <div class="absolute top-2 right-2"><span class="badge-easy">Recommended</span></div>
+                    <div class="text-mesh-green font-semibold text-sm mb-1">Best First Buy</div>
+                    <div class="font-mono text-mesh-text font-bold">$50–$100</div>
+                    <p class="text-mesh-muted text-xs mt-1">Pre-built pocket node from Etsy or eBay. Usually includes a 3D-printed case. Ready to flash.</p>
+                  </div>
+                  <div class="bg-mesh-surface-2 rounded-lg p-4 border border-mesh-border">
+                    <div class="text-mesh-green font-semibold text-sm mb-1">Best Coverage</div>
+                    <div class="font-mono text-mesh-text font-bold">$100–$200</div>
+                    <p class="text-mesh-muted text-xs mt-1">Pre-built solar node from Etsy. Mount it high outside to extend the mesh for your whole neighborhood.</p>
+                  </div>
+                </div>
+                <p class="text-mesh-muted text-sm">
+                  The <strong class="text-mesh-text">LILYGO T-Echo</strong> (~$70) is a popular first radio — ready to go out of the box after flashing firmware.
+                  Alternatively, you can <a href="/devices/" class="text-mesh-green hover:underline">build your own solar repeater</a>.
+                </p>
+                <div class="mt-4">
+                  <a href="/devices/" class="btn-outline text-sm py-2 px-4">
+                    Browse all device options →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="card p-0 overflow-hidden">
+        <div class="flex">
+          <div class="flex-shrink-0 w-1 bg-mesh-green rounded-l-xl"></div>
+          <div class="p-6 flex-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-mesh-green text-mesh-bg flex items-center justify-center font-mono font-bold text-lg">
+                2
+              </div>
+              <div class="flex-1">
+                <h3 class="font-mono text-xl font-bold text-mesh-text mb-3">Download the Meshtastic App</h3>
+                <p class="text-mesh-muted mb-4">
+                  The Meshtastic app is available on iOS and Android. It's how you'll configure your device, send messages, and view the mesh map.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                  <a href="https://meshtastic.org/docs/software" target="_blank" rel="noopener" class="btn-primary text-sm py-2 px-4">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                    Get the Meshtastic App
+                  </a>
+                  <a href="https://meshtastic.org/docs/hardware/devices/" target="_blank" rel="noopener" class="btn-outline text-sm py-2 px-4">
+                    Flash Firmware Guide
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="card p-0 overflow-hidden">
+        <div class="flex">
+          <div class="flex-shrink-0 w-1 bg-mesh-green rounded-l-xl"></div>
+          <div class="p-6 flex-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-mesh-green text-mesh-bg flex items-center justify-center font-mono font-bold text-lg">
+                3
+              </div>
+              <div class="flex-1">
+                <h3 class="font-mono text-xl font-bold text-mesh-text mb-3">Pair Your Radio & Configure</h3>
+                <p class="text-mesh-muted mb-4">
+                  Open the Meshtastic app, pair your radio via Bluetooth, and configure it for NTX Mesh. See the best practices section below for recommended settings.
+                </p>
+                <div class="bg-mesh-surface-2 rounded-lg p-4 border border-mesh-border font-mono text-sm space-y-2">
+                  <div class="flex justify-between">
+                    <span class="text-mesh-muted">MQTT:</span>
+                    <span class="text-mesh-green">Disabled + Ignore</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mesh-muted">Device Role:</span>
+                    <span class="text-mesh-green">Client</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mesh-muted">Hop Count:</span>
+                    <span class="text-mesh-green">3</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mesh-muted">Broadcast Interval:</span>
+                    <span class="text-mesh-green">3 hours</span>
+                  </div>
+                </div>
+                <a href="#best-practices" class="inline-flex items-center gap-1 text-mesh-green text-sm mt-3 hover:underline">
+                  See full best practices guide ↓
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="card p-0 overflow-hidden">
+        <div class="flex">
+          <div class="flex-shrink-0 w-1 bg-mesh-green rounded-l-xl"></div>
+          <div class="p-6 flex-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-mesh-green text-mesh-bg flex items-center justify-center font-mono font-bold text-lg">
+                4
+              </div>
+              <div class="flex-1">
+                <h3 class="font-mono text-xl font-bold text-mesh-text mb-3">Say Hi!</h3>
+                <p class="text-mesh-muted mb-4">
+                  Open the Meshtastic app and send a message on the Primary Channel. You're now part of the North Texas mesh network.
+                </p>
+                <a href="#group" class="btn-primary text-sm py-2 px-4">
+                  Join the community →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Best Practices -->
+  <section id="best-practices" class="py-20 bg-mesh-surface border-y border-mesh-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <h2 class="section-heading">Best Practices</h2>
+        <p class="section-subheading">Follow these guidelines to help the whole network perform better</p>
+      </div>
+
+      <!-- TL;DR quick settings -->
+      <div class="card p-6 mb-10 border-mesh-green/30 bg-mesh-green/5">
+        <h3 class="font-mono font-bold text-mesh-text mb-4">TL;DR — Quick Settings Reference</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="bg-mesh-bg rounded-lg p-3 text-center border border-mesh-border">
+            <div class="font-mono text-xs text-mesh-muted uppercase tracking-wider mb-1">MQTT</div>
+            <div class="font-mono text-mesh-green font-bold">Disabled<br/>Ignore</div>
+          </div>
+          <div class="bg-mesh-bg rounded-lg p-3 text-center border border-mesh-border">
+            <div class="font-mono text-xs text-mesh-muted uppercase tracking-wider mb-1">Role</div>
+            <div class="font-mono text-mesh-green font-bold">Client</div>
+          </div>
+          <div class="bg-mesh-bg rounded-lg p-3 text-center border border-mesh-border">
+            <div class="font-mono text-xs text-mesh-muted uppercase tracking-wider mb-1">Hop Count</div>
+            <div class="font-mono text-mesh-green font-bold">3</div>
+          </div>
+          <div class="bg-mesh-bg rounded-lg p-3 text-center border border-mesh-border">
+            <div class="font-mono text-xs text-mesh-muted uppercase tracking-wider mb-1">Broadcast</div>
+            <div class="font-mono text-mesh-green font-bold">3 hrs</div>
+          </div>
+        </div>
+        <p class="text-mesh-muted text-xs mt-3">Credit: @Nick, @AdvJosh (TEX#) – KJ5FZD, @edsai KI5OSB</p>
+      </div>
+
+      <div class="prose-mesh space-y-10">
+
+        <div>
+          <h3>MQTT</h3>
+          <p>
+            The vast majority of our community has chosen <strong>not to use MQTT</strong> — and we strongly recommend the same. Our goal is to build a robust RF-based mesh, not to use the internet to patch coverage gaps.
+          </p>
+          <p>
+            A busy MQTT server can quickly overwhelm your node and flood the entire network with traffic, making local communication difficult or impossible. Using MQTT also gives a false sense of coverage, making it harder to diagnose issues and plan network expansion. Set MQTT to <strong>Disabled</strong> and configure your node to <strong>Ignore MQTT</strong> traffic from others.
+          </p>
+        </div>
+
+        <div>
+          <h3>Device Role</h3>
+          <p>
+            It may be tempting to set your device to <em>Client/Router</em> or another infrastructure mode, but from extensive testing we've found the best results come from the simple <strong>Client</strong> role — both for the end user and the network as a whole.
+          </p>
+          <p>
+            Meshtastic doesn't have intelligent routing. Nodes rebroadcast at random intervals. The Client/Router role takes that random interval and subtracts another random interval to rebroadcast first — which sounds good but can inadvertently create dead ends, bypass intended recipients, and close off redundant routing paths.
+          </p>
+          <p>
+            <strong>Exception:</strong> If you have a device connected to a relay node on your roof, use <strong>Client Mute</strong> for the indoor device to reduce airtime. It still receives messages, but doesn't rebroadcast them.
+          </p>
+        </div>
+
+        <div>
+          <h3>Hop Count</h3>
+          <p>
+            Start with a hop count of <strong>3</strong>, and always use the minimum number of hops needed to reach your destination.
+          </p>
+          <ul>
+            <li>Running a client node + relay on your roof: use <strong>4 hops</strong></li>
+            <li>On the edge of the network with poor results: try <strong>5 hops</strong> — but first optimize your hardware placement</li>
+            <li>Additional hops won't help if your antenna or placement is poor — they'll just degrade the wider network</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Broadcast Intervals</h3>
+          <p>
+            To reduce channel utilization and ensure messages get through, use the following settings for everyday use unless you have a specific reason to broadcast more frequently:
+          </p>
+          <div class="not-prose">
+            <div class="overflow-x-auto rounded-xl border border-mesh-border">
+              <table class="table-mesh">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Recommended Value</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-medium">Node Info Broadcast</td>
+                    <td><span class="font-mono text-mesh-green">3 hours</span></td>
+                    <td class="text-mesh-muted text-sm">Under Device Config</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Position Broadcast</td>
+                    <td><span class="font-mono text-mesh-green">1 hour</span></td>
+                    <td class="text-mesh-muted text-sm">Enable Smart Position</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Position Min Interval</td>
+                    <td><span class="font-mono text-mesh-green">1 minute</span></td>
+                    <td class="text-mesh-muted text-sm">Only transmit when you've moved</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Position Min Distance</td>
+                    <td><span class="font-mono text-mesh-green">100 m</span></td>
+                    <td class="text-mesh-muted text-sm">Don't broadcast if stationary</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Device Metrics</td>
+                    <td><span class="font-mono text-mesh-green">3 hours</span></td>
+                    <td class="text-mesh-muted text-sm">Telemetry config</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Sensor Metrics</td>
+                    <td><span class="font-mono text-mesh-green">1 hour</span></td>
+                    <td class="text-mesh-muted text-sm">Only if you have sensors attached</td>
+                  </tr>
+                  <tr>
+                    <td class="font-medium">Position Flags</td>
+                    <td><span class="font-mono text-mesh-green">Disable all unnecessary</span></td>
+                    <td class="text-mesh-muted text-sm">Only enable what you explicitly need</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Join the group -->
+  <section id="group" class="py-20 max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">Join the Community</h2>
+      <p class="section-subheading">Connect with the NTX Mesh community online</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener" class="card hover:border-[#5865F2]/50 group block">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-[#5865F2]/10 flex items-center justify-center group-hover:bg-[#5865F2]/20 transition-colors">
+            <svg class="w-5 h-5 text-[#5865F2]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+            </svg>
+          </div>
+          <h3 class="font-mono font-bold text-mesh-text">Discord</h3>
+        </div>
+        <p class="text-mesh-muted text-sm">Our most active community space. Chat, share builds, get help, and join event planning.</p>
+        <div class="mt-3 text-sm text-[#5865F2] font-medium">discord.gg/nGeQ8cbSM3 ↗</div>
+      </a>
+
+      <a href="https://forms.gle/sCE9HgrtCUtHFgUE9" target="_blank" rel="noopener" class="card hover:border-mesh-green/50 group block">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-mesh-green/10 flex items-center justify-center group-hover:bg-mesh-green/20 transition-colors">
+            <svg class="w-5 h-5 text-mesh-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-mono font-bold text-mesh-text">Register with NTX Mesh</h3>
+        </div>
+        <p class="text-mesh-muted text-sm">Fill out our group registration form to get on the member list and stay informed about events.</p>
+        <div class="mt-3 text-sm text-mesh-green font-medium">Fill out the form ↗</div>
+      </a>
+
+      <a href="https://x.com/NTXMesh" target="_blank" rel="noopener" class="card hover:border-white/20 group block">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5 text-mesh-text" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </div>
+          <h3 class="font-mono font-bold text-mesh-text">X / Twitter</h3>
+        </div>
+        <p class="text-mesh-muted text-sm">Follow @NTXMesh for updates, news, and network announcements.</p>
+        <div class="mt-3 text-sm text-mesh-text font-medium">@NTXMesh ↗</div>
+      </a>
+
+      <a href="https://www.instagram.com/ntxmesh" target="_blank" rel="noopener" class="card hover:border-pink-500/30 group block">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500/20 transition-colors">
+            <svg class="w-5 h-5 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </div>
+          <h3 class="font-mono font-bold text-mesh-text">Instagram</h3>
+        </div>
+        <p class="text-mesh-muted text-sm">Photos, builds, and behind-the-scenes from the NTX Mesh community.</p>
+        <div class="mt-3 text-sm text-pink-400 font-medium">@ntxmesh ↗</div>
+      </a>
+    </div>
+
+    <div class="mt-8 card text-center p-8">
+      <h3 class="font-mono text-lg font-bold text-mesh-text mb-2">Questions or Ideas?</h3>
+      <p class="text-mesh-muted mb-4">We'd love to hear from you. Drop us an email anytime.</p>
+      <a href="mailto:ntxmesh@gmail.com" class="btn-primary">ntxmesh@gmail.com</a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeshCore App Usage | TennMesh</title>
+  <meta name="description" content="A walkthrough of the MeshCore companion app — connecting to your node, sending messages, managing channels, and more.">
+  <meta name="keywords" content="MeshCore, LoRa, mesh network, off-grid, Tennessee, emergency communications">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/tennmesh-icon-light.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MeshCore App Usage | TennMesh">
+  <meta property="og:description" content="A walkthrough of the MeshCore companion app — connecting to your node, sending messages, managing channels, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/tennmesh-icon-light.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <nav>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/tennmesh-primary-dark-even.png" alt="TennMesh" class="nav-logo-img">
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/info/">Info</a>
+      <a href="/connect/">Get Connected</a>
+      <a href="/devices/">Devices</a>
+      <a href="/settings/">Settings</a>
+      <a href="/channels/">Channels</a>
+      <a href="/howtos/">How-Tos</a>
+      <a href="/blog/">Blog</a>
+      <a href="/reports/">Reports</a>
+      <a href="https://live.tennmesh.com/#/live" target="_blank" rel="noopener" class="nav-live">Live</a>
+    </div>
+  </div>
+</nav>
+
+
+  <main>
+    <div class="container-narrow">
+  <div class="howto-breadcrumb">
+    <a href="/howtos/">&larr; Back to How-Tos</a>
+  </div>
+  <div class="content-section">
+    <div class="howto-page-header">
+      <span class="howto-tag howto-tag--app">App</span>
+      <h1>MeshCore App Usage</h1>
+      <p class="howto-intro">A walkthrough of the MeshCore companion app — connecting to your node, sending messages, managing channels, and more.</p>
+    </div>
+  </div>
+  <div class="content-section">
+    <p>Content coming soon.</p>
+  </div>
+</div>
+
+  </main>
+
+  <footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>TennMesh</h4>
+      <p>Building a free, decentralized mesh network in Tennessee.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://meshcore.io/" target="_blank" rel="noopener">MeshCore Website</a></li>
+        <li><a href="http://flasher.meshcore.io/" target="_blank" rel="noopener">Web Flasher</a></li>
+        <li><a href="https://app.meshcore.nz" target="_blank" rel="noopener">Web App</a></li>
+        <li><a href="https://config.meshcore.dev" target="_blank" rel="noopener">Config Tool</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://discord.gg/XGhftQw9Mt" target="_blank" rel="noopener">TennMesh Discord</a></li>
+        <li><a href="https://t.me/+ny3SblBJ8rVjMWIx" target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href="https://www.facebook.com/groups/877766108102231" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://github.com/tennmesh" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Companion Settings</h4>
+      <ul>
+        <li>Preset: USA/Canada (Recommended)</li>
+        <li>Frequency: 910.525 MHz</li>
+        <li>Bandwidth: 62.5 kHz</li>
+        <li>Spread Factor: 7</li>
+        <li>Coding Rate: 5 or 8 for weak signals</li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Repeater Settings</h4>
+      <ul>
+        <li>Preset: USA/Canada (Recommended)</li>
+        <li>Frequency: 910.525 MHz</li>
+        <li>Bandwidth: 62.5 kHz</li>
+        <li>Spread Factor: 7</li>
+        <li>Coding Rate: 8</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>TennMesh is a community project. MeshCore is open-source software.</p>
+    <p>This is not affiliated with emergency services. For emergencies, call 911.</p>
+  </div>
+</footer>
+
+
+  <script>
+    document.querySelectorAll('pre:not(.no-copy):not(.copy-block)').forEach(function(pre) {
+      var code = pre.querySelector('code') || pre;
+      var lines = code.textContent.trim().split('\n').filter(function(l) { return l.trim(); });
+
+      var block = document.createElement('div');
+      block.className = 'code-block';
+
+      lines.forEach(function(line) {
+        var lineEl = document.createElement('div');
+        lineEl.className = 'code-line';
+
+        var codeEl = document.createElement('code');
+        codeEl.textContent = line;
+
+        var btn = document.createElement('button');
+        btn.className = 'copy-line-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', function() {
+          navigator.clipboard.writeText(line).then(function() {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function() {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+
+        lineEl.appendChild(codeEl);
+        lineEl.appendChild(btn);
+        block.appendChild(lineEl);
+      });
+
+      pre.parentNode.replaceChild(block, pre);
+    });
+
+    document.querySelectorAll('pre.copy-block').forEach(function(pre) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'copy-block-wrapper';
+
+      var btn = document.createElement('button');
+      btn.className = 'copy-block-btn';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', function() {
+        navigator.clipboard.writeText(pre.textContent).then(function() {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+      wrapper.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

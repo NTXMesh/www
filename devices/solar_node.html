@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Node Build | NTX Mesh</title>
+  <meta name="description" content="Build your own solar-powered Meshtastic or MeshCore node for NTX Mesh — our hard-won history, lessons learned, climate considerations, and a complete no-solder solar repeater parts list.">
+  <meta name="keywords" content="NTX Mesh, solar node, solar repeater, Meshtastic, MeshCore, RAK, Voltaic V25, LoRa, parts list, DIY, North Texas, DFW">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Solar Node Build | NTX Mesh">
+  <meta property="og:description" content="Build a solar-powered Meshtastic or MeshCore node — history, lessons learned, and a complete no-solder solar repeater parts list.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">DIY Build</span>
+        <h2>Build Your Own Solar Node</h2>
+      </div>
+      <div class="container-narrow">
+        <p>Solar nodes can be built for either <span class="ms">Meshtastic</span> or <span class="mc">MeshCore</span>. A solar node configured as a client/base can help the <span class="ms">Meshtastic</span> mesh, while a solar node configured as a repeater is the backbone infrastructure that makes the <span class="mc">MeshCore</span> network function. This page collects our hard-won experience deploying solar repeaters and a complete, no-solder parts list you can copy.</p>
+        <p class="text-center mt-8">
+          <a href="/devices/#options" class="btn btn-secondary">Back to Hardware</a>
+          <a href="#history" class="btn btn-secondary">A Brief History</a>
+          <a href="#parts-list" class="btn btn-secondary">Parts List</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section section-alt" id="history">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">History</span>
+        <h2>A Brief History</h2>
+      </div>
+      <div class="container-narrow">
+        <h3>History of versions</h3>
+        <p>We have tried 5 permutations of solar-powering nodes:</p>
+
+        <h4>Version 1.0 — RAKBox-B2, 2000 mAh LiPo</h4>
+        <p>Using a RAK RAKBox-B2 enclosure with a solar panel. The panel was connected directly to the RAK Wireless WisBlock Meshtastic Starter Kit US915, with a 2000 mAh lithium-polymer battery wired directly to the RAK board. We drilled a hole in the top and attached a fiberglass antenna via an iPEX to N-Type connector. Mounted on top of a UT building, it died within a month — the 0.4 watt panel is way too small.</p>
+
+        <h4>Version 2.0 — USB Solar</h4>
+        <p>Same as 1.0, but we added a second 5 watt solar panel connected to the RAK board via USB. Also died within a month.</p>
+
+        <h4>Version 3.0 — Internal Solar, Power Module, 18650s</h4>
+        <p>To minimize components outside the box we used a much larger box with a clear lid and placed the solar panel inside. We added a Texas Instruments green power module between the panel and the RAK board to regulate power, switched to four 18650 batteries, and added an over-discharge protection circuit from Voltaic Enclosures (not Voltaic Systems) for a clean shutoff below 2.5 V. Mounted on a UT building, it died in 3 months.</p>
+
+        <h4>Version 4.0 — External Solar</h4>
+        <p>Same as Version 3.0, but the solar panel was mounted outside the box (using a smaller box) on a pole. It died within 3 months.</p>
+
+        <h4>Version 5.0 — Currently running</h4>
+        <p>We stopped using the RAK's solar and battery connectors entirely. Instead we connected a large 12 watt solar panel to a Voltaic Systems battery via USB, then connected the battery to the RAK board via USB. The Voltaic Systems battery acts as the solar charge controller and the over-discharge protection circuit: it charges across a range of panel voltages (even when shaded) and shuts off if voltage drops too low, automatically rebooting once it has recharged.</p>
+
+        <h3>Lessons learned</h3>
+        <ol class="join-steps">
+          <li>Don't trust the RAK board to handle varying solar or battery voltage — it is very unhappy outside a narrow range. There is a <a href="https://meshtastic.discourse.group/t/rak-4631-solar-repeater/7694/7" target="_blank" rel="noopener">known issue</a> where the Nordic nRF52840 inside the RAK 4631 enters a "Super Deep Sleep" fault state at 3.3 V, requiring a manual reboot.</li>
+          <li>Solar panels: bigger is better. 10 watts or more is ideal.</li>
+          <li>Battery: bigger is better. 5,000 mAh or more is ideal.</li>
+          <li>Antenna: fiberglass antennas are the most robust and handle wind, rain, and UV better than rubber-ducky antennas.</li>
+          <li>Heat can kill the battery — shade the box containing it.</li>
+          <li>Don't add modules. A GPS module increases battery usage significantly and is unnecessary for a fixed repeater.</li>
+          <li>Seal everything properly and give water a way out. Use o-rings for the antenna mount, wrap connectors in Proxicast, add a drain plug for condensation, and spray electronics with conformal coating in high-humidity environments.</li>
+        </ol>
+        <p>These lessons come from Austin, Texas, where the main stressors are heat and thunderstorms. In the summer of 2023 we had 80 days over 100°F (38°C) and a stretch of 11 days over 105°F (40.5°C), during which two radios died. Austin can also be hot and humid at once — swinging from 80°F (27°C) / 85% humidity in the morning to 105°F (38°C) / 25% humidity in the afternoon. <a href="https://weatherspark.com/h/y/8004/2023/Historical-Weather-during-2023-in-Austin-Texas-United-States" target="_blank" rel="noopener">Weather history here.</a> Our learnings are probably applicable to other southern and desert climates, including North Texas.</p>
+
+        <div class="note note-grey">
+          <p><strong>Details on the boards that died:</strong> One filled with water — the antenna seal failed, which is why the vent valve at the bottom is so important. One got stuck in the low-voltage state that requires a physical reset (fixed by the Voltaic packs). The third died from unknown causes, heat suspected; it wouldn't power on even with wall power, so the board was totally fried. That one was also sprayed with conformal coating — nasty stuff we won't use anymore.</p>
+        </div>
+
+        <h3>Considerations for other climates</h3>
+        <ol class="join-steps">
+          <li><strong>Northern climates:</strong> Higher latitudes get much less winter sun. Use a larger panel and angle it lower toward the horizon — the rule of thumb is to match your latitude. Austin's panels should sit at 30°, but Calgary's optimal angle is 50°. Batteries should also be bigger in colder climates, as low temperatures reduce performance.</li>
+          <li><strong>Coastal climates:</strong> Salt spray and fog condensation can kill electronics quickly. In coastal climates, spray the electronics with conformal coating.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="parts-list">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Parts List</span>
+        <h2>Solar Repeater Bill of Materials</h2>
+      </div>
+      <div class="container-narrow">
+        <p>Here is the parts list for our most-preferred way to build a solar-powered repeater. This design requires no soldering, no complicated connectors, and no battery-management chips (which often have long lead times). The solar panel connects directly to the battery pack via USB, and the battery pack connects to the board via USB. The Voltaic Systems V25 is optimized to charge from a solar panel and ships in an "always on" mode, so it won't shut off after a timeout like other packs — useful because the RAK chip draws very little power. When the V25 drains completely it shuts down, then automatically turns back on once the panel has recharged it. The RAK radio uses 100-1000 mAh per day (about 400 mAh average), so a 6,400 mAh Voltaic V25 could theoretically run it for 16 days without sun.</p>
+      </div>
+
+      <h3 class="channel-group-label">Regular parts</h3>
+      <div style="overflow-x:auto;">
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Product Name</th>
+            <th>Cost</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Solar Panel</td>
+            <td>Soshine 12W</td>
+            <td>$30</td>
+            <td><a href="https://www.amazon.com/Soshine-USB-Solar-Panel-Monocrystalline/dp/B0CKXQ1XQ9" target="_blank" rel="noopener">Amazon</a> / <a href="https://www.aliexpress.us/item/3256805874482226.html" target="_blank" rel="noopener">AliExpress</a></td>
+          </tr>
+          <tr>
+            <td>Battery</td>
+            <td>Voltaic Systems V25</td>
+            <td>$44</td>
+            <td><a href="https://www.amazon.com/Voltaic-Systems-Formerly-Battery-Samsung/dp/B08232MRMC" target="_blank" rel="noopener">Amazon</a> / <a href="https://voltaicsystems.com/v25" target="_blank" rel="noopener">Voltaic Systems</a></td>
+          </tr>
+          <tr>
+            <td>RAK Board</td>
+            <td>RAK Meshtastic Kit</td>
+            <td>$37</td>
+            <td><a href="https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit" target="_blank" rel="noopener">Rokland</a></td>
+          </tr>
+          <tr>
+            <td>Antenna Connector</td>
+            <td>IPEX to N-Type Female</td>
+            <td>$4</td>
+            <td><a href="https://www.amazon.com/gp/product/B09N3LPBYB" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Antenna</td>
+            <td>915 MHz 3 dBi N-Female</td>
+            <td>$39</td>
+            <td><a href="https://store.rokland.com/collections/802-11ah-wi-fi-halow/products/3-dbi-rak-brand-fiberglass-outdoor-antenna-bracket-mount-for-rak-bobcat-sensecap" target="_blank" rel="noopener">Rokland</a></td>
+          </tr>
+          <tr>
+            <td>Box</td>
+            <td>ABS box with mounting tabs, 158×90×46 mm</td>
+            <td>$9</td>
+            <td><a href="https://www.amazon.com/dp/B07NSSJ4H1/" target="_blank" rel="noopener">Amazon</a> / <a href="https://www.aliexpress.us/item/3256803025946686.html" target="_blank" rel="noopener">AliExpress</a></td>
+          </tr>
+          <tr>
+            <td>Drain Plug</td>
+            <td>VENT-PS1YBK-N8001</td>
+            <td>$5</td>
+            <td><a href="https://www.mouser.com/ProductDetail/Amphenol-LTW/VENT-PS1YBK-N8001?qs=5aG0NVq1C4wAxWre7fChJA%3D%3D" target="_blank" rel="noopener">Mouser</a> / <a href="https://www.amazon.com/gp/product/B0BKY2LLLV/" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>USB Cable Pass-Through</td>
+            <td>3/4 NPT Cable Gland</td>
+            <td>$2</td>
+            <td><a href="https://www.amazon.com/gp/product/B07ZRHPRP7" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Antenna Wrap</td>
+            <td>Proxicast</td>
+            <td>$2</td>
+            <td><a href="https://www.amazon.com/gp/product/B00K5GW67O/" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Coax Cable</td>
+            <td>2' KMR400 N to N</td>
+            <td>$13</td>
+            <td><a href="https://www.amazon.com/gp/product/B0BF4F8R8W/" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td><strong>$185</strong></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 class="channel-group-label">Birdhouse parts</h3>
+      <p class="channel-group-desc">To turn this repeater into a solar-powered <span class="ms">Meshtastic</span> birdhouse, add the components below. Paint the top of the birdhouse black and glue on the solar panel, cut a hole in the back big enough for the box, attach the antenna mount L-bracket to the side, and connect the box to the antenna on the mount with the pigtail using the jam nut.</p>
+      <div style="overflow-x:auto;">
+      <table class="settings-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Product Name</th>
+            <th>Cost</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Birdhouse</td>
+            <td>Birdhouse</td>
+            <td>$25</td>
+            <td><a href="https://www.amazon.com/dp/B08T92JBCK" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Pigtail Cable</td>
+            <td>Pigtail Cable</td>
+            <td>$10</td>
+            <td><a href="https://www.amazon.com/gp/product/B09D3H19WF/" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Jam Nut</td>
+            <td>Jam Nut</td>
+            <td>$12</td>
+            <td><a href="https://www.amazon.com/dp/B08VCJXMXW" target="_blank" rel="noopener">Amazon</a></td>
+          </tr>
+          <tr>
+            <td>Antenna Bracket</td>
+            <td>Larsen Mobile Antenna Mounts TMB58B</td>
+            <td>$15</td>
+            <td><a href="https://www.dxengineering.com/parts/lsn-tmb58b" target="_blank" rel="noopener">DX Engineering</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="container-narrow">
+        <div class="note"><p><strong>Note:</strong> Before deploying any repeater, check the <a href="/coverage-map/">preset map by county</a> and confirm the right <span class="ms">Meshtastic</span> / <span class="mc">MeshCore</span> settings on the <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener">Discord</a>. Want help siting a repeater? Email <a href="mailto:ntxmesh@gmail.com">ntxmesh@gmail.com</a>.</p></div>
+        <p class="text-center mt-8">
+          <a href="/devices/#options" class="btn btn-secondary">Back to Hardware</a>
+          <a href="/join/" class="btn btn-primary">Get on the Mesh</a>
+          <a href="/coverage-map/" class="btn btn-secondary">Coverage Map</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+</body>
+</html>
