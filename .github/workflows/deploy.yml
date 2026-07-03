@@ -39,6 +39,7 @@ jobs:
             --exclude='.gitignore' \
             --exclude='README.md' \
             --exclude='LICENSE-CONTENT' \
+            --exclude='scripts' \
             ./ _site/
 
       - name: Refresh Discord community stats
@@ -54,6 +55,30 @@ jobs:
           else
             echo "Discord fetch failed — deploying committed seed value instead."
           fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh Google Analytics stats
+        env:
+          GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+          GA_SA_KEY: ${{ secrets.GA_SA_KEY }}
+        run: |
+          if [ -z "$GA_SA_KEY" ] || [ -z "$GA_PROPERTY_ID" ]; then
+            echo "GA secrets not set yet — keeping committed seed (panel stays 'coming soon')."
+            exit 0
+          fi
+          printf '%s' "$GA_SA_KEY" > "$RUNNER_TEMP/ga-key.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/ga-key.json"
+          python -m pip install --quiet google-analytics-data
+          if OUT=_site/assets/analytics.json python scripts/fetch_ga.py; then
+            echo "Google Analytics stats refreshed."
+          else
+            echo "GA fetch failed — deploying committed seed instead."
+          fi
+          rm -f "$RUNNER_TEMP/ga-key.json"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

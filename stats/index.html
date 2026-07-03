@@ -79,8 +79,43 @@
       <h2>Site Analytics</h2>
     </div>
     <div class="container-narrow">
-      <p class="text-center">A public web-analytics dashboard for ntxmesh.com is being set up and will appear here soon.</p>
+      <p class="text-center">Traffic for ntxmesh.com, measured with Google Analytics.</p>
+    </div>
+
+    <div class="container-narrow" id="ga-pending">
       <div class="note note-grey"><p class="text-center" style="margin:0;">📊 Coming soon</p></div>
+    </div>
+
+    <div id="ga-panel" hidden>
+      <div class="stat-grid">
+        <div><p class="stat-value" id="ga-users">&mdash;</p><p class="stat-label">Active users</p></div>
+        <div><p class="stat-value" id="ga-sessions">&mdash;</p><p class="stat-label">Sessions</p></div>
+        <div><p class="stat-value" id="ga-views">&mdash;</p><p class="stat-label">Views</p></div>
+        <div><p class="stat-value" id="ga-eng">&mdash;</p><p class="stat-label">Avg. session</p></div>
+      </div>
+      <div class="ga-wrap">
+        <div class="ga-card">
+          <h4>Visitors over time</h4>
+          <p class="ga-cap" id="ga-chart-cap">daily active users</p>
+          <svg class="ga-chart" id="ga-chart" viewBox="0 0 600 150" preserveAspectRatio="none" role="img" aria-label="Daily active users trend"></svg>
+        </div>
+        <div class="ga-cols">
+          <div class="ga-card">
+            <h4>Top pages</h4>
+            <p class="ga-cap">by views</p>
+            <div class="ga-rows" id="ga-pages"></div>
+          </div>
+          <div class="ga-card">
+            <h4>Devices</h4>
+            <p class="ga-cap">sessions</p>
+            <div class="ga-donut">
+              <svg width="90" height="90" viewBox="0 0 42 42" id="ga-donut" role="img" aria-label="Device category split"></svg>
+              <div class="ga-legend" id="ga-legend"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="stat-label text-center" id="ga-updated" style="margin-top:var(--space-4);">&nbsp;</p>
     </div>
   </div>
 </section>
@@ -120,6 +155,101 @@
           if (d && typeof d.presence_count === 'number') onlineEl.textContent = fmt(d.presence_count);
         })
         .catch(function () {});
+    })();
+
+    // Google Analytics summary — refreshed into analytics.json at deploy time.
+    // Until real data is present the page stays on its "Coming soon" note.
+    (function () {
+      var pending = document.getElementById('ga-pending');
+      var panel = document.getElementById('ga-panel');
+      if (!panel) return;
+
+      function nf(n) { return Number(n).toLocaleString(); }
+      function dur(s) { var m = Math.floor(s / 60), ss = Math.round(s % 60); return m + 'm ' + ss + 's'; }
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      function cap(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); }
+
+      fetch('/assets/analytics.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || d.sample || !d.series || !d.series.length) return; // stay "Coming soon"
+          document.getElementById('ga-users').textContent = nf(d.active_users);
+          document.getElementById('ga-sessions').textContent = nf(d.sessions);
+          document.getElementById('ga-views').textContent = nf(d.views);
+          document.getElementById('ga-eng').textContent = dur(d.avg_engagement_seconds || 0);
+
+          var cap0 = document.getElementById('ga-chart-cap');
+          if (cap0 && d.range_days) cap0.textContent = 'daily active users · last ' + d.range_days + ' days';
+          renderChart(d.series);
+          renderPages(d.top_pages || []);
+          renderDevices(d.devices || []);
+
+          if (d.updated) {
+            var dt = new Date(d.updated);
+            var u = document.getElementById('ga-updated');
+            if (u && !isNaN(dt)) u.textContent = 'Updated ' + dt.toLocaleString();
+          }
+          if (pending) pending.hidden = true;
+          panel.hidden = false;
+        })
+        .catch(function () {});
+
+      function renderChart(series) {
+        var vals = series.map(function (p) { return p.users; });
+        var max = Math.max.apply(null, vals), min = Math.min.apply(null, vals);
+        if (max === min) max = min + 1;
+        var w = 600, h = 150, pad = 12, n = vals.length;
+        var pts = vals.map(function (v, i) {
+          var x = pad + i * (w - 2 * pad) / (n - 1);
+          var y = h - pad - ((v - min) / (max - min)) * (h - 2 * pad);
+          return [x, y];
+        });
+        var line = pts.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' ');
+        var area = 'M' + pts[0][0].toFixed(1) + ',' + (h - pad) +
+          ' L' + pts.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' L') +
+          ' L' + pts[n - 1][0].toFixed(1) + ',' + (h - pad) + ' Z';
+        var grid = '';
+        for (var g = 1; g <= 3; g++) {
+          var gy = (pad + (h - 2 * pad) * g / 4).toFixed(1);
+          grid += '<line x1="' + pad + '" y1="' + gy + '" x2="' + (w - pad) + '" y2="' + gy + '" stroke="#1e2e32" stroke-width="1"/>';
+        }
+        var e = pts[n - 1];
+        document.getElementById('ga-chart').innerHTML =
+          '<defs><linearGradient id="gaGrad" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0" stop-color="#67ea94" stop-opacity="0.34"/><stop offset="1" stop-color="#67ea94" stop-opacity="0"/></linearGradient></defs>' +
+          grid + '<path d="' + area + '" fill="url(#gaGrad)"/>' +
+          '<polyline points="' + line + '" fill="none" stroke="#67ea94" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>' +
+          '<circle cx="' + e[0].toFixed(1) + '" cy="' + e[1].toFixed(1) + '" r="3.4" fill="#67ea94"/>';
+      }
+
+      function renderPages(pages) {
+        if (!pages.length) return;
+        var mx = pages[0].views || 1, html = '';
+        pages.forEach(function (p) {
+          var pct = Math.max(2, p.views / mx * 100).toFixed(0);
+          html += '<div class="ga-row"><span class="ga-p">' + esc(p.path) + '</span>' +
+            '<span class="ga-n">' + Number(p.views).toLocaleString() + '</span>' +
+            '<span class="ga-track"><span class="ga-fill" style="width:' + pct + '%"></span></span></div>';
+        });
+        document.getElementById('ga-pages').innerHTML = html;
+      }
+
+      function renderDevices(devs) {
+        if (!devs.length) return;
+        var colors = { mobile: '#67ea94', desktop: '#3b82f6', tablet: '#5865f2', smarttv: '#9b9fa1' };
+        var total = devs.reduce(function (a, d) { return a + d.sessions; }, 0) || 1;
+        var off = 25, circ = '', leg = '';
+        devs.forEach(function (d) {
+          var pct = d.sessions / total * 100;
+          var c = colors[String(d.cat || '').toLowerCase()] || '#9b9fa1';
+          circ += '<circle cx="21" cy="21" r="15.9155" fill="none" stroke="' + c + '" stroke-width="6" ' +
+            'stroke-dasharray="' + pct.toFixed(1) + ' ' + (100 - pct).toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '"/>';
+          off -= pct;
+          leg += '<span><i style="background:' + c + '"></i>' + esc(cap(d.cat)) + ' · ' + Math.round(pct) + '%</span>';
+        });
+        document.getElementById('ga-donut').innerHTML = circ;
+        document.getElementById('ga-legend').innerHTML = leg;
+      }
     })();
   </script>
 </body>

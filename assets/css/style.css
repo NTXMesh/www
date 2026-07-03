@@ -1177,6 +1177,87 @@ a.mc:hover { color: var(--color-secondary-hover); }
   margin: var(--space-1) 0 0;
 }
 
+/* Analytics panel (stats page) */
+.ga-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+.ga-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-4);
+}
+.ga-card h4 {
+  margin: 0 0 0.1rem;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.ga-card .ga-cap {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+}
+.ga-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+@media (min-width: 640px) {
+  .ga-cols { grid-template-columns: 1.6fr 1fr; }
+}
+.ga-rows { display: flex; flex-direction: column; gap: var(--space-3); }
+.ga-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+}
+.ga-row .ga-p {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ga-row .ga-n {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.ga-row .ga-track {
+  grid-column: 1 / 3;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.ga-row .ga-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), #3ad8a0);
+}
+.ga-donut { display: flex; align-items: center; gap: var(--space-4); }
+.ga-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+}
+.ga-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.ga-legend i { width: 9px; height: 9px; border-radius: 2px; }
+.ga-chart { display: block; width: 100%; height: auto; }
+
 /* Discord community layout */
 .community-grid {
   display: grid;
