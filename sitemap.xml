@@ -10,6 +10,7 @@
   <url><loc>https://ntxmesh.com/partners/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ntxmesh.com/mc-repeaters/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ntxmesh.com/calendar/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ntxmesh.com/stats/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ntxmesh.com/partners/property-owner-faq/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ntxmesh.com/devices/solar_node.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ntxmesh.com/devices/rak_1w_power.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

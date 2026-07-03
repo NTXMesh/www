@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Refresh live community stats a few times a day
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: read
@@ -37,6 +40,20 @@ jobs:
             --exclude='README.md' \
             --exclude='LICENSE-CONTENT' \
             ./ _site/
+
+      - name: Refresh Discord community stats
+        run: |
+          data=$(curl -sf "https://discord.com/api/v10/invites/nGeQ8cbSM3?with_counts=true" || true)
+          members=$(printf '%s' "$data" | jq -r '.approximate_member_count // empty' 2>/dev/null || true)
+          online=$(printf '%s' "$data" | jq -r '.approximate_presence_count // empty' 2>/dev/null || true)
+          if [ -n "$members" ]; then
+            ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            printf '{\n  "members": %s,\n  "online": %s,\n  "updated": "%s"\n}\n' "$members" "${online:-0}" "$ts" > _site/assets/discord-stats.json
+            echo "Discord stats refreshed: $members members, $online online"
+            cat _site/assets/discord-stats.json
+          else
+            echo "Discord fetch failed — deploying committed seed value instead."
+          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

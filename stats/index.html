@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stats | NTX Mesh</title>
+  <meta name="description" content="Public site analytics and live community stats for NTX Mesh — cookieless, privacy-friendly web analytics for ntxmesh.com plus live Discord community numbers.">
+  <meta name="keywords" content="NTX Mesh, stats, analytics, dashboard, Plausible, Discord, community, Meshtastic, MeshCore, North Texas, DFW">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RGYHDR5D6D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RGYHDR5D6D');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Stats | NTX Mesh">
+  <meta property="og:description" content="Public site analytics and live community stats for NTX Mesh — cookieless web analytics plus live Discord numbers.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/images/ntx-mesh-logomark.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div id="nav-include"></div>
+
+
+  <main>
+
+<section class="content-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Community</span>
+      <h2>Discord Community</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">A live snapshot of our <a href="https://discord.gg/nGeQ8cbSM3" target="_blank" rel="noopener">Discord server</a> &mdash; DFW / North Texas Mesh (NTX Mesh), a regional group for decentralized communication.</p>
+    </div>
+    <div class="stat-grid">
+      <div>
+        <p class="stat-value" id="dc-members">&mdash;</p>
+        <p class="stat-label">Total members</p>
+      </div>
+      <div>
+        <p class="stat-value" id="dc-online">&mdash;</p>
+        <p class="stat-label">Online now</p>
+      </div>
+    </div>
+    <p class="stat-label text-center" id="dc-updated" style="margin-top:0;">&nbsp;</p>
+    <div class="text-center mt-8">
+      <iframe
+        src="https://discord.com/widget?id=1275704061299265546&theme=dark"
+        width="350"
+        height="400"
+        allowtransparency="true"
+        frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        title="NTX Mesh Discord"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="content-section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Website</span>
+      <h2>Site Analytics</h2>
+    </div>
+    <div class="container-narrow">
+      <p class="text-center">Public web analytics for ntxmesh.com, served by <a href="https://plausible.io/" target="_blank" rel="noopener">Plausible Analytics</a>. Cookieless and privacy-friendly &mdash; no personal data collected.</p>
+    </div>
+    <iframe
+      plausible-embed
+      src="https://plausible.io/share/ntxmesh.com?auth=yGBw-OiWwPM2AfAxP0l2R&amp;embed=true&amp;theme=system"
+      loading="lazy"
+      title="NTX Mesh site analytics"
+      style="width:100%;border:0;min-height:1600px;"></iframe>
+    <script async src="https://plausible.io/js/embed.host.js"></script>
+    <p class="note text-center"><strong>No iframe?</strong> Visit the <a href="https://plausible.io/ntxmesh.com" target="_blank" rel="noopener">public dashboard directly</a>.</p>
+  </div>
+</section>
+
+  </main>
+
+  <div id="footer-include"></div>
+
+  <script src="/assets/js/include.js"></script>
+  <script>
+    (function () {
+      var GUILD = '1275704061299265546';
+      var membersEl = document.getElementById('dc-members');
+      var onlineEl = document.getElementById('dc-online');
+      var updatedEl = document.getElementById('dc-updated');
+
+      function fmt(n) { return (typeof n === 'number') ? n.toLocaleString() : n; }
+
+      // Cached total member count (refreshed at deploy time by the build).
+      fetch('/assets/discord-stats.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d) return;
+          if (typeof d.members === 'number') membersEl.textContent = fmt(d.members);
+          if (typeof d.online === 'number' && onlineEl.textContent === '—') onlineEl.textContent = fmt(d.online);
+          if (d.updated && updatedEl) {
+            var dt = new Date(d.updated);
+            if (!isNaN(dt)) updatedEl.textContent = 'Member count as of ' + dt.toLocaleString();
+          }
+        })
+        .catch(function () {});
+
+      // Live "online now" from the Discord widget (CORS-enabled).
+      fetch('https://discord.com/api/guilds/' + GUILD + '/widget.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (d && typeof d.presence_count === 'number') onlineEl.textContent = fmt(d.presence_count);
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
+</html>
